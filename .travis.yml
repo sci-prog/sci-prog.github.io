@@ -12,14 +12,15 @@ install:
 script:
   - yarn lint
 
-after_succes:
+after_success:
   - yarn build
+  - ls
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  local_dir: public/
+  local_dir: ./public
   target_branch: master
   on:
     branch: source
