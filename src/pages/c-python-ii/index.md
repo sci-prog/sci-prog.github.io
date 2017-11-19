@@ -1,6 +1,6 @@
 ---
 title: "Interacción entre C y Python: Parte II - ctypes"
-date: "2017-11-19T02:45:18-03:00"
+date: "2017-11-19T15:23:38-03:00"
 tags: [python, ctypes, python-c]
 ---
 
