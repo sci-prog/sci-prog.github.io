@@ -1,5 +1,5 @@
 ---
-title: Interacción entre C y Python: Parte I
+title: "Interacción entre C y Python: Parte I"
 date: "2017-11-19T02:45:18-03:00"
 tags: [python, ctypes, python-c]
 ---
@@ -10,14 +10,35 @@ Sin embargo, y a pesar del Bloqueo Global del Intérprete (*GIL* por sus siglas 
 Una de las ventajas de los lenguajes interpretados por sobre los compilados se vuelve evidente al comparar un código simple para calcular valores medios en Python y C[^1]:
 
 ## Python
-{% highlight python %}
-{% include_relative add_numbers.py %}
-{% endhighlight %}
+```python
+# file: add_numbers.py
+total = 10000000
+for i in xrange(10):
+  avg = 0.0
+  for j in xrange(total):
+    avg += j
+    avg = avg/total
+print "Average is {0}".format(avg)
+```
 
-## C
-{% highlight c %}
-{% include_relative add_numbers.c %}
-{% endhighlight %}
+##C
+```c
+/* file: add_numbers.c */
+#include <stdio.h>
+int main(int argc, char **argv) {
+  int i, j, total;
+  double avg;
+  total = 10000000;
+  for (i = 0; i < 10; i++) {
+    avg = 0;
+    for (j = 0; j < total; j++) {
+      avg += j;
+    }
+    avg = avg/total;
+  }
+  printf("Average is %f\n", avg);
+}
+```
 
 No sólo es la sintaxis de Python mucho más limpia, sino que además tengamos en cuenta que el código de C hay que compilarlo antes de ejecutarlo.
 La pregunta es, entonces, ¿por qué usamos C?
@@ -27,9 +48,15 @@ Cualquiera que haya utilizado NumPy sabe que un problema como éste encaja justo
 Miremos cómo quedaría el código de Python utilizando NumPy:
 
 ## Python (with NumPy)
-{% highlight python %}
-{% include_relative add_numbers_fast.py %}
-{% endhighlight %}
+```python
+# file: add_numbers_fast.py
+from numpy import mean, arange
+total = 10000000
+a = arange(total)
+for i in xrange(10):
+  avg = mean(a)
+print "Average is {0}".format(avg)
+```
 
 Este nuevo código tarda `0.266 s`, comparable con el de C.
 Sin embargo, sabemos que NumPy es bastante estricto: tenemos que usar vectores y escribir nuestra implementación utilizando sólo funciones de NumPy para aprovechar su velocidad.
