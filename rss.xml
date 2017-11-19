@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Scientific Programming Blog]]></title><description><![CDATA[Un blog de ciencia computacional enfocado en high performance computing]]></description><link>https://sci-prog.github.io</link><generator>RSS for Node</generator><lastBuildDate>Sun, 19 Nov 2017 15:24:50 GMT</lastBuildDate><item><title><![CDATA[Interacción entre C y Python: Parte I]]></title><description><![CDATA[Se habla mucho de Python como un lenguaje para  pegar varios lenguajes distintos .
+A pesar de que muchos usuarios y defensores de Python…]]></description><link>https://sci-prog.github.io/c-python-i/</link><guid isPermaLink="false">https://sci-prog.github.io/c-python-i/</guid><pubDate>Sun, 19 Nov 2017 05:45:18 GMT</pubDate><content:encoded>&lt;p&gt;Se habla mucho de Python como un lenguaje para &lt;a href=&quot;https://www.google.com.ar/search?q=python+as+a+glue&quot;&gt;pegar varios lenguajes distintos&lt;/a&gt;.
+A pesar de que muchos usuarios y defensores de Python esgrimen este argumento para valorar Python por sobre otros lenguajes, la realidad es que cualquier lenguaje interpretad (como perl, ruby o el incipiente Julia) es capaz de realizarlo.
+Sin embargo, y a pesar del Bloqueo Global del Intérprete (&lt;em&gt;GIL&lt;/em&gt; por sus siglas en inglés), el &lt;a href=&quot;https://jeffknupp.com/blog/2012/03/31/pythons-hardest-problem/&quot;&gt;problema más difícil de Python&lt;/a&gt;, Python (especialemte v2.7+) es el lenguaje interpretado principal en aplicaciones científicas, debido sobre todo a la alta disponibilidad de librerías científicas: NumPy, SciPy, SciKitLearn entre otras.
+Una de las ventajas de los lenguajes interpretados por sobre los compilados se vuelve evidente al comparar un código simple para calcular valores medios en Python y C&lt;sup id=&quot;fnref-1&quot;&gt;&lt;a href=&quot;#fn-1&quot; class=&quot;footnote-ref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+&lt;h2&gt;Python&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;# file: add_numbers.py&lt;/span&gt;
+total &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10000000&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; xrange&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  avg &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.0&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; j &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; xrange&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;total&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+    avg &lt;span class=&quot;token operator&quot;&gt;+=&lt;/span&gt; j
+    avg &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; avg&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;total
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Average is {0}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;format&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;avg&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;C&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c&quot;&gt;&lt;code&gt;&lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;/* file: add_numbers.c */&lt;/span&gt;
+&lt;span class=&quot;token macro property&quot;&gt;#&lt;span class=&quot;token directive keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&amp;lt;stdio.h&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; argc&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;argv&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;int&lt;/span&gt; i&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; j&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; total&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;double&lt;/span&gt; avg&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  total &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10000000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;i &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; i&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    avg &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;j &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; j &lt;span class=&quot;token operator&quot;&gt;&amp;lt;&lt;/span&gt; total&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; j&lt;span class=&quot;token operator&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+      avg &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; j&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+    avg &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; avg&lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt;total&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;token function&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Average is %f\n&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; avg&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;No sólo es la sintaxis de Python mucho más limpia, sino que además tengamos en cuenta que el código de C hay que compilarlo antes de ejecutarlo.
+La pregunta es, entonces, ¿por qué usamos C?
+La respuesta es obvia: ambos códigos realizan exactamente lo mismo, pero mientras que el código de Python lleva &lt;code&gt;8.047 s&lt;/code&gt;&lt;sup id=&quot;fnref-2&quot;&gt;&lt;a href=&quot;#fn-2&quot; class=&quot;footnote-ref&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;, el código en C tarda &lt;code&gt;0.284 s&lt;/code&gt;: 28 veces más rápido&lt;sup id=&quot;fnref-3&quot;&gt;&lt;a href=&quot;#fn-3&quot; class=&quot;footnote-ref&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.
+Entonces, ¿cómo podemos resolver el problema de la velocidad?
+Cualquiera que haya utilizado NumPy sabe que un problema como éste encaja justo en esta librería.
+Miremos cómo quedaría el código de Python utilizando NumPy:&lt;/p&gt;
+&lt;h2&gt;Python (with NumPy)&lt;/h2&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token comment&quot; spellcheck=&quot;true&quot;&gt;# file: add_numbers_fast.py&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;from&lt;/span&gt; numpy &lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; mean&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; arange
+total &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;10000000&lt;/span&gt;
+a &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; arange&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;total&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; xrange&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;
+  avg &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; mean&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;token string&quot;&gt;&quot;Average is {0}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;format&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;avg&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Este nuevo código tarda &lt;code&gt;0.266 s&lt;/code&gt;, comparable con el de C.
+Sin embargo, sabemos que NumPy es bastante estricto: tenemos que usar vectores y escribir nuestra implementación utilizando sólo funciones de NumPy para aprovechar su velocidad.
+En consecuencia, perdimos la versatilidad de Python.
+La pregunta es: ¿podemos tener la versatilidad del lenguaje interpretado y la velocidad de uno compilado?
+Hay dos formas de hacer esto:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Implementamos un lenguaje interpretado en C:&lt;/strong&gt;
+Así como Python está escrio en C, podemos escribir nuestro propio programa en C y también crear un lenguaje interpretado “alrededor” de nuestro programa principal.
+El problema principal es que tendríamos que reimplementar muchas cosas en C que no son críticas en tiempo y podría resultar, además, en un lenguaje no muy sólido y con reglas no muy claras.
+Un buen ejemplo de la escritura de un lenguaje interpretado desde cero, con los problemas ya mencionados, a partir de código en C es &lt;a href=&quot;http://lammps.sandia.gov/&quot;&gt;LAMMPS&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Escribimos código en C y en Python por separado y los conectamos:&lt;/strong&gt;
+Si todos los lenguajes, en el fondo, tienen que ser código de máquina, entonces &lt;em&gt;tiene que haber&lt;/em&gt; una forma de comunicar los lenguajes que queramos entre sí.
+En este caso, podemos escribir &lt;strong&gt;a)&lt;/strong&gt; Código de Python; &lt;strong&gt;b)&lt;/strong&gt; Código de C; y &lt;strong&gt;c)&lt;/strong&gt; una API C/Python que se encargue de la comunicación.
+Sólo escribimos la parte que consume tiempo en C y podemos usar la flexibilidad de Python.
+La ya mencionada librería NumPy hace esto de hecho para conseguir su gran velocidad&lt;sup id=&quot;fnref-4&quot;&gt;&lt;a href=&quot;#fn-4&quot; class=&quot;footnote-ref&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Vamos a focalizarnos en las siguientes entregas en la segunda opción.
+Pero, a su vez, la API C/Python tiene muchas formas de ser implementada:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Escribimos el módulo completo en C, al estilo de Python:&lt;/strong&gt;
+Si Python fue escrito en C, podemos escribir cualquier módulo de Python en C.
+Esto es a través de, por ejemplo, la &lt;a href=&quot;https://docs.python.org/2/c-api/&quot;&gt;API &lt;code&gt;Python.h&lt;/code&gt;&lt;/a&gt;.
+Personalmente, he hecho esto un par de veces, y se puede tornar bastante engorroso, ya que hay que escribir mucho del parseo de Python en C (por ejemplo, cómo acceder a los elementos de las listas), y también considerar cuidadosamente el manejo de memoria.
+La mayor ventaja, sin embargo, es que escribimos el código de C que va a ser ejecutado y, en consecuencia, podemos tomar decisiones de sintonía fina que pueden ser críticas en la velocidad de ejecución.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Escribimos en módulo en Python y generamos códico en C a partir de él:&lt;/strong&gt; Esto es lo que hace &lt;a href=&quot;http://cython.org/&quot;&gt;Cython&lt;/a&gt;.
+Como se puede ver de los ejemplos en la página oficina, escribimos puro código de Python y luego se convierte a C automáticamente.
+Esta traducción de un lenguaje a otro de similar nivel se conoce como &lt;em&gt;transpilación&lt;/em&gt; (yuxtaposición de &lt;em&gt;translation&lt;/em&gt; y &lt;em&gt;compilation&lt;/em&gt;).
+Cython es, efectivamente, un &lt;em&gt;transpilador&lt;/em&gt;&lt;sup id=&quot;fnref-5&quot;&gt;&lt;a href=&quot;#fn-5&quot; class=&quot;footnote-ref&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;.
+Aunque esto parece muy bueno a priori, la verdad es que, como en cualquier compilador, se requiere muchísimo trabajo en el desarrollo para obtener buenas optimizaciones&lt;sup id=&quot;fnref-6&quot;&gt;&lt;a href=&quot;#fn-6&quot; class=&quot;footnote-ref&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;.
+La sintonía fina que antes podíámos hacer con la API C/Python ya no se puede realizar.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Escribimos el módulo en C y lo comunicamos explícitamente con Python:&lt;/strong&gt;
+Si pudiéramos exponer en Python los tipos de datos de bajo nivel de C (&lt;code&gt;int&lt;/code&gt;, &lt;code&gt;float&lt;/code&gt;…), podríamos utilizarlos para llamar a librerías de C.
+Ésta es la idea detrás de &lt;a href=&quot;https://docs.python.org/2/library/ctypes.html&quot;&gt;ctypes&lt;/a&gt;.
+Escribimos una función en C como lo haríamos usualmente, pero luego la llamamos &lt;em&gt;desde Python&lt;/em&gt; con los tipos de datos adecuados.
+De esta forma podemos escribir código en C como en el caso &lt;strong&gt;1&lt;/strong&gt;, pero con la ventaja de que la interfaz y el manejo de memoria lo hacemos en Python.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Quiero detenerme a discutir brevemente la opción &lt;strong&gt;2&lt;/strong&gt;.
+Cython y otros parientes cercanos como &lt;a href=&quot;http://numba.pydata.org/&quot;&gt;Numba&lt;/a&gt; pueden resultar en mejoras de tiempo relativamente (¡y a veces sorprendentemente!) buenas con muy poco esfuerzo a partir de código en Python.
+Son, obviamente, la opción a seguir si no supiéramos nada de C.
+O, si el objetivo es que ese código de Python que se arrastra para tardar una hora pase a tardar 10 minutos, seguramente valga la pena intentar este tipo de alternativas.
+Pero si escribimos código desde el comienzo mentalizados en el Cómputo de Alto Desempeño, definitivamente no va a alcanzar, justamente porque no podemos hacer optimizaciones “a mano” sobre el código de C, que es generado automáticamente&lt;sup id=&quot;fnref-7&quot;&gt;&lt;a href=&quot;#fn-7&quot; class=&quot;footnote-ref&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;p&gt;Las opciones &lt;strong&gt;1&lt;/strong&gt; y &lt;strong&gt;3&lt;/strong&gt; son muy similares y, en mi opinión, la opción &lt;strong&gt;3&lt;/strong&gt; supera en todos los aspectos a la opción &lt;strong&gt;1&lt;/strong&gt;.
+Esto es apenas una introducción, y el objetivo es dar una mirada amplia de las posibilidades para llevar a cabo la comunicación entre Python y C.
+En la segunda entrega vamos a mostrar algunos ejemplos de &lt;strong&gt;ctypes&lt;/strong&gt; y su uso básico.
+La tercera parte la vamos a dedicar a un uso avanzado de &lt;strong&gt;ctypes&lt;/strong&gt; que no es discutido usualmente y resulta muy útil para hacer completamente transparente la implementación en C para un eventual usuario de la librería.&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&quot;fn-1&quot;&gt;
+&lt;p&gt;Nobleza obliga, lo sintético del código no es una ventaja &lt;em&gt;per se&lt;/em&gt; de los lenguajes interpretados por sobre los compilados, sino más bien es debido a las características usuales de estos lenguajes.&lt;/p&gt;
+&lt;a href=&quot;#fnref-1&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-2&quot;&gt;
+&lt;p&gt;Obviamente todas las medidas de performance son muy dependientes del hardware.&lt;/p&gt;
+&lt;a href=&quot;#fnref-2&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-3&quot;&gt;
+&lt;p&gt;Esto significa que una simulación de una hora llevaría un día si usáramos Python.
+Si bien 28x es obviamente una enorme mejora en tiempo, recuerdo haber discutido una vez con un (&lt;em&gt;muy buen&lt;/em&gt;) programador, que no trabajaba en HPC, acerca de mejoras de 2x-5x.
+Todavía estoy bastante sorprendido por el hecho de que él no se sorprendía por una mejora de 5x.
+Nunca debemos olvidar que, antes de optimizar algo, tenemos que pensar seriamente si vale la pena el esfuerzo.&lt;/p&gt;
+&lt;a href=&quot;#fnref-3&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-4&quot;&gt;
+&lt;p&gt;Punto bonus: como estamos ejecutando en realidad una librería, liberamos el Bloque Global del Intérprete y, en la librería, podemos hacer &lt;em&gt;threading&lt;/em&gt;.&lt;/p&gt;
+&lt;a href=&quot;#fnref-4&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-5&quot;&gt;
+&lt;p&gt;Podríamos discutir si efectivamente es un transpilador o un compilador.
+Es una discusión más profunda respecto de si C y Python son lenguajes del mismo nivel.&lt;/p&gt;
+&lt;a href=&quot;#fnref-5&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-6&quot;&gt;
+&lt;p&gt;Lo mismo vale al escribir código en C.
+Sin importar cuán bueno sea el compilador, no vamos a obtener mejor rendimiento que con un código bueno, escrito a mano en assembler.&lt;/p&gt;
+&lt;a href=&quot;#fnref-6&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-7&quot;&gt;
+&lt;p&gt;Hay una alternativa similar, llamada &lt;a href=&quot;http://docs.scipy.org/doc/numpy-dev/f2py/&quot;&gt;F2PY&lt;/a&gt;, que implementa la misma idea, pero invertida.
+A partir de código de FORTRAN puro, genera automáticamente la interfaz de Python; en consecuencia, tenemos la sintonía fina en el lenguaje compilado y el código generado automáticamente y eventualmente no-optimizado en el ya lento Python (y no crítico en tiempo).&lt;/p&gt;
+&lt;a href=&quot;#fnref-7&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Guía para contribuir]]></title><description><![CDATA[Hay varias formas de contribuir a la construcción de este blog, eso va a
+depender del nivel de conocimiento y compromiso del contribuyente…]]></description><link>https://sci-prog.github.io/contributor-guide/</link><guid isPermaLink="false">https://sci-prog.github.io/contributor-guide/</guid><pubDate>Tue, 14 Nov 2017 03:14:18 GMT</pubDate><content:encoded>&lt;p&gt;Hay varias formas de contribuir a la construcción de este blog, eso va a
+depender del nivel de conocimiento y compromiso del contribuyente, la forma
+más fácil de contribuir es abrir un issue en el
+&lt;a href=&quot;https://github.com/sci-prog/sci-prog.github.io&quot;&gt;repositorio&lt;/a&gt; del blog si
+encuentran algún error o quieren proponer un tema a tratar.&lt;/p&gt;
+&lt;h2&gt;Proponer un tema&lt;/h2&gt;
+&lt;p&gt;El blog de sci prog se va a enfocar en temas relacionados con scientific
+programming, con un énfasis especial en high performance computing y high
+througput computing, son bienvenidos posts relacionados con:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Programación científica, casos de estudio y técnicas.&lt;/li&gt;
+&lt;li&gt;Uso de librerías en distintos lenguajes de programación.&lt;/li&gt;
+&lt;li&gt;Flujos de trabajo asociados al desarrollo de aplicaciones científicas.&lt;/li&gt;
+&lt;li&gt;Desarrollos y guías de análisis y visualización de datos.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Si tienen una idea para un artículo en uno de estos temas o algún tema
+relacionado no duden en abrir un issue, si les parece que nuevos temas
+deberían ser agregados no duden en proponerlos a través de un issue.&lt;/p&gt;
+&lt;h2&gt;Aportar un artículo&lt;/h2&gt;
+&lt;p&gt;Aportar un artículo puede ser tan simple cómo enviar un mensaje o crear un
+issue con el contenido del artículo, de otra manera, basta con fork del
+&lt;a href=&quot;https://github.com/sci-prog/sci-prog.github.io&quot;&gt;repositorio&lt;/a&gt; crear una rama
+nueva (no es tan necesario desde un fork) y agregar una nueva carpeta en el
+directorio &lt;code&gt;src/pages&lt;/code&gt;, el directorio debe tener un &lt;code&gt;slug&lt;/code&gt; como nombre,
+&lt;code&gt;en-este-formato&lt;/code&gt;, dentro del directorio debe crear un archivo &lt;code&gt;index.md&lt;/code&gt; con
+el siguiente formato,&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-markdown&quot;&gt;&lt;code&gt;&lt;span class=&quot;token hr punctuation&quot;&gt;---&lt;/span&gt;
+title: Guía para contribuir
+&lt;span class=&quot;token title important&quot;&gt;date: &quot;2017-11-14T03:14:18+00:00&quot;
+&lt;span class=&quot;token punctuation&quot;&gt;---&lt;/span&gt;&lt;/span&gt;
+
+Contenido del artículo...
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;El título indicado en el campo &lt;code&gt;title&lt;/code&gt; será añadido al principio del artículo
+renderizado así que el documento markdown no debe contener títulos de primer
+nivel. Una vez el artículo este listo, o requiera feedback, será hora de
+crear un pull request, una vez este pull request sea completado
+satisfactoriamente el artículo será publicado automáticamente.&lt;/p&gt;
+&lt;h2&gt;Atribución&lt;/h2&gt;
+&lt;p&gt;Cada artículo será atribuido a su autor, o autores, sin embargo, los
+componentes para realizar la atribución aún no se han implementado.&lt;/p&gt;</content:encoded></item></channel></rss>

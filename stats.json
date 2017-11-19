@@ -1,0 +1,50 @@
+{
+  "assetsByChunkName": {
+    "path---c-python-i": [
+      "path---c-python-i-cd4ef76f55830f5613fc.js",
+      "path---c-python-i-cd4ef76f55830f5613fc.js.map"
+    ],
+    "component---src-pages-index-js": [
+      "component---src-pages-index-js-1a7f275830b0a5cbec32.js",
+      "component---src-pages-index-js-1a7f275830b0a5cbec32.js.map"
+    ],
+    "path---": [
+      "path----557518bd178906f8d58a.js",
+      "path----557518bd178906f8d58a.js.map"
+    ],
+    "component---node-modules-gatsby-plugin-offline-app-shell-js": [
+      "component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js",
+      "component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js.map"
+    ],
+    "component---src-templates-blog-post-js": [
+      "component---src-templates-blog-post-js-044546551087b9ff5f9a.js",
+      "component---src-templates-blog-post-js-044546551087b9ff5f9a.js.map"
+    ],
+    "component---src-layouts-index-js": [
+      "component---src-layouts-index-js-a0542ab850b998708885.js",
+      "component---src-layouts-index-js-a0542ab850b998708885.js.map"
+    ],
+    "path---index": [
+      "path---index-93af4dcf89b7ec63e134.js",
+      "path---index-93af4dcf89b7ec63e134.js.map"
+    ],
+    "commons": [
+      "commons-069d9144a02465e83941.js",
+      "commons-069d9144a02465e83941.js.map"
+    ],
+    "path---offline-plugin-app-shell-fallback": [
+      "path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js",
+      "path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js.map"
+    ],
+    "app": [
+      "app-92e964bba4f677610c87.js",
+      "build-js-styles.css",
+      "app-92e964bba4f677610c87.js.map",
+      "build-js-styles.css.map"
+    ],
+    "path---contributor-guide": [
+      "path---contributor-guide-17c87463450eec8d3d41.js",
+      "path---contributor-guide-17c87463450eec8d3d41.js.map"
+    ]
+  }
+}
