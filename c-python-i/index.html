@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+ <html><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><link rel="preload" href="/component---src-layouts-index-js-a0542ab850b998708885.js" as="script"/><link rel="preload" href="/component---src-templates-blog-post-js-044546551087b9ff5f9a.js" as="script"/><link rel="preload" href="/path---c-python-i-cd4ef76f55830f5613fc.js" as="script"/><link rel="preload" href="/app-92e964bba4f677610c87.js" as="script"/><link rel="preload" href="/commons-069d9144a02465e83941.js" as="script"/><script id="webpack-manifest">
+            //<![CDATA[
+            window.webpackManifest = {"231608221292675":"app-92e964bba4f677610c87.js","99219681209289":"component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js","107818501498521":"component---src-templates-blog-post-js-044546551087b9ff5f9a.js","35783957827783":"component---src-pages-index-js-1a7f275830b0a5cbec32.js","60335399758886":"path----557518bd178906f8d58a.js","210333531512890":"path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js","1738975126400":"path---c-python-i-cd4ef76f55830f5613fc.js","263240134119636":"path---contributor-guide-17c87463450eec8d3d41.js","142629428675168":"path---index-93af4dcf89b7ec63e134.js","114276838955818":"component---src-layouts-index-js-a0542ab850b998708885.js"}
+            //]]>
+            </script><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><title data-react-helmet="true">Interacción entre C y Python: Parte I | Scientific Programming Blog</title><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:125%/1.45em 'Quattrocento Sans',serif;box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.8);font-family:'Quattrocento Sans',serif;font-weight:400;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}h1{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:hsla(0,0%,0%,0.9);font-family:'Work Sans',sans-serif;font-weight:600;text-rendering:optimizeLegibility;font-size:2rem;line-height:1.1;}h2{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:hsla(0,0%,0%,0.9);font-family:'Work Sans',sans-serif;font-weight:600;text-rendering:optimizeLegibility;font-size:1.51572rem;line-height:1.1;}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:hsla(0,0%,0%,0.9);font-family:'Work Sans',sans-serif;font-weight:600;text-rendering:optimizeLegibility;font-size:1.31951rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:hsla(0,0%,0%,0.9);font-family:'Work Sans',sans-serif;font-weight:600;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:hsla(0,0%,0%,0.9);font-family:'Work Sans',sans-serif;font-weight:600;text-rendering:optimizeLegibility;font-size:0.87055rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:hsla(0,0%,0%,0.9);font-family:'Work Sans',sans-serif;font-weight:600;text-rendering:optimizeLegibility;font-size:0.81225rem;line-height:1.1;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}ul{margin-left:1.45rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;list-style-position:outside;list-style-image:none;}ol{margin-left:1.45rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;font-size:0.85rem;line-height:1.45rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;font-size:1rem;line-height:1.45rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}blockquote{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0.90625rem;padding-right:0;padding-top:0;margin-bottom:1.45rem;font-size:1.1487rem;line-height:1.45rem;border-left:0.54375rem solid #1ca086;color:hsla(0,0%,0%,0.65);font-style:italic;}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(1.45rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}b{font-weight:700;}strong{font-weight:700;}dt{font-weight:700;}th{font-weight:700;}li{margin-bottom:calc(1.45rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.45rem;margin-bottom:calc(1.45rem / 2);margin-top:calc(1.45rem / 2);}li > ul{margin-left:1.45rem;margin-bottom:calc(1.45rem / 2);margin-top:calc(1.45rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(1.45rem / 2);}code{font-size:0.85rem;line-height:1.45rem;}kbd{font-size:0.85rem;line-height:1.45rem;}samp{font-size:0.85rem;line-height:1.45rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:0.96667rem;padding-right:0.96667rem;padding-top:0.725rem;padding-bottom:calc(0.725rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}a{color:#1ca086;text-decoration:none;text-shadow:.03em 0 #fff,-.03em 0 #fff,0 .03em #fff,0 -.03em #fff,.06em 0 #fff,-.06em 0 #fff,.09em 0 #fff,-.09em 0 #fff,.12em 0 #fff,-.12em 0 #fff,.15em 0 #fff,-.15em 0 #fff;background-image:linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 1px, #1ca086 1px, #1ca086 2px, rgba(0, 0, 0, 0) 2px);}a:hover,a:active{text-shadow:none;background-image:none;}h1,h2,h3,h4,h5,h6{margin-top:2.175rem;margin-bottom:0.725rem;}blockquote > :last-child{margin-bottom:0;}blockquote cite{font-size:1rem;line-height:1.45rem;color:hsla(0,0%,0%,0.8);font-style:normal;font-weight:400;}blockquote cite:before{content:"— ";}@media only screen and (max-width:480px){html{font-size:106.25%;line-height:1.45em;}blockquote{border-left:0.27187rem solid #1ca086;color:hsla(0,0%,0%,0.59);padding-left:0.81563rem;font-style:italic;margin-left:-1.0875rem;margin-right:0;}}</style><link href="//fonts.googleapis.com/css?family=Work+Sans:600|Quattrocento+Sans:400,400i,700" rel="stylesheet" type="text/css"/><script>
+  !function(e,t,r){function n(){for(;d[0]&&"loaded"==d[0][f];)c=d.shift(),c[o]=!i.parentNode.insertBefore(c,i)}for(var s,a,c,d=[],i=e.scripts[0],o="onreadystatechange",f="readyState";s=r.shift();)a=e.createElement(t),"async"in i?(a.async=!1,e.head.appendChild(a)):i[f]?(d.push(a),a[o]=n):e.write("<"+t+' src="'+s+'" defer></'+t+">"),a.src=s}(document,"script",[
+  "/commons-069d9144a02465e83941.js","/app-92e964bba4f677610c87.js","/path---c-python-i-cd4ef76f55830f5613fc.js","/component---src-templates-blog-post-js-044546551087b9ff5f9a.js","/component---src-layouts-index-js-a0542ab850b998708885.js"
+])
+  </script><style id="gatsby-inlined-css">code[class*=language-],pre[class*=language-]{color:#000;background:none;text-shadow:0 1px #fff;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-]::-moz-selection,code[class*=language-] ::-moz-selection,pre[class*=language-]::-moz-selection,pre[class*=language-] ::-moz-selection{text-shadow:none;background:#b3d4fc}code[class*=language-]::selection,code[class*=language-] ::selection,pre[class*=language-]::selection,pre[class*=language-] ::selection{text-shadow:none;background:#b3d4fc}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#f5f2f0}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#999}.namespace{opacity:.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#905}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#690}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url{color:#a67f59;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.function{color:#dd4a68}.token.important,.token.regex,.token.variable{color:#e90}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}</style></head><body><div id="___gatsby"><div style="max-width:34.8rem;margin-left:auto;margin-right:auto;padding:2.175rem 1.0875rem;" data-reactroot="" data-reactid="1" data-react-checksum="1406340259"><h3 style="font-family:Montserrat, sans-serif;margin-top:0;margin-bottom:-1.45rem;" data-reactid="2"><a style="box-shadow:none;text-decoration:none;color:inherit;" href="/" data-reactid="3">Scientific Programming Blog</a></h3><div data-reactid="4"><!-- react-empty: 5 --><h1 data-reactid="6">Interacción entre C y Python: Parte I</h1><p style="font-size:0.87055rem;line-height:1.45rem;display:block;margin-bottom:0.725rem;margin-top:0.725rem;" data-reactid="7">November 19, 2017</p><div data-reactid="8"><p>Se habla mucho de Python como un lenguaje para <a href="https://www.google.com.ar/search?q=python+as+a+glue">pegar varios lenguajes distintos</a>.
+A pesar de que muchos usuarios y defensores de Python esgrimen este argumento para valorar Python por sobre otros lenguajes, la realidad es que cualquier lenguaje interpretad (como perl, ruby o el incipiente Julia) es capaz de realizarlo.
+Sin embargo, y a pesar del Bloqueo Global del Intérprete (<em>GIL</em> por sus siglas en inglés), el <a href="https://jeffknupp.com/blog/2012/03/31/pythons-hardest-problem/">problema más difícil de Python</a>, Python (especialemte v2.7+) es el lenguaje interpretado principal en aplicaciones científicas, debido sobre todo a la alta disponibilidad de librerías científicas: NumPy, SciPy, SciKitLearn entre otras.
+Una de las ventajas de los lenguajes interpretados por sobre los compilados se vuelve evidente al comparar un código simple para calcular valores medios en Python y C<sup id="fnref-1"><a href="#fn-1" class="footnote-ref">1</a></sup>:</p>
+<h2>Python</h2>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token comment" spellcheck="true"># file: add_numbers.py</span>
+total <span class="token operator">=</span> <span class="token number">10000000</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> xrange<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  avg <span class="token operator">=</span> <span class="token number">0.0</span>
+  <span class="token keyword">for</span> j <span class="token keyword">in</span> xrange<span class="token punctuation">(</span>total<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    avg <span class="token operator">+=</span> j
+    avg <span class="token operator">=</span> avg<span class="token operator">/</span>total
+<span class="token keyword">print</span> <span class="token string">"Average is {0}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>avg<span class="token punctuation">)</span>
+</code></pre>
+      </div>
+<h2>C</h2>
+<div class="gatsby-highlight">
+      <pre class="language-c"><code><span class="token comment" spellcheck="true">/* file: add_numbers.c */</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> total<span class="token punctuation">;</span>
+  <span class="token keyword">double</span> avg<span class="token punctuation">;</span>
+  total <span class="token operator">=</span> <span class="token number">10000000</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    avg <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> total<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      avg <span class="token operator">+</span><span class="token operator">=</span> j<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    avg <span class="token operator">=</span> avg<span class="token operator">/</span>total<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Average is %f\n"</span><span class="token punctuation">,</span> avg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+      </div>
+<p>No sólo es la sintaxis de Python mucho más limpia, sino que además tengamos en cuenta que el código de C hay que compilarlo antes de ejecutarlo.
+La pregunta es, entonces, ¿por qué usamos C?
+La respuesta es obvia: ambos códigos realizan exactamente lo mismo, pero mientras que el código de Python lleva <code>8.047 s</code><sup id="fnref-2"><a href="#fn-2" class="footnote-ref">2</a></sup>, el código en C tarda <code>0.284 s</code>: 28 veces más rápido<sup id="fnref-3"><a href="#fn-3" class="footnote-ref">3</a></sup>.
+Entonces, ¿cómo podemos resolver el problema de la velocidad?
+Cualquiera que haya utilizado NumPy sabe que un problema como éste encaja justo en esta librería.
+Miremos cómo quedaría el código de Python utilizando NumPy:</p>
+<h2>Python (with NumPy)</h2>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token comment" spellcheck="true"># file: add_numbers_fast.py</span>
+<span class="token keyword">from</span> numpy <span class="token keyword">import</span> mean<span class="token punctuation">,</span> arange
+total <span class="token operator">=</span> <span class="token number">10000000</span>
+a <span class="token operator">=</span> arange<span class="token punctuation">(</span>total<span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> xrange<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  avg <span class="token operator">=</span> mean<span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">"Average is {0}"</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>avg<span class="token punctuation">)</span>
+</code></pre>
+      </div>
+<p>Este nuevo código tarda <code>0.266 s</code>, comparable con el de C.
+Sin embargo, sabemos que NumPy es bastante estricto: tenemos que usar vectores y escribir nuestra implementación utilizando sólo funciones de NumPy para aprovechar su velocidad.
+En consecuencia, perdimos la versatilidad de Python.
+La pregunta es: ¿podemos tener la versatilidad del lenguaje interpretado y la velocidad de uno compilado?
+Hay dos formas de hacer esto:</p>
+<ol>
+<li>
+<p><strong>Implementamos un lenguaje interpretado en C:</strong>
+Así como Python está escrio en C, podemos escribir nuestro propio programa en C y también crear un lenguaje interpretado “alrededor” de nuestro programa principal.
+El problema principal es que tendríamos que reimplementar muchas cosas en C que no son críticas en tiempo y podría resultar, además, en un lenguaje no muy sólido y con reglas no muy claras.
+Un buen ejemplo de la escritura de un lenguaje interpretado desde cero, con los problemas ya mencionados, a partir de código en C es <a href="http://lammps.sandia.gov/">LAMMPS</a>.</p>
+</li>
+<li>
+<p><strong>Escribimos código en C y en Python por separado y los conectamos:</strong>
+Si todos los lenguajes, en el fondo, tienen que ser código de máquina, entonces <em>tiene que haber</em> una forma de comunicar los lenguajes que queramos entre sí.
+En este caso, podemos escribir <strong>a)</strong> Código de Python; <strong>b)</strong> Código de C; y <strong>c)</strong> una API C/Python que se encargue de la comunicación.
+Sólo escribimos la parte que consume tiempo en C y podemos usar la flexibilidad de Python.
+La ya mencionada librería NumPy hace esto de hecho para conseguir su gran velocidad<sup id="fnref-4"><a href="#fn-4" class="footnote-ref">4</a></sup>.</p>
+</li>
+</ol>
+<p>Vamos a focalizarnos en las siguientes entregas en la segunda opción.
+Pero, a su vez, la API C/Python tiene muchas formas de ser implementada:</p>
+<ol>
+<li>
+<p><strong>Escribimos el módulo completo en C, al estilo de Python:</strong>
+Si Python fue escrito en C, podemos escribir cualquier módulo de Python en C.
+Esto es a través de, por ejemplo, la <a href="https://docs.python.org/2/c-api/">API <code>Python.h</code></a>.
+Personalmente, he hecho esto un par de veces, y se puede tornar bastante engorroso, ya que hay que escribir mucho del parseo de Python en C (por ejemplo, cómo acceder a los elementos de las listas), y también considerar cuidadosamente el manejo de memoria.
+La mayor ventaja, sin embargo, es que escribimos el código de C que va a ser ejecutado y, en consecuencia, podemos tomar decisiones de sintonía fina que pueden ser críticas en la velocidad de ejecución.</p>
+</li>
+<li>
+<p><strong>Escribimos en módulo en Python y generamos códico en C a partir de él:</strong> Esto es lo que hace <a href="http://cython.org/">Cython</a>.
+Como se puede ver de los ejemplos en la página oficina, escribimos puro código de Python y luego se convierte a C automáticamente.
+Esta traducción de un lenguaje a otro de similar nivel se conoce como <em>transpilación</em> (yuxtaposición de <em>translation</em> y <em>compilation</em>).
+Cython es, efectivamente, un <em>transpilador</em><sup id="fnref-5"><a href="#fn-5" class="footnote-ref">5</a></sup>.
+Aunque esto parece muy bueno a priori, la verdad es que, como en cualquier compilador, se requiere muchísimo trabajo en el desarrollo para obtener buenas optimizaciones<sup id="fnref-6"><a href="#fn-6" class="footnote-ref">6</a></sup>.
+La sintonía fina que antes podíámos hacer con la API C/Python ya no se puede realizar.</p>
+</li>
+<li>
+<p><strong>Escribimos el módulo en C y lo comunicamos explícitamente con Python:</strong>
+Si pudiéramos exponer en Python los tipos de datos de bajo nivel de C (<code>int</code>, <code>float</code>…), podríamos utilizarlos para llamar a librerías de C.
+Ésta es la idea detrás de <a href="https://docs.python.org/2/library/ctypes.html">ctypes</a>.
+Escribimos una función en C como lo haríamos usualmente, pero luego la llamamos <em>desde Python</em> con los tipos de datos adecuados.
+De esta forma podemos escribir código en C como en el caso <strong>1</strong>, pero con la ventaja de que la interfaz y el manejo de memoria lo hacemos en Python.</p>
+</li>
+</ol>
+<p>Quiero detenerme a discutir brevemente la opción <strong>2</strong>.
+Cython y otros parientes cercanos como <a href="http://numba.pydata.org/">Numba</a> pueden resultar en mejoras de tiempo relativamente (¡y a veces sorprendentemente!) buenas con muy poco esfuerzo a partir de código en Python.
+Son, obviamente, la opción a seguir si no supiéramos nada de C.
+O, si el objetivo es que ese código de Python que se arrastra para tardar una hora pase a tardar 10 minutos, seguramente valga la pena intentar este tipo de alternativas.
+Pero si escribimos código desde el comienzo mentalizados en el Cómputo de Alto Desempeño, definitivamente no va a alcanzar, justamente porque no podemos hacer optimizaciones “a mano” sobre el código de C, que es generado automáticamente<sup id="fnref-7"><a href="#fn-7" class="footnote-ref">7</a></sup>.</p>
+<p>Las opciones <strong>1</strong> y <strong>3</strong> son muy similares y, en mi opinión, la opción <strong>3</strong> supera en todos los aspectos a la opción <strong>1</strong>.
+Esto es apenas una introducción, y el objetivo es dar una mirada amplia de las posibilidades para llevar a cabo la comunicación entre Python y C.
+En la segunda entrega vamos a mostrar algunos ejemplos de <strong>ctypes</strong> y su uso básico.
+La tercera parte la vamos a dedicar a un uso avanzado de <strong>ctypes</strong> que no es discutido usualmente y resulta muy útil para hacer completamente transparente la implementación en C para un eventual usuario de la librería.</p>
+<div class="footnotes">
+<hr>
+<ol>
+<li id="fn-1">
+<p>Nobleza obliga, lo sintético del código no es una ventaja <em>per se</em> de los lenguajes interpretados por sobre los compilados, sino más bien es debido a las características usuales de estos lenguajes.</p>
+<a href="#fnref-1" class="footnote-backref">↩</a>
+</li>
+<li id="fn-2">
+<p>Obviamente todas las medidas de performance son muy dependientes del hardware.</p>
+<a href="#fnref-2" class="footnote-backref">↩</a>
+</li>
+<li id="fn-3">
+<p>Esto significa que una simulación de una hora llevaría un día si usáramos Python.
+Si bien 28x es obviamente una enorme mejora en tiempo, recuerdo haber discutido una vez con un (<em>muy buen</em>) programador, que no trabajaba en HPC, acerca de mejoras de 2x-5x.
+Todavía estoy bastante sorprendido por el hecho de que él no se sorprendía por una mejora de 5x.
+Nunca debemos olvidar que, antes de optimizar algo, tenemos que pensar seriamente si vale la pena el esfuerzo.</p>
+<a href="#fnref-3" class="footnote-backref">↩</a>
+</li>
+<li id="fn-4">
+<p>Punto bonus: como estamos ejecutando en realidad una librería, liberamos el Bloque Global del Intérprete y, en la librería, podemos hacer <em>threading</em>.</p>
+<a href="#fnref-4" class="footnote-backref">↩</a>
+</li>
+<li id="fn-5">
+<p>Podríamos discutir si efectivamente es un transpilador o un compilador.
+Es una discusión más profunda respecto de si C y Python son lenguajes del mismo nivel.</p>
+<a href="#fnref-5" class="footnote-backref">↩</a>
+</li>
+<li id="fn-6">
+<p>Lo mismo vale al escribir código en C.
+Sin importar cuán bueno sea el compilador, no vamos a obtener mejor rendimiento que con un código bueno, escrito a mano en assembler.</p>
+<a href="#fnref-6" class="footnote-backref">↩</a>
+</li>
+<li id="fn-7">
+<p>Hay una alternativa similar, llamada <a href="http://docs.scipy.org/doc/numpy-dev/f2py/">F2PY</a>, que implementa la misma idea, pero invertida.
+A partir de código de FORTRAN puro, genera automáticamente la interfaz de Python; en consecuencia, tenemos la sintonía fina en el lenguaje compilado y el código generado automáticamente y eventualmente no-optimizado en el ya lento Python (y no crítico en tiempo).</p>
+<a href="#fnref-7" class="footnote-backref">↩</a>
+</li>
+</ol>
+</div></div></div><span style="display:block;clear:both;" data-reactid="9"> </span></div></div><script>
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-109737731-1', 'auto');
+  </script></body></html>
