@@ -4,7 +4,7 @@ date: "2017-11-19T15:23:38-03:00"
 tags: [python, ctypes, python-c]
 ---
 
-Discutimos [previamente]({% post_url c-python-i %}) acerca de la validez de [ctypes](https://docs.python.org/2/library/ctypes.html) para acelerar código de Python.
+Discutimos [previamente](/c-python-i/) acerca de la validez de [ctypes](https://docs.python.org/2/library/ctypes.html) para acelerar código de Python.
 Vale mencionar que, a decir verdad, no estamos acelerando el código en Python: llamamos, desde Python, a un código en C que es más rápido.
 Esta diferencia que parece casi trivial es fundamental para comprender este enfoque.
 ¿Qué tenemos que hacer siempre que queremos ejecutar código ya escrito?
