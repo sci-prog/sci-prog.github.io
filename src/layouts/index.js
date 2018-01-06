@@ -91,7 +91,7 @@ class Template extends React.Component {
             <br />
             <Link to="/">Artículos</Link>
             <br />
-            <a href={repo} target='_blank'>Github</a>
+            <a href={repo} target='_blank'>Github repo</a>
           </div>
         </footer>
 
