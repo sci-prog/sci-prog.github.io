@@ -15,6 +15,7 @@ class Template extends React.Component {
     const siteDescription =  `
       Un blog de ciencia computacional enfocado en high performance computing
     `
+    const repo = 'https://github.com/sci-prog/sci-prog.github.io'
 
     let header
 
@@ -89,6 +90,8 @@ class Template extends React.Component {
             <Link to="about">Acerca de</Link>
             <br />
             <Link to="/">Artículos</Link>
+            <br />
+            <a href={repo} target='_blank'>Github</a>
           </div>
         </footer>
 
