@@ -4,6 +4,7 @@ module.exports = {
     author: 'Oscar Arbelaez',
     description: 'Un blog de ciencia computacional enfocado en high performance computing',
     siteUrl: 'https://sci-prog.github.io',
+    repo: 'https://github.com/sci-prog/sci-prog.github.io',
   },
   pathPrefix: '/',
   plugins: [
