@@ -11,6 +11,11 @@ require('prismjs/themes/prism.css')
 class Template extends React.Component {
   render() {
     const { location, children } = this.props
+    const siteTitle = 'Scientific Programming Blog'
+    const siteDescription =  `
+      Un blog de ciencia computacional enfocado en high performance computing
+    `
+    const repo = 'https://github.com/sci-prog/sci-prog.github.io'
 
     let header
 
@@ -36,7 +41,7 @@ class Template extends React.Component {
             }}
             to={'/'}
           >
-            Scientific Programming Blog            
+            {siteTitle}
           </Link>
         </h1>
       )
@@ -57,7 +62,7 @@ class Template extends React.Component {
             }}
             to={'/'}
           >
-            Scientific Programming Blog            
+            {siteTitle}
           </Link>
         </h3>
       )
@@ -71,6 +76,25 @@ class Template extends React.Component {
       >
         {header}
         {children()}
+
+        <hr />
+
+        <footer>
+          <small>{siteDescription}</small>
+          <div
+            style={{
+              padding: rhythm(0.5),
+              fontSize: scale(0.5),
+            }}
+          >
+            <Link to="about">Acerca de</Link>
+            <br />
+            <Link to="/">Artículos</Link>
+            <br />
+            <a href={repo} target='_blank'>Github repo</a>
+          </div>
+        </footer>
+
       </Container>
     )
   }
