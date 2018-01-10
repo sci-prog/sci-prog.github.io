@@ -166,8 +166,7 @@ Sin la necesidad de vulnerabilidades de software e independientemente del sistem
 
 [^1]: Claro que la información de la "computadora" propiamente dicha también se encuentra en, por ejemplo, la memoria RAM.
 
-[^2]: Esto es una cuestión conceptual.
-Los saltos condicionales y las asignaciones son un poco distintas en la arquitectura.
+[^2]: Esto es una cuestión conceptual. Los saltos condicionales y las asignaciones son un poco distintas en la arquitectura.
 
 [^3]: Hoy en día los predictores tienen una precisión de aproximadamente [95%](https://www.ece.cmu.edu/~ece447/s13/lib/exe/fetch.php?media=onur-447-spring13-lecture11-branch-prediction-afterlecture.pdf)
 
