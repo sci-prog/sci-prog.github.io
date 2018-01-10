@@ -34,7 +34,7 @@ class Template extends React.Component {
     const { location, children } = this.props
     const siteTitle = 'Scientific Programming Blog'
     const siteDescription =  `
-      Un blog de ciencia computacional enfocado en high performance computing
+      Un blog de programación científica enfocado en high performance computing
     `
     const repo = 'https://github.com/sci-prog/sci-prog.github.io'
     const fanPage = 'https://facebook.com/sciprog/'
