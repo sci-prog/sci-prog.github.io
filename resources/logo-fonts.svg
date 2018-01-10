@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="979.26908"
-     inkscape:cy="219.52089"
+     inkscape:zoom="2"
+     inkscape:cx="690.34459"
+     inkscape:cy="276.05471"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -46,7 +46,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -89,22 +89,24 @@
        y="241.41364"
        id="text867"
        inkscape:export-xdpi="300"
-       inkscape:export-ydpi="300"><tspan
+       inkscape:export-ydpi="300"
+       inkscape:export-filename="/home/oscar/path-big.png"><tspan
          sodipodi:role="line"
          id="tspan865"
          x="148.34937"
          y="241.41364"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:0.26458332px">Un blog de ciencia computacional</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:0.26458332px">Un blog de programación científica</tspan><tspan
          sodipodi:role="line"
          x="149.83006"
-         y="247.63547"
+         y="247.63548"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro Semi-Bold';text-align:center;text-anchor:middle;fill:#ffffff;stroke:none;stroke-width:0.26458332px"
          id="tspan869">enfocado en high performance computing </tspan></text>
     <g
        id="g901"
        inkscape:export-xdpi="300"
        inkscape:export-ydpi="300"
-       transform="translate(0.0098807,-20.922332)">
+       transform="translate(0.0098807,-20.922332)"
+       inkscape:export-filename="/home/oscar/path-big.png">
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:100%;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
