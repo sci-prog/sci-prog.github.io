@@ -1,6 +1,6 @@
 ---
 title: "Meltdown: Una explicación técnica y sencilla"
-date: "2018-01-08T:36:38-03:00"
+date: "2018-01-08T03:36:38-03:00"
 tags: [meltdown, exploit, arquitectura]
 ---
 
