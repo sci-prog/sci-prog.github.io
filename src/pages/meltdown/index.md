@@ -4,7 +4,7 @@ date: "2018-01-08T03:36:38-03:00"
 tags: [meltdown, exploit, arquitectura]
 ---
 
-Hace menos de una semana se dieron a conocer dos *bugs* muy grandes y ocultos que afectan a gran parte de los procesadores: *meltdown* y *spectre*.
+Hace menos de una semana [se dieron a conocer](https://www.theregister.co.uk/2018/01/02/intel_cpu_design_flaw/) dos *bugs* muy grandes y ocultos que afectan a gran parte de los procesadores: *meltdown* y *spectre*.
 ¿Qué hace importante a estos exploits?
 Que sean **fundamentales**: no dependen de un sistema operativo o de un programa específico, sino que depende del procesador.
 Incluso uno de ellos (*spectre*) funcionaría sobre prácticamente cualquier procesador moderno.
