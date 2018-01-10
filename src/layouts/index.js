@@ -37,6 +37,7 @@ class Template extends React.Component {
       Un blog de ciencia computacional enfocado en high performance computing
     `
     const repo = 'https://github.com/sci-prog/sci-prog.github.io'
+    const fanPage = 'https://facebook.com/sciprog/'
 
     let header
 
@@ -113,6 +114,8 @@ class Template extends React.Component {
             <Link to="/">Artículos</Link>
             <br />
             <a href={repo} target='_blank'>Github repo</a>
+            <br />
+            <a href={fanPage} target='_blank'>Facebook</a>
           </div>
         </footer>
 
