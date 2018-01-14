@@ -238,6 +238,8 @@ lenguaje, aunque hacen un poco frustrante el lenguaje al principio, hacen múcho
 más facil producir código libre de bugs a programadores con diferentes niveles
 de experiencia.
 
+El código en este artículo se puede encontrar en [github][intro.repo].
+
 
 [^1]: Más sobre el ciclo de desarrollo de rust en su página de [releases]
 [^2]: Mas sobre `Cargo.toml` en la [documentacion de referencia][cargo.reference]
@@ -261,6 +263,7 @@ de experiencia.
 [crates.io]: https://crates.io/
 [crates.rand]: https://crates.io/crates/rand
 [cross]: https://github.com/japaric/rust-cross
+[intro.repo]: https://github.com/sci-prog/pimc
 [osg]: https://www.opensciencegrid.org/
 [raii]: https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization
 [rand.mc]: https://doc.rust-lang.org/rand/rand/index.html#monte-carlo-estimation-of-%CF%80
