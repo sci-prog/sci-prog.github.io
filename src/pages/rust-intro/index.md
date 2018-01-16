@@ -1,5 +1,5 @@
 ---
-title: "Una introducción ligera a rust"
+title: "Una ligera introducción a Rust"
 date: "2018-01-14T15:00:01-05:00"
 tags: [rust, hpc]
 ---
@@ -108,10 +108,16 @@ fn main() {
 
 ## Hora de escribir código
 
-Curiosamente, el ejemplo de cálculo de `pi` hace parte de la [documentacion del
-paquete rand][rand.mc]. Hay que decir que rust soporta programación
-_imperativa_ y también _declarativa_; ambos estilos tienen sus ventajas, ésta
-sería la versión _imperativa_ de este ejemplo:
+Curiosamente, el ejemplo de cálculo de `pi` hace parte de la [documentación del
+paquete rand][rand.mc], pero en pocas palabras, si se toma un conjunto de
+puntos uniformemente distribuidos en un cuadrado que circunscribe un círculo,
+la razón entre la cantidad de puntos en el círculo y la cantidad de puntos
+totales, va a ser aproximadamente igual a la razón entre el área del círculo y
+el área del cuadrado.
+
+Hay que decir que rust soporta programación _imperativa_ y también
+_declarativa_; ambos estilos tienen sus ventajas, ésta sería la versión
+_imperativa_ de este ejemplo:
 
 ```rust
 extern crate rand;
