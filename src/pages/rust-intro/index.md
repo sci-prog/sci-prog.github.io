@@ -4,23 +4,23 @@ date: "2018-01-14T15:00:01-05:00"
 tags: [rust, hpc]
 ---
 
-[Rust][rust] es un nuevo lenguaje de programación para sistemas de bajo nivel,
+[Rust][rust] es un nuevo lenguaje de programación para sistemas de bajo nivel y,
 como tal, esta enfocado en proveer gran velocidad y tener una mínima huella en
 tiempo de ejecución. Rust también va mas allá ofreciendo seguridad en memoria,
 haciendo casi imposible tener un error de segmentación **sin incurrir en costo
-en tiempo de ejecución**, una descripcion corta del lenguage ha sido:
+en tiempo de ejecución**. Una descripcion corta del lenguage ha sido:
 _velocidades similares a C o C++ con seguridad en memoria._
 
-En el presente artículo pretendo mostrar cómo se siente trabajar en un proyecto
+En el presente artículo introducimos cómo se siente trabajar en un proyecto
 en rust, mostrando algunas de las ventajas en cuanto a calidad de vida que
 presenta el lenguage con respecto a otros lenguajes de bajo nivel e
 introduciendo algunos conceptos sobre el funcionamiento de rust.
 
 ## Instalación
 
-Antes de empezar un proyecto necesitamos instalar las herramientas del lenguaje
-para esto, la comunidad a creado una herramienta de instalación llamada
-[rustup], el comando para instalar rustup en esta fecha es:
+Antes de empezar un proyecto necesitamos instalar las herramientas del lenguaje.
+Para esto, la comunidad ha creado una herramienta de instalación llamada
+[rustup], que se instala mediante el comando:
 
 ```bash
 $ curl https://sh.rustup.rs -sSf | sh
@@ -41,8 +41,8 @@ disponible, y también el gestor de paquetes `cargo`.
 
 ## Creación de un nuevo proyecto
 
-Para crear un nuevo proyecto vamos a utilizar cargo, para este blog voy a
-escribir un pequeño programa para calcular el número `pi` usando Monte Carlo.
+Para crear un nuevo proyecto vamos a utilizar `cargo`. En este ejemplo,
+escribiremos un pequeño programa para calcular el número `pi` usando Monte Carlo.
 
 ```
 $ cargo new --bin pimc
@@ -62,7 +62,7 @@ pimc
 
 El archivo `Cargo.toml` contiene metadatos sobre el proyecto[^2], entre otros:
 nombre, autor, nombres de los ejecutables, dependencias (**dependencias!**).
-Por otra parte el archivo `main.rs` contiene un pequeño hola mundo[^3]:
+Por otra parte el archivo `main.rs` contiene un pequeño `hola mundo`[^3]:
 
 ```rust
 fn main() {
@@ -92,7 +92,7 @@ rand = "0.4.2"
 
 Al momento de construir el proyecto, `cargo` va a descargar la versión
 especificada de `rand` y dado que se trata de un proyecto binario, va a crear
-un archivo `Cargo.lock` con las firmas de cada paquete usado para verificar que
+un archivo `Cargo.lock` con las firmas de cada paquete usado para ve12rificar que
 el binario siempre se construya con la misma version de cada dependencia.
 
 Finalmente, ya que se trata de un paquete externo, debemos escribir en la
@@ -109,9 +109,9 @@ fn main() {
 ## Hora de escribir código
 
 Curiosamente, el ejemplo de cálculo de `pi` hace parte de la [documentacion del
-paquete rand][rand.mc], hay que decir que rust soporta programación
-_imperativa_ y también _declarativa_, ambos estilos tienen sus ventajas, esta
-sería la version _imperativa_ de este ejemplo:
+paquete rand][rand.mc]. Hay que decir que rust soporta programación
+_imperativa_ y también _declarativa_; ambos estilos tienen sus ventajas, ésta
+sería la versión _imperativa_ de este ejemplo:
 
 ```rust
 extern crate rand;
@@ -140,37 +140,37 @@ fn main() {
 
 Bien, un par de nociones sobre rust antes de continuar.
 
-* Rust es un lenguage con tipado estático y fuerte, sin embargo, su sintaxis
+* Rust es un lenguage con tipado estático y fuerte. Sin embargo su sintaxis
   estrícta permite que el compilador infiera los tipos de las variables en la
-  mayoría de los casos, por tanto `let between = Range::new(-1f64, 1.);`
-  podemos declarar variables de esta manera[^5].
-* Las variables en rust son inmutables por defecto, `let mut` permite modificar
+  mayoría de los casos. Por lo tanto podemos declarar variables sin decir
+  directamente el tipo[^5], como vemos en la línea`let between = Range::new(-1f64, 1.);`.
+* Las variables en rust son inmutables por defecto. `let mut` permite modificar
   este comportamiento, es decir nada de `const Type algo`. Esto permite al
   compilador realizar optimizaciones confiando en que en la mayoría del tiempo
   las variables van a permanecer inmutables.
-* La sentencia `for` en rust itera sobre elementos dentro de un iterador, esto
-  es similar al comportamiento de `for` en python, `(a..b)` es _syntactic
-  sugar_ para `Range(a, b)`, notese tambien que ni la sentencia `for` ni `if`
-  requieren parentesis al rededor, sin embargo los `{}` son obligatorios.
-* El identificador `_` por defecto descarta el objeto asignado, un
+* La sentencia `for` en rust itera sobre elementos dentro de un iterador,
+  similar al comportamiento de `for` en python. `(a..b)` es _syntactic
+  sugar_ para `Range(a, b)`. Nótese tambien que ni la sentencia `for` ni `if`
+  requieren paréntesis alrededor, aunque los `{}` son obligatorios.
+* El identificador `_` por defecto descarta el objeto asignado, y un
   identificador de la forma `_var` desactiva el checkeo del compilador sobre
   variables no usadas pero no descarta el objeto asignado.
-* Rust implementa _move semantics_ en (casi) todas las estructuras de datos,
-  esto quiere decir que una llamada `b.ind_sample(rng)` transferiría la
+* Rust implementa _move semantics_ en (casi) todas las estructuras de datos.
+  Esto quiere decir que una llamada `b.ind_sample(rng)` transferiría la
   pertenencia del recurso `rng` a la función `ind_sample` y el recurso sería
-  "eliminado" de la memoria una vez dicha función termine su _scope_, la
-  solución de rust para esto es realizar prestamos `&var` es un prestamo
-  inmutable del recurso `var` mientras que `&mut var` es un prestamo mutable
+  "eliminado" de la memoria una vez dicha función termine su _scope_. La
+  solución de rust para esto es realizar _préstamos_: `&var` es un préstamo
+  inmutable del recurso `var` mientras que `&mut var` es un préstamo mutable
   del recurso `var`[^6].
 * No hay _type cohersion_ en rust, y los operadores aritméticos no estan
-  sobre cargados para tipos diferentes, por tanto una instrucción como
-  `let x = 3f64 * 2i32;` es ilegal en rust y por ningún motivo va a compilar
-  por tanto, tipos incompatibles tienen que ser manualmente reinterpretados
+  sobrecargados para tipos diferentes, por tanto una instrucción como
+  `let x = 3f64 * 2i32;` es ilegal en rust y por ningún motivo va a compilar.
+  Así, tipos incompatibles tienen que ser manualmente reinterpretados
   usando `var as Type`.
 
-Bastantes conceptos para un programa tan corto, pero, siendo tan estrictas las
+Demasiados conceptos para un programa tan corto, pero, siendo tan estrictas las
 reglas, el compilador se va a encargar de recordar cada una a los nuevos
-programadores. Solo para referencia, demosle un vistazo a la forma
+programadores. Sólo para referencia, démosle un vistazo a la forma
 _declarativa_ del mismo programa:
 
 ```rust
@@ -190,8 +190,8 @@ fn main() {
 }
 ```
 
-En forma declarativa, le damos mas libertad al compilador de decidir como
-materializar nuestra intención, esto abre las puertas a obtener ganancias en
+En forma declarativa le damos mas libertad al compilador de decidir cómo
+materializar nuestra intención. Esto abre las puertas a obtener ganancias en
 rendimiento con mejoras en el compilador y sin cambios en el código.
 
 ## Compilación y distribución
@@ -224,17 +224,17 @@ cargo build --release --target=x86_64-unknown-linux-gnu
 ```
 
 Uno de los objetivos del equipo de rust es lograr _cross compilation_ con un
-comando, hay una muy buena [guía para cross compilation en rust][cross].
+comando. Hay una muy buena [guía para cross compilation en rust][cross].
 
 ## Concusión
 
 Rust es un lenguaje de programación promisorio, con un muy buen ecosistema pese
-a su juventud, las herramientas de desarrollo y decisiones del lenguaje, hacen
+a su juventud. Las herramientas de desarrollo disponibles y decisiones del lenguaje hacen
 de programar en rust una experiencia _ergonómica_. La compilación cruzada
 permite compilar programas complejos para correr de manera segura en ambientes
 heterogéneos como [open science grid][osg] sin mucha dificultad, incluso cuando
 la lista de dependencias es bastante larga. Finalmente las reglas estríctas del
-lenguaje, aunque hacen un poco frustrante el lenguaje al principio, hacen múcho
+lenguaje, aunque hacen un poco frustrante el lenguaje al principio, hacen mucho
 más facil producir código libre de bugs a programadores con diferentes niveles
 de experiencia.
 
