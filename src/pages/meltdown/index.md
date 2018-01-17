@@ -6,13 +6,13 @@ tags: [meltdown, exploit, arquitectura]
 
 Hace menos de una semana [se dieron a conocer](https://www.theregister.co.uk/2018/01/02/intel_cpu_design_flaw/) dos *bugs* muy grandes y ocultos que afectan a gran parte de los procesadores: *meltdown* y *spectre*.
 ¿Qué hace importante a estos exploits?
-Que sean **fundamentales**: no dependen de un sistema operativo o de un programa específico, sino que depende del procesador.
+Que sean **fundamentales**: no dependen de un sistema operativo o de un programa específico, sino que dependen del procesador.
 Incluso uno de ellos (*spectre*) funcionaría sobre prácticamente cualquier procesador moderno.
 
 En esta entrada vamos a analizar [`meltdown`](https://meltdownattack.com/meltdown.pdf), un bug que estuvo presente *en todos los procesadores Intel* desde hace 20 años y que asombra por su sencillez.
 Más allá del sistema operativo, `meltdown` permite leer datos sensibles de otros procesos o máquinas virtuales a una velocidad de 500 kb/s.
 
-Pero, para comprender como funciona `meltdown`, primero tenemos que repasar algunos detalles del funcionamiento del procesador.
+Pero, para comprender cómo funciona `meltdown`, primero tenemos que repasar algunos detalles del funcionamiento del procesador.
 
 ## Arquitectura del Procesador
 
@@ -80,7 +80,7 @@ Así, al intentar acceder a una posición de memoria prohibida (es decir, que no
 El objetivo de `meltdown` es obtener la información de **toda la memoria principal**, a pesar de que su acceso no está permitido.
 
 Con las características que describimos ya es suficiente para entender cómo funciona `meltdown`.
-**IMPORTANTE:** Por ahora, para simplificar un poco las cosas, por un rato supongamos que el comportamiento del *cache* es ligeramente distinto: cuando va a buscar un dato en la memoria principal, trae **sólo a ese dato** a la memoria cache.[^4]
+**IMPORTANTE:** por ahora, para simplificar un poco las cosas, por un rato supongamos que el comportamiento del *cache* es ligeramente distinto: cuando va a buscar un dato en la memoria principal, trae **sólo a ese dato** a la memoria cache.[^4]
 
 Como es de esperar, es de una sencillez que deslumbra.
 El objetivo es leer el byte que está guardado en una posición de memoria inaccesible a nuestro programa (esa posición de memoria la llamamos `mem`), situada en el espacio de memoria del *kernel*, que puede acceder a todas las posiciones de la memoria física.
@@ -152,7 +152,7 @@ La solución es entonces que trate de leer el valor guarado en `mem` siempre que
 Los resultados de `meltdown` son asombrosos: lee correctamente el 99.98% de la memoria prohibida a una velocidad de 500 kb/s.
 Funciona en todos los procesadores de Intel probados, pero no en los AMD.
 Esto se puede deber a varios motivos, como por ejemplo que en esas microarquitecturas el tamaño de los *buffers* utilizados para la ejecución fuera de orden sean muy pequeños y la excepción se dispare siempre antes de que se ejecuten las operaciones posteriores.
-Afortunadamente tiene una solución en el corto plazo llamada KAISER, que evita que, para el espacio de memoria del usuario, exista una posición de memoria que vaya al *kernel*.
+Afortunadamente *meltdown* tiene una solución en el corto plazo llamada KAISER, que evita que, para el espacio de memoria del usuario, exista una posición de memoria que vaya al *kernel*.
 A pesar de que la solución no es total y todavía deja algunas vulnerabilidades, mitiga bastante el efecto de `meltdown`.
 ¿El costo?
 Los programas podrían ser hasta un 30% más lentos.
@@ -178,4 +178,4 @@ Sin la necesidad de vulnerabilidades de software e independientemente del sistem
 
 [^7]: Visto de esta forma, podemos suponer que el cache imaginario que inventamos era para un sistema con un tamaño de página de 1 byte.
 
-[^8]: Esto es esperable porque hay que borrar cualquier información prohibida que se haya guardado en los registros
+[^8]: Esto es esperable porque hay que borrar cualquier información prohibida que se haya guardado en los registros.
