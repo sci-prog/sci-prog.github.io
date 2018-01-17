@@ -92,7 +92,7 @@ rand = "0.4.2"
 
 Al momento de construir el proyecto, `cargo` va a descargar la versión
 especificada de `rand` y dado que se trata de un proyecto binario, va a crear
-un archivo `Cargo.lock` con las firmas de cada paquete usado para ve12rificar que
+un archivo `Cargo.lock` con las firmas de cada paquete usado para verificar que
 el binario siempre se construya con la misma version de cada dependencia.
 
 Finalmente, ya que se trata de un paquete externo, debemos escribir en la
