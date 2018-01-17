@@ -232,7 +232,7 @@ cargo build --release --target=x86_64-unknown-linux-gnu
 Uno de los objetivos del equipo de rust es lograr _cross compilation_ con un
 comando. Hay una muy buena [guía para cross compilation en rust][cross].
 
-## Concusión
+## Conclusión
 
 Rust es un lenguaje de programación promisorio, con un muy buen ecosistema pese
 a su juventud. Las herramientas de desarrollo disponibles y decisiones del lenguaje hacen
