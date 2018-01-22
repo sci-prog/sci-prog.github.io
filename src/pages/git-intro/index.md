@@ -259,6 +259,7 @@ $ git checkout v1.0
 Con realmente **muy** pocos comandos logramos, utilizando `git`, reproducir de forma sencilla y cómoda para el usuario el comportamiento de Sistema de Control de Versiones casero que habíamos implementado.
 Pero estamos apenas arañando la superficie del verdadero poder de `git`.
 Todavía nos quedan descubrir dos aspectos muy importantes: las *branches* y la distribución de código.
+Eso lo dejamos para una siguiente entrega.
 
 
 
