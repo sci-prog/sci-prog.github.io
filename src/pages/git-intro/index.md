@@ -4,14 +4,14 @@ date: "2018-01-21T15:45:18-03:00"
 tags: [git, workflow]
 ---
 
-Una parte importante del trabajo de un científico es la comunicación y tractabilidad de su trabajo: es importante poder informar los resultados (e incluso el código fuente) a los colegas y poder identificar cuándo se agregaron ciertos cambios.
-Pero quizás lo más clave de todo esto es **hacerlo**, más allá de las herramientas.
+Una parte importante del trabajo de un científico es la comunicación y trazabilidad de su trabajo: es importante poder informar los resultados (y cómo se obtuvieron) a los colegas y poder identificar cuándo se agregaron ciertos cambios.
+Es decir, es importante **hacerlo** más allá de las herramientas escogidas.
 Por ejemplo, en el trabajo de un científico experimental es fundamental documentar todos los cambios e intentos que realizó en su experimento.
 Es, al fin y al cabo, la única forma que tiene para luego poder comunicarlos eficientemente: anotarlo en un cuaderno en vez de confiar en la memoria.
 
 Para el programador científico la realidad es exactamente la misma.
-Si tenemos un código que funciona y queremos agregarle una funcionalidad, lo más probable es que queramos también documentar en qué momento se agregó para, por ejemplo, las personas a las que les distribuimos el código.
-Insisto con que aquí lo importante es hacerlo y no la herramienta que, como siempre, tiene que ser la que mejor se ajuste al entorno de desarrollo.
+Si tenemos un código que funciona y queremos agregarle una nueva característica, lo más probable es que queramos también documentar en qué momento se agregó para, por ejemplo, las personas a las que les distribuimos el código.
+Insistimos con que, más allá de la herramienta que se utilice, es importante que demos trazabilidad a nuestro trabajo y poder comunicarlo.
 Sin embargo, las herramientas disponibles pueden hacer ese trabajo más sencillo.
 En este caso, las herramientas para tractabilidad y distribución del trabajo se llaman Sistemas de Control de Versiones.
 
