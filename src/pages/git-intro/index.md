@@ -4,62 +4,60 @@ date: "2018-01-21T15:45:18-03:00"
 tags: [git, workflow]
 ---
 
-Una parte importante del trabajo de un científico es la comunicación y trazabilidad de su trabajo: es importante poder informar los resultados (y cómo se obtuvieron) a los colegas y poder identificar cuándo se agregaron ciertos cambios.
-Es decir, es importante **hacerlo** más allá de las herramientas escogidas.
-Por ejemplo, en el trabajo de un científico experimental es fundamental documentar todos los cambios e intentos que realizó en su experimento.
-Es, al fin y al cabo, la única forma que tiene para luego poder comunicarlos eficientemente: anotarlo en un cuaderno en vez de confiar en la memoria.
+Una parte fundamental del trabajo de un científico es la comunicación: es importante poder informar a los colegas sobre los resultados de nuestras investigaciones y cómo se obtuvieron, como también cuándo se realizaron ciertos cambios en la metodología.
+La comunicación de los resultados es vital, más allá de las herramientas escogidas.
+Por ejemplo, en el trabajo de un científico experimental es fundamental documentar todos los intentos y las modificaciones que realizó en su experimento antes de obtener resultados, ya que ésta es, al fin y al cabo, la única forma que tiene para luego poder comunicarlos eficientemente: anotarlo en un cuaderno en vez de confiar en la memoria.
 
-Para el programador científico la realidad es exactamente la misma.
-Si tenemos un código que funciona y queremos agregarle una nueva característica, lo más probable es que queramos también documentar en qué momento se agregó para, por ejemplo, las personas a las que les distribuimos el código.
-Insistimos con que, más allá de la herramienta que se utilice, es importante que demos trazabilidad a nuestro trabajo y poder comunicarlo.
-Sin embargo, las herramientas disponibles pueden hacer ese trabajo más sencillo.
-En este caso, las herramientas para tractabilidad y distribución del trabajo se llaman Sistemas de Control de Versiones.
+Para nosotros, los programadores científicos, la realidad es exactamente la misma.
+Si tenemos un código que funciona y queremos agregarle una nueva característica, lo más probable es que queramos también documentar en qué momento se agregó para ser conscientes de cuál era el estado del programa cuando se obtuvieron los resultados que queremos comunicar.
+Nuevamente, como ya mencionamos, más allá de la herramienta que se utilice, es importante que demos trazabilidad a nuestro trabajo para poder repetirlo e identificar cuándo se pudo haber filtrado un error.
+Las herramientas disponibles para la trazabilidad y distribución del trabajo conocidas como de Control de Versiones, sí pueden hacer ese trabajo más sencillo.
 
 # ¿Qué es un Sistema de Control de Versiones?
 
-Supongamos que estamos desarrollando un programa que resuelve ecuaciones diferenciales numéricamente con varios métodos, que consta de un conjunto de archivos en una carpeta que se llama `ODESolver`, que originalmente resuelve ecuaciones diferenciales con el método de Euler.
+Supongamos que estamos desarrollando un programa que resuelve ecuaciones diferenciales numéricamente y que consta de un conjunto de archivos en una carpeta que se llama `ODESolver`, que originalmente resuelve ecuaciones diferenciales con el método de Euler.
 En un momento dado, decidimos que queremos agregar una función para calcular Runge-Kutta de orden 4.
 ¿Cómo lo hacemos?
 Una alternativa sería modificar directamente la carpeta en la que estamos trabajando, pero... ¿qué pasa si nos equivocamos y rompemos todo el código?
 ¿No nos gustaría poder volver a la versión original de `ODESolver` que sabíamos que funcionaba?
 
-Entonces se nos ocurre una solución: copiamos la carpeta `ODESolver` a una que se llame `ODESolver_nuevo` y desarrollamos en ésta.
-Si nos equivocamos y rompemos todo el código, podemos volver a copiar la carpeta que ya sabíamos que funcionaba.
-Inmediatamente después se nos ocurren algunas mejoras a este método casero.
-En general, la primera es que el nuevo nombre tenga algo relacionado con el desarrollo que hacemos, y llamar la carpeta `ODESolver_RK4`.
-La siguiente mejora es llamar la carpeta `ODESolver_2` a la carpeta nueva y crear un archivo de texto llamado, por ejemplo, `versiones.txt` (que sería el documento de los cambios) que diga sencillamente:
+Entonces se nos ocurre una solución: copiamos la carpeta `ODESolver` a una que se llame `ODESolver_nuevo` y desarrollamos en esta.
+Si nos equivocamos y rompemos todo el código, podemos volver a la carpeta original que ya sabíamos que funcionaba.
+Después podemos hacer algunas mejoras a este método casero.
+La primera puede ser que el nuevo nombre tenga algo relacionado con el desarrollo que hacemos; en el caso del ejemplo, `ODESolver_RK4`.
+Pero sería aún mejor si llamáramos a la nueva carpeta `ODESolver_2` y creáramos un archivo de texto llamado, por ejemplo, `versiones.txt` para registrar los cambios que diga sencillamente:
 
 ```
 1: Método de Euler
 2: Desarrollo de Runge-Kutta de orden 4
 ```
 
-Así, si queremos agregar más cambios sólo tenemos que seguir la numeración secuencial y podemos leer en el archivo de texto qué agrega cada versión.
+De esta manera, si queremos agregar más cambios sólo tenemos que seguir la numeración secuencial y así podemos leer en el archivo de texto qué agrega cada versión.
 Es más: cuando alguien quiere saber si la versión que usa tiene o no cierta funcionalidad, busca su versión en el archivo de texto y listo.
-Esto es, aunque casero y muy primitivo, un Sistema de Control de Versiones[^1].
+Lo que acabamos de describir es, aunque casero y muy primitivo, un Sistema de Control de Versiones[^1].
 Las deficiencias de este SCV son evidentes: ¿qué pasa si, ya en la versión 19 del programa, encontramos un error en una función que existía desde la versión 0?
 Tendríamos que ir versión por versión haciendo esa modificación.
 Podemos pensar soluciones para este problema, pero todo parece indicar que, ante problemas que siguen creciendo, la única solución es llamar a un [megazord](https://www.youtube.com/watch?v=7mQuHh1X4H4).
-Hay infinidad de herramientas, con distinto nivel de sofisticación, para ayudarnos a controlar las versiones de un software.
+Hay infinidad de herramientas, con distinto nivel de sofisticación, que permiten controlar las versiones de un software.
 En esta entrega (y, me animo a decir, en general en el blog) vamos a hablar de la más extendida de todas: [`git`](https://git-scm.com/).
 
 # Git: Una filosofía de trabajo
 
 La ventaja de usar las herramientas adecuadas para el objetivo que uno quiere lograr (en este caso controlar las versiones) es que, de alguna forma, *favorecen* (¡o a veces hasta imponen!) una filosofía de trabajo.
-En nuestro caso, con `git` vamos a lograr hacer de forma sencilla lo antes mencionado con nuestro SCV casero y un par de cosas más:
+Con `git` vamos a lograr hacer de forma sencilla lo antes mencionado con nuestro SCV casero y un par de cosas más:
 
-1. Backup de estados consistentes del proyecto
+1. Hacer backup de estados consistentes del proyecto
 2. Documentar cambios
-3. Seguimiento de los *bugs* a través de la historia del desarrollo
+3. Seguir los *bugs* a través de la historia del desarrollo
 4. Compartir cambios
-5. Distribuir el desarrollo para muchas personas
+5. Distribuir el desarrollo a muchas personas
 
-Pero para poder entender bien `git` tenemos que definir algunos conceptos que consideramos claves[^2]:
+Pero para poder entender bien cómo funciona `git` es necesario primero definir algunos conceptos claves[^2]:
 
 ## Estados
 
-Los estados son análogos a las carpetas en el ejemplo del CVS casero que hicimos antes.
-Es importante entender que es algo análogo y no exactamente lo mismo en cuanto a la función que cumplen, vamos a ver más adelante en detalle por qué.
+Los estados son análogos a las carpetas en el ejemplo del SCV casero que hicimos antes.
+Es importante entender que son algo análogo y no exactamente lo mismo en cuanto a la función que cumplen, veremos más adelante en detalle por qué.
 Cuando terminamos de trabajar en un estado y lo *consolidamos* (en nuestra analogía, sería decir que terminamos de desarrollar la funcionalidad que queríamos en la carpeta y, entonces, no modificamos más esa carpeta) lo llamamos *snapshot*.
 El *snapshot* actual se llama `HEAD`.
 
