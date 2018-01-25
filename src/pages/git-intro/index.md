@@ -15,6 +15,8 @@ Las herramientas disponibles para la trazabilidad y distribución del trabajo co
 
 # ¿Qué es un Sistema de Control de Versiones?
 
+![Sistema de Control de Versiones](scv_phdcomics.gif "Not final")
+
 Supongamos que estamos desarrollando un programa que resuelve ecuaciones diferenciales numéricamente y que consta de un conjunto de archivos en una carpeta que se llama `ODESolver`, que originalmente resuelve ecuaciones diferenciales con el método de Euler.
 En un momento dado, decidimos que queremos agregar una función para calcular Runge-Kutta de orden 4.
 ¿Cómo lo hacemos?
@@ -251,6 +253,9 @@ Y ahora podemos referirnos a ese commit usando el nombre del *tag*:
 ```
 $ git checkout v1.0
 ```
+
+Otro comentario muy relevante es que, a priori, con `git` podríamos realizar el seguimiento de todo tipo de archivos.
+Sin embargo, y esto es una regla general, los archivos que seguimos son los archivos *fuente* (por ejemplo el código o algún archivo de configuración), y no los archivos que se generan a través de la compilación o ejecución del programa.
 
 # Conclusión
 
