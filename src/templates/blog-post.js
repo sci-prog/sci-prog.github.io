@@ -30,8 +30,8 @@ class BlogPostTemplate extends React.Component {
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <div id='comments'>
           <ReactDisqusComments
-            shortname='sci-prog'
-            identifier={`${process.env.NODE_ENV}${postIdentifier}-1`}
+            shortname={process.env.DQ_SHORTNAME}
+            identifier={`${postIdentifier}-1`}
             title={post.frontmatter.title}
             url={postUrl}
           />
