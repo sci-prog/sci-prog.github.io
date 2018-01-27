@@ -1,5 +1,6 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+import ReactDisqusComments from 'react-disqus-comments'
 import get from 'lodash/get'
 
 import { rhythm, scale } from '../utils/typography'
@@ -8,6 +9,9 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
+    const siteUrl = get(this.props, 'data.site.siteMetadata.siteUrl')
+    const postUrl = `${siteUrl}${post.fields.slug}`
+    const postIdentifier = post.fields.slug.replace(/\//g, '')
 
     return (
       <div>
@@ -24,6 +28,14 @@ class BlogPostTemplate extends React.Component {
           {post.frontmatter.date}
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div id='comments'>
+          <ReactDisqusComments
+            shortname='sci-prog'
+            identifier={`${process.env.NODE_ENV}${postIdentifier}-1`}
+            title={post.frontmatter.title}
+            url={postUrl}
+          />
+        </div>
       </div>
     )
   }
@@ -36,6 +48,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        siteUrl
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
@@ -44,6 +57,9 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+      }
+      fields {
+        slug
       }
     }
   }
