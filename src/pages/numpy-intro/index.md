@@ -108,8 +108,8 @@ C = A @ B # [[12, 12], [24, 24]]
 
 ### Arreglos de forma aparentemente incongruente
 
-Numpy tiene una característica llamada [broadcasting]
-
+Numpy tiene una característica llamada [broadcasting], esta característica
+permite operar sobre arreglos de diferentes formas
 
 
 [broadcasting]: https://docs.scipy.org/doc/numpy-1.14.0/user/basics.broadcasting.html
