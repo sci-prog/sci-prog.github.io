@@ -36,8 +36,10 @@ print(matrix.shape) # (2,2)
 Numpy ofrece, herramientas un poco más avanzadas para crear arreglos, como:
 
 - Crear un arreglo lleno de unos (`1`) con un tamaño definido con `numpy.ones`
-- Crear un arreglo lleno de ceros (`0`) con un tamaño igual al de otro arreglo `numpy.zeros_like`
-- Crear un arreglo lleno de números aleatorios con distribución normal con un tamaño definido `numpy.random.normal`.
+- Crear un arreglo lleno de ceros (`0`) con un tamaño igual al de otro arreglo
+  `numpy.zeros_like`
+- Crear un arreglo lleno de números aleatorios con distribución normal con un
+  tamaño definido `numpy.random.normal`.
 
 Este es un simple subconjunto de todas las herramientas que ofrece numpy para
 crear arreglos, aquí ofrecemos algunos ejemplos.
@@ -71,7 +73,8 @@ un arreglo de cualquier forma `A` y un escalar `c`, algunas operaciones que
 se pueden realizar con numpy son:
 
 - `A + c`  suma a cada uno de los elementos del arreglo `A` la constante `c`.
-- `A - c`, `A * c`, `A / c` hacen cada operación con cada uno de los elementos del arreglo `A`.
+- `A - c`, `A * c`, `A / c` hacen cada operación con cada uno de los elementos
+  del arreglo `A`.
 
 ```python
 import numpy
@@ -109,7 +112,10 @@ C = A @ B # [[12, 12], [24, 24]]
 ### Arreglos de forma aparentemente incongruente
 
 Numpy tiene una característica llamada [broadcasting], esta característica
-permite operar sobre arreglos de diferentes formas
-
+permite operar sobre arreglos de diferentes formas y número de dimensiones las
+reglas para estas operaciones son bastante simples, sin embargo, debemos tener
+en cuenta que, vector tridimensional tiene forma: `(3,)` pero también se puede
+ver como una matríz de forma `(1,3)`, o como un cubo de datos de forma
+`(1,1,3)`.
 
 [broadcasting]: https://docs.scipy.org/doc/numpy-1.14.0/user/basics.broadcasting.html
