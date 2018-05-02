@@ -1,6 +1,6 @@
 ---
 title: "Introducción a numpy"
-date: "2018-04-29T15:45:18-03:00"
+date: "2018-05-01T22:30:18-03:00"
 tags: [python, numpy]
 ---
 
@@ -61,7 +61,7 @@ sería un arreglo de tres dimensiones, los arreglos *n*-dimensionales pueden
 tener más dimensiones pero a partir de tres dimensiones es un poco difícil de
 visualizar. Ahora el tamaño o forma de un arreglo es la cantidad de elementos
 en cada dimensión, por ejemplo un vector en 3 dimensiones tendrá una forma
-`(3,)`, una matriz de 2 por 2 tendrá forma `(2,2)`, las dimensiones también
+`(3,)`[^1], una matriz de 2 por 2 tendrá forma `(2,2)`, las dimensiones también
 se conocen como ejes, la primera dimensión de una matiz sería `axis=0`.
 
 ## Operaciones aritméticas
@@ -109,7 +109,7 @@ B = numpy.array([[3, 3], [4, 4], [5, 5]])
 C = A @ B # [[12, 12], [24, 24]]
 ```
 
-### Arreglos de forma aparentemente incongruente
+## Arreglos de forma aparentemente incongruente (Broadcasting)
 
 Numpy tiene una característica llamada [broadcasting], esta característica
 permite operar sobre arreglos de diferentes formas y número de dimensiones las
@@ -117,5 +117,149 @@ reglas para estas operaciones son bastante simples, sin embargo, debemos tener
 en cuenta que, vector tridimensional tiene forma: `(3,)` pero también se puede
 ver como una matríz de forma `(1,3)`, o como un cubo de datos de forma
 `(1,1,3)`.
+
+Por medio de _broadcasting_ se pueden realizar operaciones componente a
+componente sobre matrices si sus dimensiones (comparadas en de la última hacia
+atras) cumplen una de las siguientes condiciones:
+
+- Son iguales
+- Una de las dos es 1
+
+En este caso, dos arreglos de formas `(3,)` y `(4,)`, no se pueden operar,
+mientras que dos arreglos de la forma `(3,)` si se podrán operar (como es de
+esperarse). Pero estas reglas tienen la consecuencia de que dos arreglos de
+formas `(3,1)` y `(4,)` si se pueden operar porque comparando sus formas de
+derecha a izquierda encontramos que:
+
+- 1 y 4 no son iguales, pero uno de los dos es igual a 1
+- 3 y 1 (la forma `(4,)` puede ser vista como `(1,4)`) no son iguales, pero uno
+  de los dos es igual a 1.
+
+Ahora es tiempo de explorar como se pueden realizar estas operaciones cuando
+las dimensiones no son iguales, en este caso, el arreglo cuya dimension es 1 es
+extendido para ajustarse a la dimensión del otro arreglo, tomemos por ejemplo
+una matriz de zeros de forma `(3,4)` y un vector de forma `(4,)`:
+
+```python
+import numpy
+A = numpy.zeros((3, 4))
+B = numpy.array([1, 2, 3, 4])
+print(A + B)
+# [[1. 2. 3. 4.]
+#  [1. 2. 3. 4.]
+#  [1. 2. 3. 4.]]
+```
+
+De manera similar funcionaría nuestro ejemplo anterior en dos arreglos con
+formas `(3,1)` y `(4,)`,
+
+```python
+import numpy
+A = numpy.zeros((3, 1))
+B = numpy.array([1, 2, 3, 4])
+print(A + B)
+# [[1. 2. 3. 4.]
+#  [1. 2. 3. 4.]
+#  [1. 2. 3. 4.]]
+```
+
+## Otras funciones
+
+Numpy también ofrece una variedad de funciones especiales que aplican sobre
+cada uno de los elementos de un arreglo, por ejemplo:
+
+```python
+import numpy
+x = numpy.pi * numpy.array([0, 0.5, 1, 1.5, 2])
+print(numpy.sin(x))
+# [ 0.0000000e+00  1.0000000e+00  1.2246468e-16 -1.0000000e+00 -2.4492936e-16]
+print(numpy.round(numpy.sin(x), 2))
+# [ 0.  1.  0. -1. -0.]
+```
+
+En el paquete numpy directamente, se pueden encontrar las funciones matemáticas
+escenciales como `numpy.sin`, `numpy.cos`, `numpy.sqr`, `numpy.log`, mientras
+que en el paquete `scipy` se pueden encontrar funciones especiales como las
+funciones de Bezel.
+
+Otras funciones como `numpy.sum` y `numpy.prod` calculan la sumatoria o la
+productoria de una arreglo, estas reciben un eje o lista de ejes para calcular
+la reducción a lo largo de ellos. Por ejemplo, para calcular la norma de un
+vector procederíamos:
+
+```python
+import numpy
+x = numpy.array([1, 1, 1])
+print(numpy.sqrt(numpy.sum(x * x)))
+# 1.7320508075688772
+```
+
+Para esta operación hay un alias, la funcion `numpy.linalg.norm`, en el paquete
+`numpy.linalg` se pueden encontrar varias funciones relacionadas con álgebra
+lineal. Para calcular la norma de cada uno de los vectores en una matriz, se
+puede proceder[^2]:
+
+```python
+import numpy
+r = numpy.random.randint(10, size=(5, 3))
+print(r)
+# [[5 8 9]
+#  [0 3 2]
+#  [9 4 3]
+#  [6 9 8]
+#  [7 3 6]]
+print(numpy.linalg.norm(r, axis=1))
+# [13.03840481  3.60555128 10.29563014 13.45362405  9.69535971]
+```
+
+## Ejemplo: velocidad inicial de un sistema de partículas
+
+Para calcular la velocidad inicial de un sistema de partículas para una
+simulación de dinámica molecular, se asignan las velocidades como vectores cada
+uno con componentes aleatorias tomadas de una distribución normal. Si se suman
+los momentos de cada partícula en este caso, dado que las velocidades se
+tomaron de una distribución aleatoria, este podría ser un valor diferente de
+cero, el momentum lineal en una simulación de dinámica molecular no es deseable
+así que se debe anular restando la velocidad media de las partículas a cada
+una de las velocidades de las partículas, generemos como ejemplo este estado
+inicial:
+
+```python
+import numpy
+
+n = 100   # número de partículas
+k = 1     # factor que escala con la temperatura
+
+# usamos una función de creación
+v = k * numpy.random.normal(size=(n, 3))
+
+# calculamos la velocidad media de las partículas
+# usamos el parámetro axis
+mean_v = numpy.mean(v, axis=0)
+print(mean_v)
+# [-0.04088513  0.01260944  0.05857773]
+
+# restamos la media de la velocidad para eliminar el momentum lineal
+# aquí usamos broadcasting
+v = v - mean_v
+print(numpy.sum(v, axis=0))
+# [ 7.54951657e-15  4.10782519e-15 -7.77156117e-16]
+# aproximadamente [0 0 0], no hay momentum lineal
+```
+
+De esta manera generamos un vector con las velocidades iniciales de una
+simulación de dinámica molecular usando algunas herramientas básicas de numpy,
+notemos que con un poco más de broadcasting se podría eliminar el momentum
+angular para partículas de distintas masas. Notemos también que usando las
+posiciones y algunas líneas de código extra podríamos también eliminar el
+momentum angular.
+
+
+[^1]: La coma después del tamaño de un arreglo unidimensional es necesaria para
+      indicar que la forma sigue siendo una tupla.
+
+[^2]: En estos casos usualmente tengo que "adivinar" el parámetro `axis` que debo
+      pasar a la funcion en numpy, espero que sea más o menos claro el parámetro
+      para el lector.
 
 [broadcasting]: https://docs.scipy.org/doc/numpy-1.14.0/user/basics.broadcasting.html
