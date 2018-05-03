@@ -4,17 +4,17 @@ date: "2018-05-01T22:30:18-03:00"
 tags: [python, numpy]
 ---
 
-*Python es demasiado lento* es una de las razones para usar cualquier otro
-lenguaje cuando se trata de simulación y manipulación de datos, sin embargo
-Python es un excelente lenguaje para usar como **pegamento** para programas
-escritos en otros lenguajes, uno de los ejemplos mas poderosos del poder de
-Python como pegamento es la librería [NumPy] y en general todas las librerías
-del ecosistema [SciPy].  Estas librerías traen el poder de paquetes
-tradicionales muy fuertes como BLAS y LAPACK al servicio de programas en
-Python, dando como resultado un excelente balance entre el rendimiento de los
-lenguajes de bajo nivel y usabilidad de Python. En las presente introducción
-vamos a explorar las capacidades de la estructura de datos básica que nos
-ofrece NumPy `numpy.array`.
+Que *Python es demasiado lento* es una de las razones para usar cualquier otro
+lenguaje cuando se trata de simulación y manipulación de datos, no obstante
+Python es una herramienta excelente cunado se trata de unir programas escritos
+en otros lenguajes, uno de los ejemplos mas poderosos del poder de Python como
+pegamento es la librería [NumPy] y en general todas las librerías del
+ecosistema [SciPy].  Estas librerías traen el poder de paquetes tradicionales
+muy fuertes como BLAS y LAPACK al servicio de programas en Python, dando como
+resultado un excelente balance entre el rendimiento de los lenguajes de bajo
+nivel y usabilidad de Python. En las presente introducción vamos a explorar las
+capacidades de la estructura de datos básica que nos ofrece NumPy
+`numpy.array`.
 
 ## Tamaño y ejes
 
@@ -253,6 +253,13 @@ angular para partículas de distintas masas. Notemos también que usando las
 posiciones y algunas líneas de código extra podríamos también eliminar el
 _momentum_ angular.
 
+Esta entrada presenta solo un pequeño abrebocas de las capacidades de los
+arreglos de numpy, queremos invitar a los lectores a que exploren la
+herramienta, un buen punto de partida es la [documentación]. Además, en este
+documento nos enfocamos en la ergonomía y la forma de usar NumPy, pero cabe
+resaltar que cada una de las operaciones que se indican a lo largo de este
+documento se realizan por medio de librerías de bajo nivel como se indicó en la
+introducción.
 
 [^1]: La coma después del tamaño de un arreglo unidimensional es necesaria para
       indicar que la forma sigue siendo una tupla.
@@ -264,3 +271,4 @@ _momentum_ angular.
 [broadcasting]: https://docs.scipy.org/doc/numpy-1.14.0/user/basics.broadcasting.html
 [NumPy]: http://www.numpy.org/
 [SciPy]: https://www.scipy.org/
+[documentación]: https://docs.scipy.org/doc/
