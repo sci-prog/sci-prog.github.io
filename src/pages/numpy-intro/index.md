@@ -254,7 +254,7 @@ posiciones y algunas líneas de código extra podríamos también eliminar el
 _momentum_ angular.
 
 Esta entrada presenta solo un pequeño abrebocas de las capacidades de los
-arreglos de numpy, queremos invitar a los lectores a que exploren la
+arreglos de NumPy, queremos invitar a los lectores a que exploren la
 herramienta, un buen punto de partida es la [documentación]. Además, en este
 documento nos enfocamos en la ergonomía y la forma de usar NumPy, pero cabe
 resaltar que cada una de las operaciones que se indican a lo largo de este
