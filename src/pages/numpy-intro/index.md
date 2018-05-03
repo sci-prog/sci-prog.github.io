@@ -4,17 +4,16 @@ date: "2018-05-01T22:30:18-03:00"
 tags: [python, numpy]
 ---
 
-Que *Python es demasiado lento* es una de las razones para usar cualquier otro
+Que Python es demasiado lento es una de las razones para usar cualquier otro
 lenguaje cuando se trata de simulación y manipulación de datos, no obstante
-Python es una herramienta excelente cunado se trata de unir programas escritos
-en otros lenguajes, uno de los ejemplos mas poderosos del poder de Python como
-pegamento es la librería [NumPy] y en general todas las librerías del
-ecosistema [SciPy].  Estas librerías traen el poder de paquetes tradicionales
-muy fuertes como BLAS y LAPACK al servicio de programas en Python, dando como
-resultado un excelente balance entre el rendimiento de los lenguajes de bajo
-nivel y usabilidad de Python. En las presente introducción vamos a explorar las
-capacidades de la estructura de datos básica que nos ofrece NumPy
-`numpy.array`.
+Python es una herramienta excelente cuando se trata de unir programas escritos
+en otros lenguajes, ejemplo de esto son la librería NumPy y, en general, todas
+las librerías del ecosistema SciPy. Estas librerías ponen el poder de paquetes
+tradicionales muy fuertes como BLAS y LAPACK al servicio de programas en
+Python, lo que da como resultado un excelente balance entre el rendimiento de
+los lenguajes de bajo nivel y la usabilidad de Python. En la presente
+introducción vamos a explorar las capacidades de la estructura de datos básica
+que nos ofrece NumPy: `numpy.array`
 
 ## Tamaño y ejes
 
