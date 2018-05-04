@@ -18,9 +18,9 @@ que nos ofrece NumPy: `numpy.array`
 ## Tamaño y ejes
 
 Para estudiar el tamaño o forma _(size or shape)_ de un arreglo, estudiamos
-algunas de las funciones que nos ofrece NumPy para la creación de arreglos,
-empecemos con la más humilde 😅, construir un arreglo (o matriz) convirtiendo
-una lista de listas en una matriz:
+algunas de las funciones que nos ofrece NumPy para la creación de arreglos.
+Empecemos con la más humilde 😅, construir un arreglo convirtiendo una lista de
+listas en una matriz:
 
 ```python
 import numpy
@@ -33,9 +33,9 @@ print(matrix.shape) # (2,2)
 
 NumPy ofrece herramientas un poco más avanzadas para crear arreglos como:
 
-- Crear un arreglo lleno de unos (`1`) con un tamaño definido (`numpy.ones`)
+- Crear un arreglo lleno de unos (`1`) con un tamaño definido (`numpy.ones`).
 - Crear un arreglo lleno de ceros (`0`) con un tamaño igual al de otro arreglo
-  (`numpy.zeros_like`)
+  (`numpy.zeros_like`).
 - Crear un arreglo lleno de números aleatorios con distribución normal con un
   tamaño definido (`numpy.random.normal`).
 
@@ -107,7 +107,7 @@ B = numpy.array([[3, 3], [4, 4], [5, 5]])
 C = A @ B # [[12, 12], [24, 24]]
 ```
 
-## Arreglos de forma aparentemente incongruente (Broadcasting)
+## Arreglos de forma aparentemente incongruente (_Broadcasting_)
 
 NumPy tiene una característica llamada _[broadcasting]_, esta característica
 permite operar sobre arreglos de diferentes forma y número de dimensiones las
