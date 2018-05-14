@@ -9,6 +9,11 @@ module.exports = {
         handle: 'odarbelaeze',
         email: 'odarbelaeze@gmail.com',
         bio: 'Simple programador de Colombia',
+      },
+      palcain: {
+        handle: 'pabloalcain',
+        email: 'pabloalcain@somewhereovertherainbow.com',
+        bio: 'Simple físico de Argentina',
       }
     }
   },

@@ -2,6 +2,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import ReactDisqusComments from 'react-disqus-comments'
 import get from 'lodash/get'
+import AuthorBio from '../components/AuthorBio'
 
 import { rhythm, scale } from '../utils/typography'
 
@@ -27,6 +28,12 @@ class BlogPostTemplate extends React.Component {
         >
           {post.frontmatter.date}
         </p>
+        <AuthorBio
+          photo='https://avatars2.githubusercontent.com/u/6975120?s=400&v=4'
+          name='Pablo'
+          email='pablo@pablo.com'
+          bio='Simple programador de Argentina.'
+        />
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <div id='comments'>
           <ReactDisqusComments
