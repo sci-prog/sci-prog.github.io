@@ -2,6 +2,7 @@
 title: "Interacción entre C y Python: Parte I"
 date: "2017-11-19T02:45:18-03:00"
 tags: [python, ctypes, python-c]
+author: pabloalcain
 ---
 
 Se habla mucho de Python como un lenguaje para [pegar varios lenguajes distintos](https://www.google.com.ar/search?q=python+as+a+glue).

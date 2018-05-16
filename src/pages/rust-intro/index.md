@@ -2,6 +2,7 @@
 title: "Una ligera introducción a Rust"
 date: "2018-01-14T15:00:01-05:00"
 tags: [rust, hpc]
+author: odarbelaeze
 ---
 
 [Rust][rust] es un nuevo lenguaje de programación para sistemas de bajo nivel y,

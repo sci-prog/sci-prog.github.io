@@ -1,6 +1,7 @@
 ---
 title: Guía para contribuir
 date: "2017-11-14T03:14:18+00:00"
+author: odarbelaeze
 ---
 
 Hay varias formas de contribuir a la construcción de este blog, eso va a

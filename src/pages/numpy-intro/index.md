@@ -2,6 +2,7 @@
 title: "Introducción a NumPy"
 date: "2018-05-01T22:30:18-03:00"
 tags: [python, numpy]
+author: odarbelaeze
 ---
 
 Que Python es demasiado lento es una de las razones para usar cualquier otro

@@ -5,11 +5,6 @@ import get from 'lodash/get'
 
 import { rhythm, scale } from '../utils/typography'
 
-import fontawesome from '@fortawesome/fontawesome'
-import brands from '@fortawesome/fontawesome-free-brands'
-fontawesome.library.add(brands)
-
-
 import "prismjs/themes/prism.css";
 
 

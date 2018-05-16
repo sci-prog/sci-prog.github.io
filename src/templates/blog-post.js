@@ -13,6 +13,12 @@ class BlogPostTemplate extends React.Component {
     const siteUrl = get(this.props, 'data.site.siteMetadata.siteUrl')
     const postUrl = `${siteUrl}${post.fields.slug}`
     const postIdentifier = post.fields.slug.replace(/\//g, '')
+    const authors = get(this.props, 'data.site.siteMetadata.authors')
+    const author = authors.find(
+      author => author.github === post.frontmatter.author
+    )
+
+    console.log(authors)
 
     return (
       <div>
@@ -28,12 +34,14 @@ class BlogPostTemplate extends React.Component {
         >
           {post.frontmatter.date}
         </p>
-        <AuthorBio
-          photo='https://avatars2.githubusercontent.com/u/6975120?s=400&v=4'
-          name='Pablo Alcain'
-          github='pabloalcain'
-          bio='Simple programador de Argentina.'
-        />
+        {author && (
+          <AuthorBio
+            photo={author.photo}
+            name={author.name}
+            github={author.github}
+            bio={author.bio}
+          />
+        )}
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <div id='comments'>
           <ReactDisqusComments
@@ -56,6 +64,12 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         siteUrl
+        authors {
+          name
+          photo
+          github
+          bio
+        }
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
@@ -64,6 +78,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        author
       }
       fields {
         slug

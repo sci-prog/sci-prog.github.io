@@ -5,6 +5,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import github from '@fortawesome/fontawesome-free-brands/faGithub'
 import './AuthorBio.css'
 
 
@@ -22,7 +23,7 @@ class AuthorBio extends Component {
           <p>{this.props.bio}</p>
           <small>
             <a href={`https://github.com/${this.props.github}`} target='_blank'>
-              <FontAwesomeIcon icon={['fab', 'github']} /> {this.props.github}
+              <FontAwesomeIcon icon={github} /> {this.props.github}
             </a>
           </small>
         </div>
