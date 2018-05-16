@@ -34,14 +34,7 @@ class BlogPostTemplate extends React.Component {
         >
           {post.frontmatter.date}
         </p>
-        {author && (
-          <AuthorBio
-            photo={author.photo}
-            name={author.name}
-            github={author.github}
-            bio={author.bio}
-          />
-        )}
+        {author && <AuthorBio {...author} />}
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <div id='comments'>
           <ReactDisqusComments
