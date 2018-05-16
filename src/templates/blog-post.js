@@ -30,8 +30,8 @@ class BlogPostTemplate extends React.Component {
         </p>
         <AuthorBio
           photo='https://avatars2.githubusercontent.com/u/6975120?s=400&v=4'
-          name='Pablo'
-          email='pablo@pablo.com'
+          name='Pablo Alcain'
+          github='pabloalcain'
           bio='Simple programador de Argentina.'
         />
         <div dangerouslySetInnerHTML={{ __html: post.html }} />

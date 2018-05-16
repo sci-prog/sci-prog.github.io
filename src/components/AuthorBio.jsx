@@ -4,6 +4,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import './AuthorBio.css'
 
 
@@ -19,7 +20,11 @@ class AuthorBio extends Component {
         <div className='author-bio-details'>
           <strong>{this.props.name}</strong>
           <p>{this.props.bio}</p>
-          <small>{this.props.email}</small>
+          <small>
+            <a href={`https://github.com/${this.props.github}`} target='_blank'>
+              <FontAwesomeIcon icon={['fab', 'github']} /> {this.props.github}
+            </a>
+          </small>
         </div>
       </div>
     )
@@ -29,7 +34,7 @@ class AuthorBio extends Component {
 
 AuthorBio.propTypes = {
   name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
+  github: PropTypes.string.isRequired,
   photo: PropTypes.string.isRequired,
   bio: PropTypes.string.isRequired,
 }
