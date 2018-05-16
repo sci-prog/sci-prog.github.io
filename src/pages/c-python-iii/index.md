@@ -2,6 +2,7 @@
 title: "Interacción entre C y Python: Parte III - Uso avanzado de ctypes"
 date: "2017-11-19T19:36:38-03:00"
 tags: [python, ctypes, python-c]
+author: pabloalcain
 ---
 
 Vamos a discutir ahora una forma completamente pythonica de comunicar C y Python y hacer que el resultado final sea completamente orientado a objetos.

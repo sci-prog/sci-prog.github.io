@@ -2,6 +2,7 @@
 title: "Interacción entre C y Python: Parte II - ctypes"
 date: "2017-11-19T15:23:38-03:00"
 tags: [python, ctypes, python-c]
+author: pabloalcain
 ---
 
 Discutimos [previamente](/c-python-i/) acerca de la validez de [ctypes](https://docs.python.org/2/library/ctypes.html) para acelerar código de Python.
@@ -65,7 +66,7 @@ Construimos la librería dinámica con
 ```
 $ gcc -c -fPIC arrays.c
 $ gcc -c -fPIC add_two.c
-$ gcc -shared arrays.o add_two.o -o libmymath.so 
+$ gcc -shared arrays.o add_two.o -o libmymath.so
 ```
 
 Y chequeamos que la librería efectivamente tenga todos los símbolos definidos

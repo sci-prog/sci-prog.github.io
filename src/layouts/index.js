@@ -5,7 +5,8 @@ import get from 'lodash/get'
 
 import { rhythm, scale } from '../utils/typography'
 
-require('prismjs/themes/prism.css')
+import "prismjs/themes/prism.css";
+
 
 /**
  * TODO: Add this somewhere

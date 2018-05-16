@@ -4,17 +4,22 @@ module.exports = {
     description: 'Un blog de programación científica enfocado en high performance computing',
     siteUrl: 'https://sci-prog.github.io',
     repo: 'https://github.com/sci-prog/sci-prog.github.io',
-    authors: {
-      odarbelaeze: {
-        handle: 'odarbelaeze',
-        email: 'odarbelaeze@gmail.com',
+    authors: [{
+        name: 'Oscar Arbelaez',
+        photo: 'https://avatars1.githubusercontent.com/u/1621518?s=460&v=4',
+        github: 'odarbelaeze',
         bio: 'Simple programador de Colombia',
+      },
+      {
+        name: 'Pablo Alcain',
+        photo: 'https://avatars2.githubusercontent.com/u/6975120?s=400&v=4',
+        github: 'pabloalcain',
+        bio: 'Simple físico de Argentina',
       }
-    }
+    ]
   },
   pathPrefix: '/',
-  plugins: [
-    {
+  plugins: [{
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/src/pages`,
@@ -24,8 +29,7 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
-        plugins: [
-          {
+        plugins: [{
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 590,
@@ -67,3 +71,4 @@ module.exports = {
     },
   ],
 }
+

@@ -2,6 +2,7 @@
 title: "Introducción a git"
 date: "2018-01-21T15:45:18-03:00"
 tags: [git, workflow]
+author: pabloalcain
 ---
 
 Una parte fundamental del trabajo de un científico es la comunicación: es importante poder informar a los colegas sobre los resultados de nuestras investigaciones y cómo se obtuvieron, como también cuándo se realizaron ciertos cambios en la metodología.
