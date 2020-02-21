@@ -2,7 +2,7 @@
 title: "Meltdown: Una explicación técnica y sencilla"
 date: "2018-01-08T03:36:38-03:00"
 tags: [meltdown, exploit, arquitectura]
-author: odarbelaeze
+author: pabloalcain
 ---
 
 Hace menos de una semana [se dieron a conocer](https://www.theregister.co.uk/2018/01/02/intel_cpu_design_flaw/) dos *bugs* muy grandes y ocultos que afectan a gran parte de los procesadores: *meltdown* y *spectre*.
