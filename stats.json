@@ -1,0 +1,72 @@
+{
+  "assetsByChunkName": {
+    "path---numpy-intro": [
+      "path---numpy-intro-a13a2c6d4a0dab30ede9.js",
+      "path---numpy-intro-a13a2c6d4a0dab30ede9.js.map"
+    ],
+    "component---src-pages-index-js": [
+      "component---src-pages-index-js-25bb7c6115f3c46893ef.js",
+      "component---src-pages-index-js-25bb7c6115f3c46893ef.js.map"
+    ],
+    "path---": [
+      "path----557518bd178906f8d58a.js",
+      "path----557518bd178906f8d58a.js.map"
+    ],
+    "path---rust-intro": [
+      "path---rust-intro-ad1fe339552b33448e27.js",
+      "path---rust-intro-ad1fe339552b33448e27.js.map"
+    ],
+    "component---node-modules-gatsby-plugin-offline-app-shell-js": [
+      "component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js",
+      "component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js.map"
+    ],
+    "component---src-templates-blog-post-js": [
+      "component---src-templates-blog-post-js-27856d6eb5844d506e82.js",
+      "component---src-templates-blog-post-js-27856d6eb5844d506e82.js.map"
+    ],
+    "path---meltdown": [
+      "path---meltdown-36ea1df735d2937b866a.js",
+      "path---meltdown-36ea1df735d2937b866a.js.map"
+    ],
+    "component---src-layouts-index-js": [
+      "component---src-layouts-index-js-65ee3ce0b05326dad154.js",
+      "component---src-layouts-index-js-65ee3ce0b05326dad154.js.map"
+    ],
+    "path---index": [
+      "path---index-4631b2c8316e3b823940.js",
+      "path---index-4631b2c8316e3b823940.js.map"
+    ],
+    "commons": [
+      "commons-3cf304937523a964e309.js",
+      "build-js-styles.css",
+      "commons-3cf304937523a964e309.js.map",
+      "build-js-styles.css.map"
+    ],
+    "path---git-intro": [
+      "path---git-intro-90e1d0ec2c49c52a8c0d.js",
+      "path---git-intro-90e1d0ec2c49c52a8c0d.js.map"
+    ],
+    "path---offline-plugin-app-shell-fallback": [
+      "path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js",
+      "path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js.map"
+    ],
+    "app": [
+      "app-5204eebb1ac2e4e0fdd9.js",
+      "build-js-styles.css",
+      "app-5204eebb1ac2e4e0fdd9.js.map",
+      "build-js-styles.css.map"
+    ],
+    "path---contributor-guide": [
+      "path---contributor-guide-44efdbe6307dd8285123.js",
+      "path---contributor-guide-44efdbe6307dd8285123.js.map"
+    ],
+    "component---src-pages-about-js": [
+      "component---src-pages-about-js-df9cc190a4929654e9cf.js",
+      "component---src-pages-about-js-df9cc190a4929654e9cf.js.map"
+    ],
+    "path---about": [
+      "path---about-44b11b110605667000db.js",
+      "path---about-44b11b110605667000db.js.map"
+    ]
+  }
+}

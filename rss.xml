@@ -1,0 +1,947 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Scientific Programming Blog]]></title><description><![CDATA[Un blog de programación científica enfocado en high performance computing]]></description><link>https://sci-prog.github.io</link><generator>RSS for Node</generator><lastBuildDate>Tue, 18 Aug 2020 16:57:18 GMT</lastBuildDate><item><title><![CDATA[Introducción a NumPy]]></title><description><![CDATA[Que Python es demasiado lento es una de las razones para usar cualquier otro
+lenguaje cuando se trata de simulación y manipulación de datos…]]></description><link>https://sci-prog.github.io/numpy-intro/</link><guid isPermaLink="false">https://sci-prog.github.io/numpy-intro/</guid><pubDate>Wed, 02 May 2018 01:30:18 GMT</pubDate><content:encoded>&lt;p&gt;Que Python es demasiado lento es una de las razones para usar cualquier otro
+lenguaje cuando se trata de simulación y manipulación de datos, no obstante
+Python es una herramienta excelente cuando se trata de unir programas escritos
+en otros lenguajes, ejemplo de esto son la librería NumPy y, en general, todas
+las librerías del ecosistema SciPy. Estas librerías ponen el poder de paquetes
+tradicionales muy fuertes como BLAS y LAPACK al servicio de programas en
+Python, lo que da como resultado un excelente balance entre el rendimiento de
+los lenguajes de bajo nivel y la usabilidad de Python. En la presente
+introducción vamos a explorar las capacidades de la estructura de datos básica
+que nos ofrece NumPy: &lt;code&gt;numpy.array&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;Tamaño y ejes&lt;/h2&gt;
+&lt;p&gt;Para estudiar el tamaño o forma &lt;em&gt;(size or shape)&lt;/em&gt; de un arreglo, estudiamos
+algunas de las funciones que nos ofrece NumPy para la creación de arreglos.
+Empecemos con la más humilde 😅, construir un arreglo convirtiendo una lista de
+listas en una matriz:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; numpy
+matrix &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;array&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;matrix&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;shape&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# (2,2)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;NumPy ofrece herramientas un poco más avanzadas para crear arreglos como:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Crear un arreglo lleno de unos (&lt;code&gt;1&lt;/code&gt;) con un tamaño definido (&lt;code&gt;numpy.ones&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Crear un arreglo lleno de ceros (&lt;code&gt;0&lt;/code&gt;) con un tamaño igual al de otro arreglo
+(&lt;code&gt;numpy.zeros_like&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;Crear un arreglo lleno de números aleatorios con distribución normal con un
+tamaño definido (&lt;code&gt;numpy.random.normal&lt;/code&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Este es un simple subconjunto de todas las herramientas que ofrece NumPy para
+crear arreglos, aquí ofrecemos algunos ejemplos.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; numpy
+ones &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;ones&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ones&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;shape&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# (10,)&lt;/span&gt;
+zeros &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;zeros_like&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;ones&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;zeros&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;shape&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# (10,)&lt;/span&gt;
+speed &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;random&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;normal&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;size&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;speed&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;shape&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;# (10,2)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Ahora, el tema que nos atañe es el tamaño o forma y los ejes, pues bien, los
+arreglos de NumPy son arreglos &lt;em&gt;n&lt;/em&gt;-dimensionales, un arreglo de una dimensión
+es un vector, un arreglo de dos dimensiones es una matriz y un cubo de datos
+sería un arreglo de tres dimensiones, los arreglos &lt;em&gt;n&lt;/em&gt;-dimensionales pueden
+tener más dimensiones, pero a partir de tres dimensiones es un poco difícil de
+visualizar. Ahora el tamaño o forma de un arreglo es la cantidad de elementos
+en cada dimensión, por ejemplo un vector en 3 dimensiones tendrá una forma
+&lt;code&gt;(3,)&lt;/code&gt;&lt;sup id=&quot;fnref-1&quot;&gt;&lt;a href=&quot;#fn-1&quot; class=&quot;footnote-ref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, una matriz de 2 por 2 tendrá forma &lt;code&gt;(2,2)&lt;/code&gt;, las dimensiones también
+se conocen como ejes, la primera dimensión de una matiz sería &lt;code&gt;axis=0&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Operaciones aritméticas&lt;/h2&gt;
+&lt;h3&gt;Arreglo con escalar&lt;/h3&gt;
+&lt;p&gt;Una vez creados los arreglos estos pueden ser operados con escalares. Siendo
+un arreglo de cualquier forma &lt;code&gt;A&lt;/code&gt; y un escalar &lt;code&gt;c&lt;/code&gt;, algunas operaciones que
+se pueden realizar con NumPy son:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;A + c&lt;/code&gt;  suma a cada uno de los elementos del arreglo &lt;code&gt;A&lt;/code&gt; la constante &lt;code&gt;c&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;A - c&lt;/code&gt;, &lt;code&gt;A * c&lt;/code&gt;, &lt;code&gt;A / c&lt;/code&gt; hacen cada operación con cada uno de los elementos
+del arreglo &lt;code&gt;A&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; numpy
+A &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;array&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+c &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;
+D &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; A &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; c &lt;span class=&quot;token comment&quot;&gt;# [2, 3, 4]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h3&gt;Arreglos de forma congruente&lt;/h3&gt;
+&lt;p&gt;Las operaciones aritméticas entre arreglos de forma congruente son, en general,
+elemento a elemento, si tenemos arreglos de la misma forma &lt;code&gt;A&lt;/code&gt; y &lt;code&gt;B&lt;/code&gt; se pueden
+efectuar las operaciones &lt;code&gt;A + B&lt;/code&gt;, &lt;code&gt;A - B&lt;/code&gt;, &lt;code&gt;A * B&lt;/code&gt; y &lt;code&gt;A / B&lt;/code&gt;,&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt;  numpy
+A &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;array&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+B &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;array&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+C &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; A &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; B &lt;span class=&quot;token comment&quot;&gt;# [2, 4]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Python recientemente ha introducido un operador para multiplicación de
+matrices, por ejemplo, si tenemos una matriz &lt;code&gt;A&lt;/code&gt; de forma &lt;code&gt;(2, 3)&lt;/code&gt; y una matriz
+&lt;code&gt;B&lt;/code&gt; de forma &lt;code&gt;(3, 2)&lt;/code&gt;, entonces el producto entre matices &lt;code&gt;C&lt;/code&gt; se escribiría en
+Python &lt;code&gt;C = A @ B&lt;/code&gt; y tendría forma &lt;code&gt;(2, 2)&lt;/code&gt; por otra parte otro producto entre
+matrices &lt;code&gt;D = B @ A&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; numpy
+A &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;array&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+B &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;array&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+C &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; A @ B &lt;span class=&quot;token comment&quot;&gt;# [[12, 12], [24, 24]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Arreglos de forma aparentemente incongruente (&lt;em&gt;Broadcasting&lt;/em&gt;)&lt;/h2&gt;
+&lt;p&gt;NumPy tiene una característica llamada &lt;em&gt;&lt;a href=&quot;https://docs.scipy.org/doc/numpy-1.14.0/user/basics.broadcasting.html&quot;&gt;broadcasting&lt;/a&gt;&lt;/em&gt;, esta característica
+permite operar sobre arreglos de diferentes forma y número de dimensiones las
+reglas para estas operaciones son bastante simples, sin embargo, debemos tener
+en cuenta que un vector tridimensional tiene forma: &lt;code&gt;(3,)&lt;/code&gt; pero también se
+puede ver como una matriz de forma &lt;code&gt;(1,3)&lt;/code&gt;, o como un cubo de datos de forma
+&lt;code&gt;(1,1,3)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Por medio del &lt;em&gt;broadcasting&lt;/em&gt; se pueden realizar operaciones componente a
+componente sobre matrices si sus dimensiones, comparadas de la última hacia
+atras, cumplen una de las siguientes condiciones:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Son iguales&lt;/li&gt;
+&lt;li&gt;Una de las dos es 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;En este caso, dos arreglos de formas &lt;code&gt;(3,)&lt;/code&gt; y &lt;code&gt;(4,)&lt;/code&gt;, no se pueden operar,
+mientras que dos arreglos de la forma &lt;code&gt;(3,)&lt;/code&gt; sí se podrán operar (como es de
+esperarse). Pero estas reglas tienen la consecuencia de que dos arreglos de
+formas &lt;code&gt;(3,1)&lt;/code&gt; y &lt;code&gt;(4,)&lt;/code&gt; sí se pueden operar porque comparando sus formas de
+derecha a izquierda encontramos que:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1 y 4 no son iguales, pero uno de los dos es igual a 1.&lt;/li&gt;
+&lt;li&gt;3 y 1 (la forma &lt;code&gt;(4,)&lt;/code&gt; puede ser vista como &lt;code&gt;(1,4)&lt;/code&gt;) no son iguales, pero uno
+de los dos es igual a 1.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Exploremos cómo se pueden realizar estas operaciones cuando las dimensiones no
+son iguales, en este caso, el arreglo cuya dimension es 1 es extendido para
+ajustarse a la dimensión del otro arreglo, tomemos por ejemplo una matriz de
+ceros de forma &lt;code&gt;(3,4)&lt;/code&gt; y un vector de forma &lt;code&gt;(4,)&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; numpy
+A &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;zeros&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+B &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;array&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;A &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; B&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# [[1. 2. 3. 4.]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;#  [1. 2. 3. 4.]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;#  [1. 2. 3. 4.]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;De manera similar funcionaría nuestro ejemplo sobre dos arreglos con formas
+&lt;code&gt;(3,1)&lt;/code&gt; y &lt;code&gt;(4,)&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; numpy
+A &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;zeros&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+B &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;array&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;A &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; B&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# [[1. 2. 3. 4.]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;#  [1. 2. 3. 4.]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;#  [1. 2. 3. 4.]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Otras funciones&lt;/h2&gt;
+&lt;p&gt;NumPy también ofrece una variedad de funciones especiales que se pueden aplicar
+sobre cada uno de los elementos de un arreglo, por ejemplo:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; numpy
+x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;pi &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;array&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;sin&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# [ 0.0000000e+00  1.0000000e+00  1.2246468e-16 -1.0000000e+00 -2.4492936e-16]&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;sin&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# [ 0.  1.  0. -1. -0.]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;En el paquete NumPy directamente, se pueden encontrar las funciones matemáticas
+esenciales como &lt;code&gt;numpy.sin&lt;/code&gt;, &lt;code&gt;numpy.cos&lt;/code&gt;, &lt;code&gt;numpy.sqr&lt;/code&gt;, &lt;code&gt;numpy.log&lt;/code&gt;, mientras
+que en el paquete SciPy se pueden encontrar funciones especiales como las
+funciones de Bezel.&lt;/p&gt;
+&lt;p&gt;Otras funciones como &lt;code&gt;numpy.sum&lt;/code&gt; y &lt;code&gt;numpy.prod&lt;/code&gt; calculan la sumatoria o la
+productoria de una arreglo, estas reciben un eje o una lista de ejes para
+calcular la reducción a lo largo de ellos. Por ejemplo, para calcular la norma
+de un vector procederíamos:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; numpy
+x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;array&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;sqrt&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; x&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# 1.7320508075688772&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Para esta operación hay un alias, la funcion &lt;code&gt;numpy.linalg.norm&lt;/code&gt;. En el paquete
+&lt;code&gt;numpy.linalg&lt;/code&gt; se pueden encontrar varias funciones relacionadas con álgebra
+lineal. Para calcular la norma de cada uno de los vectores en una matriz, se
+puede proceder&lt;sup id=&quot;fnref-2&quot;&gt;&lt;a href=&quot;#fn-2&quot; class=&quot;footnote-ref&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; numpy
+r &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;random&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;randint&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; size&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;r&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# [[5 8 9]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;#  [0 3 2]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;#  [9 4 3]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;#  [6 9 8]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;#  [7 3 6]]&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;linalg&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;norm&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;r&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; axis&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# [13.03840481  3.60555128 10.29563014 13.45362405  9.69535971]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Ejemplo: Velocidad inicial de un sistema de partículas&lt;/h2&gt;
+&lt;p&gt;Para calcular la velocidad inicial de un sistema de partículas para una
+simulación de dinámica molecular se asignan las velocidades como vectores cada
+uno con componentes aleatorias tomadas de una distribución normal. Si se suman
+los momentos de cada partícula, en este caso, dado que las velocidades se
+tomaron de una distribución aleatoria, el resultado podría ser un valor
+diferente de cero, el &lt;em&gt;momentum&lt;/em&gt; lineal en una simulación de dinámica molecular
+no es deseable así que se debe anular restando la velocidad media de las
+partículas a cada una de las velocidades de las partículas, generemos como
+ejemplo este estado inicial:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-python&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;import&lt;/span&gt; numpy
+
+n &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;100&lt;/span&gt;   &lt;span class=&quot;token comment&quot;&gt;# número de partículas&lt;/span&gt;
+k &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;     &lt;span class=&quot;token comment&quot;&gt;# factor que escala con la temperatura&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# usamos una función de creación&lt;/span&gt;
+v &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; k &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;random&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;normal&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;size&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# calculamos la velocidad media de las partículas&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# usamos el parámetro axis&lt;/span&gt;
+mean_v &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;mean&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;v&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; axis&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;mean_v&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# [-0.04088513  0.01260944  0.05857773]&lt;/span&gt;
+
+&lt;span class=&quot;token comment&quot;&gt;# restamos la media de la velocidad para eliminar el momentum lineal&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# aquí usamos broadcasting&lt;/span&gt;
+v &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; v &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; mean_v
+&lt;span class=&quot;token keyword&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;numpy&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token builtin&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;v&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; axis&lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# [ 7.54951657e-15  4.10782519e-15 -7.77156117e-16]&lt;/span&gt;
+&lt;span class=&quot;token comment&quot;&gt;# aproximadamente [0 0 0], no hay momentum lineal&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;De esta manera generamos un vector con las velocidades iniciales de una
+simulación de dinámica molecular usando algunas herramientas básicas de NumPy,
+notemos que con un poco más de &lt;em&gt;broadcasting&lt;/em&gt; se podría eliminar el &lt;em&gt;momentum&lt;/em&gt;
+angular para partículas de distintas masas. Notemos también que usando las
+posiciones y algunas líneas de código extra podríamos también eliminar el
+&lt;em&gt;momentum&lt;/em&gt; angular.&lt;/p&gt;
+&lt;p&gt;Esta entrada presenta solo un pequeño abrebocas de las capacidades de los
+arreglos de NumPy, queremos invitar a los lectores a que exploren la
+herramienta, un buen punto de partida es la &lt;a href=&quot;https://docs.scipy.org/doc/&quot;&gt;documentación&lt;/a&gt;. Además, en este
+documento nos enfocamos en la ergonomía y la forma de usar NumPy, pero cabe
+resaltar que cada una de las operaciones que se indican a lo largo de este
+documento se realizan por medio de librerías de bajo nivel como se indicó en la
+introducción.&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&quot;fn-1&quot;&gt;
+&lt;p&gt;La coma después del tamaño de un arreglo unidimensional es necesaria para
+indicar que la forma sigue siendo una tupla.&lt;/p&gt;
+&lt;a href=&quot;#fnref-1&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-2&quot;&gt;
+&lt;p&gt;En estos casos usualmente tengo que “adivinar” el parámetro &lt;code&gt;axis&lt;/code&gt; que debo
+pasar a la funcion en NumPy, espero que sea más o menos claro el parámetro
+para el lector.&lt;/p&gt;
+&lt;a href=&quot;#fnref-2&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Introducción a git]]></title><description><![CDATA[Una parte fundamental del trabajo de un científico es la comunicación: es importante poder informar a los colegas sobre los resultados de…]]></description><link>https://sci-prog.github.io/git-intro/</link><guid isPermaLink="false">https://sci-prog.github.io/git-intro/</guid><pubDate>Sun, 21 Jan 2018 18:45:18 GMT</pubDate><content:encoded>&lt;p&gt;Una parte fundamental del trabajo de un científico es la comunicación: es importante poder informar a los colegas sobre los resultados de nuestras investigaciones y cómo se obtuvieron, como también cuándo se realizaron ciertos cambios en la metodología.
+La comunicación de los resultados es vital, más allá de las herramientas escogidas.
+Por ejemplo, en el trabajo de un científico experimental es fundamental documentar todos los intentos y las modificaciones que realizó en su experimento antes de obtener resultados, ya que ésta es, al fin y al cabo, la única forma que tiene para luego poder comunicarlos eficientemente: anotarlo en un cuaderno en vez de confiar en la memoria.&lt;/p&gt;
+&lt;p&gt;Para nosotros, los programadores científicos, la realidad es exactamente la misma.
+Si tenemos un código que funciona y queremos agregarle una nueva característica, lo más probable es que queramos también documentar en qué momento se agregó para ser conscientes de cuál era el estado del programa cuando se obtuvieron los resultados que queremos comunicar.
+Nuevamente, como ya mencionamos, más allá de la herramienta que se utilice, es importante que demos trazabilidad a nuestro trabajo para poder repetirlo e identificar cuándo se pudo haber filtrado un error.
+Las herramientas disponibles para la trazabilidad y distribución del trabajo conocidas como de Control de Versiones, sí pueden hacer ese trabajo más sencillo.&lt;/p&gt;
+&lt;h1&gt;¿Qué es un Sistema de Control de Versiones?&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;/scv_phdcomics-a2ce7d2d2c0d1fdbf36914b844707f1a.gif&quot; alt=&quot;Sistema de Control de Versiones&quot; title=&quot;Not final&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Supongamos que estamos desarrollando un programa que resuelve ecuaciones diferenciales numéricamente y que consta de un conjunto de archivos en una carpeta que se llama &lt;code&gt;ODESolver&lt;/code&gt;, que originalmente resuelve ecuaciones diferenciales con el método de Euler.
+En un momento dado, decidimos que queremos agregar una función para calcular Runge-Kutta de orden 4.
+¿Cómo lo hacemos?
+Una alternativa sería modificar directamente la carpeta en la que estamos trabajando, pero… ¿qué pasa si nos equivocamos y rompemos todo el código?
+¿No nos gustaría poder volver a la versión original de &lt;code&gt;ODESolver&lt;/code&gt; que sabíamos que funcionaba?&lt;/p&gt;
+&lt;p&gt;Entonces se nos ocurre una solución: copiamos la carpeta &lt;code&gt;ODESolver&lt;/code&gt; a una que se llame &lt;code&gt;ODESolver_nuevo&lt;/code&gt; y desarrollamos en esta.
+Si nos equivocamos y rompemos todo el código, podemos volver a la carpeta original que ya sabíamos que funcionaba.
+Después podemos hacer algunas mejoras a este método casero.
+La primera puede ser que el nuevo nombre tenga algo relacionado con el desarrollo que hacemos; en el caso del ejemplo, &lt;code&gt;ODESolver_RK4&lt;/code&gt;.
+Pero sería aún mejor si llamáramos a la nueva carpeta &lt;code&gt;ODESolver_2&lt;/code&gt; y creáramos un archivo de texto llamado, por ejemplo, &lt;code&gt;versiones.txt&lt;/code&gt; para registrar los cambios que diga sencillamente:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;1: Método de Euler
+2: Desarrollo de Runge-Kutta de orden 4&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;De esta manera, si queremos agregar más cambios sólo tenemos que seguir la numeración secuencial y así podemos leer en el archivo de texto qué agrega cada versión.
+Es más: cuando alguien quiere saber si la versión que usa tiene o no cierta funcionalidad, busca su versión en el archivo de texto y listo.
+Lo que acabamos de describir es, aunque casero y muy primitivo, un Sistema de Control de Versiones&lt;sup id=&quot;fnref-1&quot;&gt;&lt;a href=&quot;#fn-1&quot; class=&quot;footnote-ref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.
+Las deficiencias de este SCV son evidentes: ¿qué pasa si, ya en la versión 19 del programa, encontramos un error en una función que existía desde la versión 0?
+Tendríamos que ir versión por versión haciendo esa modificación.
+Podemos pensar soluciones para este problema, pero todo parece indicar que, ante problemas que siguen creciendo, la única solución es llamar a un &lt;a href=&quot;https://www.youtube.com/watch?v=7mQuHh1X4H4&quot;&gt;megazord&lt;/a&gt;.
+Hay infinidad de herramientas, con distinto nivel de sofisticación, que permiten controlar las versiones de un software.
+En esta entrega (y, me animo a decir, en general en el blog) vamos a hablar de la más extendida de todas: &lt;a href=&quot;https://git-scm.com/&quot;&gt;&lt;code&gt;git&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;h1&gt;Git: Una filosofía de trabajo&lt;/h1&gt;
+&lt;p&gt;La ventaja de usar las herramientas adecuadas para el objetivo que uno quiere lograr (en este caso controlar las versiones) es que, de alguna forma, &lt;em&gt;favorecen&lt;/em&gt; (¡o a veces hasta imponen!) una filosofía de trabajo.
+Con &lt;code&gt;git&lt;/code&gt; vamos a lograr hacer de forma sencilla lo antes mencionado con nuestro SCV casero y un par de cosas más:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Hacer backup de estados consistentes del proyecto&lt;/li&gt;
+&lt;li&gt;Documentar cambios&lt;/li&gt;
+&lt;li&gt;Seguir los &lt;em&gt;bugs&lt;/em&gt; a través de la historia del desarrollo&lt;/li&gt;
+&lt;li&gt;Compartir cambios&lt;/li&gt;
+&lt;li&gt;Distribuir el desarrollo a muchas personas&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Pero para poder entender bien cómo funciona &lt;code&gt;git&lt;/code&gt; es necesario primero definir algunos conceptos claves&lt;sup id=&quot;fnref-2&quot;&gt;&lt;a href=&quot;#fn-2&quot; class=&quot;footnote-ref&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+&lt;h2&gt;Estados&lt;/h2&gt;
+&lt;p&gt;Los estados son análogos a las carpetas en el ejemplo del SCV casero que hicimos antes.
+Es importante entender que son algo análogo y no exactamente lo mismo en cuanto a la función que cumplen, veremos más adelante en detalle por qué.
+Cuando terminamos de trabajar en un estado y lo &lt;em&gt;consolidamos&lt;/em&gt; (en nuestra analogía, sería decir que terminamos de desarrollar la funcionalidad que queríamos en la carpeta y, entonces, no modificamos más esa carpeta) lo llamamos &lt;em&gt;snapshot&lt;/em&gt;.
+El &lt;em&gt;snapshot&lt;/em&gt; actual se llama &lt;code&gt;HEAD&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Ciclo de vida de los archivos&lt;/h2&gt;
+&lt;p&gt;En un repositorio de git, cada archivo puede tener tres estados:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;No-modificado&lt;/li&gt;
+&lt;li&gt;Modificado&lt;/li&gt;
+&lt;li&gt;Actualizado&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Un archivo está en estado &lt;code&gt;no-modificado&lt;/code&gt; cuando es exactamente igual al archivo que está guardado en el último &lt;em&gt;snapshot&lt;/em&gt;.
+Modificar un archivo (por ejemplo, cambiar el nombre de una variable) lo transforma, evidentemente, en un archivo &lt;code&gt;modificado&lt;/code&gt;.
+Pero, y esto es &lt;strong&gt;muy importante&lt;/strong&gt;, &lt;code&gt;git&lt;/code&gt; no &lt;em&gt;hace seguimiento&lt;/em&gt; a un
+archivo sólo porque está en estado &lt;code&gt;modificado&lt;/code&gt;.
+Para que &lt;code&gt;git&lt;/code&gt; se &lt;em&gt;haga cargo&lt;/em&gt; del archivo &lt;code&gt;modificado&lt;/code&gt; lo tenemos que actualizar (o, el término en inglés, &lt;em&gt;stage&lt;/em&gt;).
+Con todos los archivos &lt;code&gt;actualizados&lt;/code&gt;, podemos &lt;em&gt;consolidar&lt;/em&gt; el cambio y, en consecuencia, tomar un nuevo &lt;em&gt;snapshot&lt;/em&gt;.
+Al hacer esto los archivos que estaban &lt;code&gt;actualizados&lt;/code&gt; ahora forman parte del nuevo &lt;em&gt;snapshot&lt;/em&gt; que pasa a ser el nuevo &lt;code&gt;HEAD&lt;/code&gt; del repositorio.
+Es decir que consolidar cambios actualiza automáticamente el &lt;code&gt;HEAD&lt;/code&gt; del repositorio y de esta manera los archivos que eran &lt;code&gt;actualizados&lt;/code&gt; pasan al estado &lt;code&gt;no-modificado&lt;/code&gt;.
+Finalmente, si creamos un archivo nuevo y le queremos hacer seguimiento, tenemos que &lt;em&gt;agregarlo&lt;/em&gt; al repositorio.
+De la misma manera, podemos &lt;em&gt;remover&lt;/em&gt; un archivo del repositorio para dejar de seguirlo.&lt;/p&gt;
+&lt;h1&gt;Repositorios de git: Manos a la obra&lt;/h1&gt;
+&lt;p&gt;Ahora vamos a retomar nuestro proyecto original, &lt;code&gt;ODESolver&lt;/code&gt;, pero que desde el comienzo vamos a trabajar dentro de &lt;code&gt;git&lt;/code&gt;.
+El primer paso es crear el repositorio.
+Para eso vamos a la carpeta (vacía) en la que queremos iniciar nuestro trabajo y ejecutamos:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ git init .&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;A partir de este momento, esa carpeta va a ser considerada un repositorio de &lt;code&gt;git&lt;/code&gt;.
+Siempre que queramos saber en qué estado se encuentra el repositorio ejecutamos:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ git status
+On branch master
+
+Initial commit
+
+nothing to commit (create/copy files and use &quot;git add&quot; to track)&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;En este caso, tanto el repositorio como el directorio están vacíos.
+Ahora creamos el archivo &lt;code&gt;euler.c&lt;/code&gt;, que integra una ecuación con el método de Euler.
+En el directorio aparece ese archivo, pero &lt;code&gt;git&lt;/code&gt; no lo reconoce, pues nunca le dijimos que lo &lt;em&gt;siguiera&lt;/em&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ ls
+euler.c
+
+
+$ git status
+
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
+
+    euler.c
+
+nothing added to commit but untracked files present (use &quot;git add&quot; to track)&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Es decir, &lt;code&gt;euler.c&lt;/code&gt; está en el estado &lt;code&gt;modificado&lt;/code&gt;.
+Si agregamos el archivo al repositorio (el comando es &lt;code&gt;git add&lt;/code&gt;), pasa a ser &lt;code&gt;actualizado&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ git add euler.c
+$ git status
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  (use &quot;git rm --cached &lt;file&gt;...&quot; to unstage)
+
+    new file:   euler.c&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Ahora &lt;em&gt;consolidamos&lt;/em&gt; los archivos actualizados mediante &lt;code&gt;git commit&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ git commit -m &quot;Agregado metodo de Euler&quot;
+[master (root-commit) 4c4a416] Agregado metodo de Euler
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 euler.c&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Noten que agregamos un &lt;em&gt;flag&lt;/em&gt; &lt;code&gt;-m&lt;/code&gt; seguido de una breve explicación de los cambios.
+Esto es conocido como el &lt;em&gt;mensaje de commit&lt;/em&gt;.
+Si no agregamos el &lt;em&gt;flag&lt;/em&gt;, &lt;code&gt;git&lt;/code&gt; abre un editor de texto en el que podemos escribir el mensaje.
+&lt;code&gt;git&lt;/code&gt; devuelve en pantalla un pequeño resumen de lo que dijo y un número hexadecimal, llamado &lt;em&gt;commit hash&lt;/em&gt; (en este caso &lt;code&gt;4c4a416&lt;/code&gt;) que es el que podemos utilizar luego para referirnos a este &lt;em&gt;snapshot&lt;/em&gt;.
+Si ahora preguntamos el estado del repositorio, obtenemos:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ git status
+On branch master
+nothing to commit, working directory clean&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Un comentario importante es el mensaje de &lt;em&gt;working directory clean&lt;/em&gt;.
+Eso es una forma de decir que no hay archivos en estado &lt;code&gt;modificado&lt;/code&gt;, que es de esperar: el archivo &lt;code&gt;euler.c&lt;/code&gt; es igual al que está guardado en &lt;code&gt;HEAD&lt;/code&gt;.
+A partir de acá, la tarea para generar un &lt;em&gt;snapshot&lt;/em&gt; es siempre la misma:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Modificamos/creamos uno o varios archivos: pasan al &lt;em&gt;working directory&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Los agregamos al &lt;em&gt;staging area&lt;/em&gt; con &lt;code&gt;git add&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Los consolidamos en un &lt;em&gt;snapshot&lt;/em&gt; con &lt;code&gt;git commit&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Por ejemplo, ahora desarrollamos Runge-Kutta de orden 4.
+Para eso creamos y modificamos el archivo &lt;code&gt;rk4.c&lt;/code&gt; y:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ git add rk4.c
+$ git commit -m &quot;Agregado Runge-Kutta de orden 4&quot;
+[master da5eb82] Agregado Runge-Kutta de orden 4
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 rk4.c&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Si queremos ver la lista de mensajes de commit, ejecutamos:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ git log
+commit da5eb8249b5c9490ac5fa3818ad34ad7453db74e
+Author: Pablo Alcain &lt;pabloalcain@gmail.com&gt;
+Date:   Sun Jan 21 20:40:14 2018 -0300
+
+    Agregado Runge-Kutta de orden 4
+
+commit 4c4a41620df4a19f42ed47e837fc9f8e8f4d7ed1
+Author: Pablo Alcain &lt;pabloalcain@gmail.com&gt;
+Date:   Sun Jan 21 20:13:57 2018 -0300
+
+    Agregado metodo de Euler&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;y vemos que muestra la historia de todos los &lt;em&gt;snapshots&lt;/em&gt; del repositorio.
+Si queremos ir a un &lt;em&gt;snapshot&lt;/em&gt; en particular, es simplemente ejecutar &lt;code&gt;$ git checkout &amp;#x3C;commit hash&gt;&lt;/code&gt;&lt;sup id=&quot;fnref-3&quot;&gt;&lt;a href=&quot;#fn-3&quot; class=&quot;footnote-ref&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.
+En este caso, para ir al &lt;em&gt;snapshot&lt;/em&gt; en el que agregamos el método de Euler:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ git checkout 4c4a
+Note: checking out &apos;4c4a&apos;.
+
+You are in &apos;detached HEAD&apos; state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b new_branch_name
+
+HEAD is now at 4c4a416... Agregado metodo de Euler
+$ ls
+euler.c&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;y observamos que “desapareció”, en el &lt;em&gt;working directory&lt;/em&gt;, el archivo &lt;code&gt;rk4.c&lt;/code&gt;.
+El &lt;code&gt;HEAD&lt;/code&gt; dejó de ser &lt;code&gt;da5eb82...&lt;/code&gt; y pasó a ser &lt;code&gt;4c4a416...&lt;/code&gt;.
+Si ahora queremos volver al &lt;em&gt;snapshot&lt;/em&gt; en el que implementamos Runge-Kutta 4, ejecutamos:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ git checkout da5e
+Previous HEAD position was 4c4a416... Agregado metodo de Euler
+HEAD is now at da5eb82... Agregado Runge-Kutta de orden 4
+$ ls
+euler.c  rk4.c&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h1&gt;Algunos comentarios interesantes&lt;/h1&gt;
+&lt;p&gt;Cuando describmos los estados dijimos: “Es importante entender que es algo análogo y no exactamente lo mismo en cuanto a la función que cumplen, vamos a ver más adelante en detalle por qué”.
+En general, desarrollar toda una nueva funcionalidad (que sería cuando &lt;em&gt;consolidamos&lt;/em&gt; una nueva carpeta en el SCV casero) lleva mucho tiempo, y tiene sentido hacer &lt;em&gt;commits&lt;/em&gt; intermedios en los que no terminamos de desarrollar todo pero podemos volver atrás en la historia.
+Esto jamás se nos habría ocurrido en el SCV casero porque es mucho trabajo &lt;em&gt;consolidar&lt;/em&gt; algo: hay que copiar toda la carpeta, editar archivos nuevos, etcétera.
+Pero si en &lt;code&gt;git&lt;/code&gt; consolidar es cuestión de unos pocos comandos, ¿por qué no lo aprovechamos?
+Así, entonces, tendremos muchos &lt;em&gt;commits&lt;/em&gt; que no son interesantes &lt;em&gt;per se&lt;/em&gt;.
+¿Cómo identificamos entonces los &lt;em&gt;commits&lt;/em&gt; interesantes, por ejemplo en los que implementamos una nueva funcionalidad?
+Para resolver esto existen las etiquetas o &lt;em&gt;tags&lt;/em&gt;.
+Si queremos etiquetar un commit específico porque es interesante (en nuestro ejemplo el &lt;code&gt;4c4a16...&lt;/code&gt;, que es en el que implementamos Euler, ejecutamos:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ git tag v1.0 4c4a&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Y ahora podemos referirnos a ese commit usando el nombre del &lt;em&gt;tag&lt;/em&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ git checkout v1.0&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Otro comentario muy relevante es que, a priori, con &lt;code&gt;git&lt;/code&gt; podríamos realizar el seguimiento de todo tipo de archivos.
+Sin embargo, y esto es una regla general, los archivos que seguimos son los archivos &lt;em&gt;fuente&lt;/em&gt; (por ejemplo el código o algún archivo de configuración), y no los archivos que se generan a través de la compilación o ejecución del programa.&lt;/p&gt;
+&lt;h1&gt;Conclusión&lt;/h1&gt;
+&lt;p&gt;Con realmente &lt;strong&gt;muy&lt;/strong&gt; pocos comandos logramos, utilizando &lt;code&gt;git&lt;/code&gt;, reproducir el comportamiento del Sistema de Control de Versiones casero que habíamos descrito, pero de forma sencilla y cómoda para el usuario.
+Pero con esto estamos apenas arañando la superficie del verdadero poder de &lt;code&gt;git&lt;/code&gt;.
+Todavía nos quedan descubrir dos aspectos muy importantes: las &lt;em&gt;branches&lt;/em&gt; y la distribución de código.
+Eso lo dejamos para una siguiente entrega.&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&quot;fn-1&quot;&gt;
+&lt;p&gt;Se puede seguir haciendo mejoras a este sistema casero, pero lo fundamental ya lo hace.&lt;/p&gt;
+&lt;a href=&quot;#fnref-1&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-2&quot;&gt;
+&lt;p&gt;Hay una gran cantidad de conceptos en &lt;code&gt;git&lt;/code&gt;, como es de esperar.
+Pero si entendemos estos pocos conceptos en abstracto, es mucho más fácil entender todos los siguientes.&lt;/p&gt;
+&lt;a href=&quot;#fnref-2&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-3&quot;&gt;
+&lt;p&gt;No es necesario escribir el commit hash entero.
+Con escribir las primeras 4 cifras del número hexadecimal basta para ir hacia ese &lt;em&gt;snapshot&lt;/em&gt;.&lt;/p&gt;
+&lt;a href=&quot;#fnref-3&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Una ligera introducción a Rust]]></title><description><![CDATA[Rust  es un nuevo lenguaje de programación para sistemas de bajo nivel y,
+como tal, esta enfocado en proveer gran velocidad y tener una…]]></description><link>https://sci-prog.github.io/rust-intro/</link><guid isPermaLink="false">https://sci-prog.github.io/rust-intro/</guid><pubDate>Sun, 14 Jan 2018 20:00:01 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://www.rust-lang.org/&quot;&gt;Rust&lt;/a&gt; es un nuevo lenguaje de programación para sistemas de bajo nivel y,
+como tal, esta enfocado en proveer gran velocidad y tener una mínima huella en
+tiempo de ejecución. Rust también va mas allá ofreciendo seguridad en memoria,
+haciendo casi imposible tener un error de segmentación &lt;strong&gt;sin incurrir en costo
+en tiempo de ejecución&lt;/strong&gt;. Una descripcion corta del lenguage ha sido:
+&lt;em&gt;velocidades similares a C o C++ con seguridad en memoria.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;En el presente artículo introducimos cómo se siente trabajar en un proyecto
+en rust, mostrando algunas de las ventajas en cuanto a calidad de vida que
+presenta el lenguage con respecto a otros lenguajes de bajo nivel e
+introduciendo algunos conceptos sobre el funcionamiento de rust.&lt;/p&gt;
+&lt;h2&gt;Instalación&lt;/h2&gt;
+&lt;p&gt;Antes de empezar un proyecto necesitamos instalar las herramientas del lenguaje.
+Para esto, la comunidad ha creado una herramienta de instalación llamada
+&lt;a href=&quot;https://www.rustup.rs/&quot;&gt;rustup&lt;/a&gt;, que se instala mediante el comando:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code&gt;$ curl https://sh.rustup.rs -sSf &lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; sh
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Luego de instalar rustup, debemos instalar las herramientas de rust usando:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code&gt;$ rustup &lt;span class=&quot;token function&quot;&gt;install&lt;/span&gt; stable
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Noten que el identificador &lt;code&gt;stable&lt;/code&gt; indica que hay varias versiones de las
+herramientas de rust en un momento dado, los 3 canales principales son
+&lt;code&gt;nightly&lt;/code&gt;, &lt;code&gt;beta&lt;/code&gt; y &lt;code&gt;stable&lt;/code&gt; y son actualizados cada 3 meses&lt;sup id=&quot;fnref-1&quot;&gt;&lt;a href=&quot;#fn-1&quot; class=&quot;footnote-ref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;p&gt;Una vez instaladas las herramientas de rust, el compilador &lt;code&gt;rustc&lt;/code&gt; estará
+disponible, y también el gestor de paquetes &lt;code&gt;cargo&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Creación de un nuevo proyecto&lt;/h2&gt;
+&lt;p&gt;Para crear un nuevo proyecto vamos a utilizar &lt;code&gt;cargo&lt;/code&gt;. En este ejemplo,
+escribiremos un pequeño programa para calcular el número &lt;code&gt;pi&lt;/code&gt; usando Monte Carlo.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;$ cargo new --bin pimc&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Este comando crea un nuevo proyecto con un par de archivos:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code&gt;$ tree pimc
+pimc
+├── Cargo.toml
+└── src
+    └── main.rs
+
+1 directory, 2 files
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;El archivo &lt;code&gt;Cargo.toml&lt;/code&gt; contiene metadatos sobre el proyecto&lt;sup id=&quot;fnref-2&quot;&gt;&lt;a href=&quot;#fn-2&quot; class=&quot;footnote-ref&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;, entre otros:
+nombre, autor, nombres de los ejecutables, dependencias (&lt;strong&gt;dependencias!&lt;/strong&gt;).
+Por otra parte el archivo &lt;code&gt;main.rs&lt;/code&gt; contiene un pequeño &lt;code&gt;hola mundo&lt;/code&gt;&lt;sup id=&quot;fnref-3&quot;&gt;&lt;a href=&quot;#fn-3&quot; class=&quot;footnote-ref&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;token function&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;Hello, world!&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Gestión de dependencias&lt;/h2&gt;
+&lt;p&gt;Una de mis características favoritas de rust es que permite gestionar
+dependencias usando &lt;code&gt;cargo&lt;/code&gt; y &lt;a href=&quot;https://crates.io/&quot;&gt;crates.io&lt;/a&gt;, esta característica es bastante
+común en lenguajes de programación modernos como &lt;code&gt;javascript&lt;/code&gt;, &lt;code&gt;python&lt;/code&gt; o
+&lt;code&gt;ruby&lt;/code&gt;, pero es nueva en lenguages de programación de bajo nivel.&lt;/p&gt;
+&lt;p&gt;Para el pequeño programa para cálculo de &lt;code&gt;pi&lt;/code&gt; necesitamos una librería para
+generación de números aleatorios, la librería para este fin es &lt;a href=&quot;https://doc.rust-lang.org/rand/rand/index.html&quot;&gt;rand&lt;/a&gt; y es
+distribuída a través de &lt;a href=&quot;https://crates.io/crates/rand&quot;&gt;crates.io&lt;/a&gt;, vamos a listar &lt;code&gt;rand&lt;/code&gt; como
+una dependencia en el archivo &lt;code&gt;Cargo.toml&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-toml&quot;&gt;&lt;code&gt;[package]
+...
+
+[dependencies]
+rand = &quot;0.4.2&quot;&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Al momento de construir el proyecto, &lt;code&gt;cargo&lt;/code&gt; va a descargar la versión
+especificada de &lt;code&gt;rand&lt;/code&gt; y dado que se trata de un proyecto binario, va a crear
+un archivo &lt;code&gt;Cargo.lock&lt;/code&gt; con las firmas de cada paquete usado para verificar que
+el binario siempre se construya con la misma version de cada dependencia.&lt;/p&gt;
+&lt;p&gt;Finalmente, ya que se trata de un paquete externo, debemos escribir en la
+parte superior de &lt;code&gt;main.rs&lt;/code&gt;&lt;sup id=&quot;fnref-4&quot;&gt;&lt;a href=&quot;#fn-4&quot; class=&quot;footnote-ref&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;extern&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;crate&lt;/span&gt; rand&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;token punctuation&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;h2&gt;Hora de escribir código&lt;/h2&gt;
+&lt;p&gt;Curiosamente, el ejemplo de cálculo de &lt;code&gt;pi&lt;/code&gt; hace parte de la &lt;a href=&quot;https://doc.rust-lang.org/rand/rand/index.html#monte-carlo-estimation-of-%CF%80&quot;&gt;documentación del
+paquete rand&lt;/a&gt;, pero en pocas palabras, si se toma un conjunto de
+puntos uniformemente distribuidos en un cuadrado que circunscribe un círculo,
+la razón entre la cantidad de puntos en el círculo y la cantidad de puntos
+totales, va a ser aproximadamente igual a la razón entre el área del círculo y
+el área del cuadrado.&lt;/p&gt;
+&lt;p&gt;Hay que decir que rust soporta programación &lt;em&gt;imperativa&lt;/em&gt; y también
+&lt;em&gt;declarativa&lt;/em&gt;; ambos estilos tienen sus ventajas, ésta sería la versión
+&lt;em&gt;imperativa&lt;/em&gt; de este ejemplo:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;extern&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;crate&lt;/span&gt; rand&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;use&lt;/span&gt; rand&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;distributions&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;IndependentSample&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; Range&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;token keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; between &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Range&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1f64&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;mut&lt;/span&gt; rng &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; rand&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;thread_rng&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+   &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; total &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1_000_000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;mut&lt;/span&gt; in_circle &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+
+   &lt;span class=&quot;token keyword&quot;&gt;for&lt;/span&gt; _ &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;total &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; a &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; between&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;ind_sample&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;mut&lt;/span&gt; rng&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; b &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; between&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;ind_sample&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;mut&lt;/span&gt; rng&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; a&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;a &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; b&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;b &lt;span class=&quot;token operator&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+           in_circle &lt;span class=&quot;token operator&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+       &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+   &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+
+   &lt;span class=&quot;token comment&quot;&gt;// prints something close to 3.14159...&lt;/span&gt;
+   &lt;span class=&quot;token function&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;{}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;in_circle &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; f64&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;total &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; f64&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Bien, un par de nociones sobre rust antes de continuar.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Rust es un lenguage con tipado estático y fuerte. Sin embargo su sintaxis
+estrícta permite que el compilador infiera los tipos de las variables en la
+mayoría de los casos. Por lo tanto podemos declarar variables sin decir
+directamente el tipo&lt;sup id=&quot;fnref-5&quot;&gt;&lt;a href=&quot;#fn-5&quot; class=&quot;footnote-ref&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;, como vemos en la línea&lt;code&gt;let between = Range::new(-1f64, 1.);&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Las variables en rust son inmutables por defecto. &lt;code&gt;let mut&lt;/code&gt; permite modificar
+este comportamiento, es decir nada de &lt;code&gt;const Type algo&lt;/code&gt;. Esto permite al
+compilador realizar optimizaciones confiando en que en la mayoría del tiempo
+las variables van a permanecer inmutables.&lt;/li&gt;
+&lt;li&gt;La sentencia &lt;code&gt;for&lt;/code&gt; en rust itera sobre elementos dentro de un iterador,
+similar al comportamiento de &lt;code&gt;for&lt;/code&gt; en python. &lt;code&gt;(a..b)&lt;/code&gt; es &lt;em&gt;syntactic
+sugar&lt;/em&gt; para &lt;code&gt;Range(a, b)&lt;/code&gt;. Nótese tambien que ni la sentencia &lt;code&gt;for&lt;/code&gt; ni &lt;code&gt;if&lt;/code&gt;
+requieren paréntesis alrededor, aunque los &lt;code&gt;{}&lt;/code&gt; son obligatorios.&lt;/li&gt;
+&lt;li&gt;El identificador &lt;code&gt;_&lt;/code&gt; por defecto descarta el objeto asignado, y un
+identificador de la forma &lt;code&gt;_var&lt;/code&gt; desactiva el checkeo del compilador sobre
+variables no usadas pero no descarta el objeto asignado.&lt;/li&gt;
+&lt;li&gt;Rust implementa &lt;em&gt;move semantics&lt;/em&gt; en (casi) todas las estructuras de datos.
+Esto quiere decir que una llamada &lt;code&gt;b.ind_sample(rng)&lt;/code&gt; transferiría la
+pertenencia del recurso &lt;code&gt;rng&lt;/code&gt; a la función &lt;code&gt;ind_sample&lt;/code&gt; y el recurso sería
+“eliminado” de la memoria una vez dicha función termine su &lt;em&gt;scope&lt;/em&gt;. La
+solución de rust para esto es realizar &lt;em&gt;préstamos&lt;/em&gt;: &lt;code&gt;&amp;#x26;var&lt;/code&gt; es un préstamo
+inmutable del recurso &lt;code&gt;var&lt;/code&gt; mientras que &lt;code&gt;&amp;#x26;mut var&lt;/code&gt; es un préstamo mutable
+del recurso &lt;code&gt;var&lt;/code&gt;&lt;sup id=&quot;fnref-6&quot;&gt;&lt;a href=&quot;#fn-6&quot; class=&quot;footnote-ref&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
+&lt;li&gt;No hay &lt;em&gt;type cohersion&lt;/em&gt; en rust, y los operadores aritméticos no estan
+sobrecargados para tipos diferentes, por tanto una instrucción como
+&lt;code&gt;let x = 3f64 * 2i32;&lt;/code&gt; es ilegal en rust y por ningún motivo va a compilar.
+Así, tipos incompatibles tienen que ser manualmente reinterpretados
+usando &lt;code&gt;var as Type&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Demasiados conceptos para un programa tan corto, pero, siendo tan estrictas las
+reglas, el compilador se va a encargar de recordar cada una a los nuevos
+programadores. Sólo para referencia, démosle un vistazo a la forma
+&lt;em&gt;declarativa&lt;/em&gt; del mismo programa:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-rust&quot;&gt;&lt;code&gt;&lt;span class=&quot;token keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;token function&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; between &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; Range&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;1f64&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;mut&lt;/span&gt; rng &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; rand&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;thread_rng&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; total &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1_000_000&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;token keyword&quot;&gt;let&lt;/span&gt; in_circle&lt;span class=&quot;token punctuation&quot;&gt;:&lt;/span&gt; i64 &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;..&lt;/span&gt;total&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+       &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;_&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;
+            between&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;ind_sample&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;mut&lt;/span&gt; rng&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt;
+            between&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;ind_sample&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;token keyword&quot;&gt;mut&lt;/span&gt; rng&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+       &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;a&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; b&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token operator&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; a&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;a &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; b&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;b &lt;span class=&quot;token operator&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+       &lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;token function&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;token comment&quot;&gt;// prints something close to 3.14159...&lt;/span&gt;
+   &lt;span class=&quot;token function&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;token string&quot;&gt;&quot;{}&quot;&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;in_circle &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; f64&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;total &lt;span class=&quot;token keyword&quot;&gt;as&lt;/span&gt; f64&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;En forma declarativa le damos mas libertad al compilador de decidir cómo
+materializar nuestra intención. Esto abre las puertas a obtener ganancias en
+rendimiento con mejoras en el compilador y sin cambios en el código.&lt;/p&gt;
+&lt;h2&gt;Compilación y distribución&lt;/h2&gt;
+&lt;p&gt;Para compilar y distribuir el programa usamos el gestor de paquetes &lt;code&gt;cargo&lt;/code&gt;,
+para correr el programa en modo &lt;em&gt;debug&lt;/em&gt; (compilación rápida y ejecución lenta)
+usamos el comando:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code&gt;$ cargo run
+   Compiling pimc v0.1.0 &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;file:///home/oscar/Code/pimc&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt;
+    Finished dev &lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;unoptimized + debuginfo&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt; target&lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token keyword&quot;&gt;in&lt;/span&gt; 0.44 secs
+     Running &lt;span class=&quot;token variable&quot;&gt;&lt;span class=&quot;token variable&quot;&gt;`&lt;/span&gt;target/debug/pimc&lt;span class=&quot;token variable&quot;&gt;`&lt;/span&gt;&lt;/span&gt;
+3.142992
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Para crear un ejecutable optimizado, disponemos del comando,&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-bash&quot;&gt;&lt;code&gt;cargo run --release
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Finalmente, para crear un ejecutable linkeado estáticamente para correr en
+plataformas desconocidad de linux (un cluster heterogéneo o similar) vamos a
+instalar un nuevo target usando &lt;code&gt;rustup&lt;/code&gt; y compilar usando ese target&lt;sup id=&quot;fnref-7&quot;&gt;&lt;a href=&quot;#fn-7&quot; class=&quot;footnote-ref&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-none&quot;&gt;&lt;code&gt;rustup target add x86_64-unknown-linux-gnu
+cargo build --release --target=x86_64-unknown-linux-gnu&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;Uno de los objetivos del equipo de rust es lograr &lt;em&gt;cross compilation&lt;/em&gt; con un
+comando. Hay una muy buena &lt;a href=&quot;https://github.com/japaric/rust-cross&quot;&gt;guía para cross compilation en rust&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Conclusión&lt;/h2&gt;
+&lt;p&gt;Rust es un lenguaje de programación promisorio, con un muy buen ecosistema pese
+a su juventud. Las herramientas de desarrollo disponibles y decisiones del lenguaje hacen
+de programar en rust una experiencia &lt;em&gt;ergonómica&lt;/em&gt;. La compilación cruzada
+permite compilar programas complejos para correr de manera segura en ambientes
+heterogéneos como &lt;a href=&quot;https://www.opensciencegrid.org/&quot;&gt;open science grid&lt;/a&gt; sin mucha dificultad, incluso cuando
+la lista de dependencias es bastante larga. Finalmente las reglas estríctas del
+lenguaje, aunque hacen un poco frustrante el lenguaje al principio, hacen mucho
+más facil producir código libre de bugs a programadores con diferentes niveles
+de experiencia.&lt;/p&gt;
+&lt;p&gt;El código en este artículo se puede encontrar en &lt;a href=&quot;https://github.com/sci-prog/pimc&quot;&gt;github&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&quot;fn-1&quot;&gt;
+&lt;p&gt;Más sobre el ciclo de desarrollo de rust en su página de &lt;a href=&quot;https://github.com/rust-lang/rust/blob/master/RELEASES.md&quot;&gt;releases&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;#fnref-1&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-2&quot;&gt;
+&lt;p&gt;Mas sobre &lt;code&gt;Cargo.toml&lt;/code&gt; en la &lt;a href=&quot;https://doc.rust-lang.org/cargo/reference/manifest.html&quot;&gt;documentacion de referencia&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;#fnref-2&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-3&quot;&gt;
+&lt;p&gt;Esto se debe a que creamos el proyecto con un &lt;code&gt;--bin&lt;/code&gt; flag de lo
+contrario encontraríamos &lt;code&gt;lib.rs&lt;/code&gt; y una estructura un poco más seria.&lt;/p&gt;
+&lt;a href=&quot;#fnref-3&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-4&quot;&gt;
+&lt;p&gt;Las instrucciones &lt;code&gt;extern crate&lt;/code&gt; deben ir en la raíz del proyecto, para
+el caso binario esto es &lt;code&gt;main.rs&lt;/code&gt;, en otro caso sería &lt;code&gt;lib.rs&lt;/code&gt;.&lt;/p&gt;
+&lt;a href=&quot;#fnref-4&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-5&quot;&gt;
+&lt;p&gt;En una nota relacionada, rust implementa &lt;em&gt;resource acquisition is
+initialization&lt;/em&gt; por tanto una sentencia como &lt;code&gt;let variable;&lt;/code&gt; es ilegal, más
+sobre &lt;a href=&quot;https://en.wikipedia.org/wiki/Resource_acquisition_is_initialization&quot;&gt;raii&lt;/a&gt;.&lt;/p&gt;
+&lt;a href=&quot;#fnref-5&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-6&quot;&gt;
+&lt;p&gt;Los prestamos en rust son tipos de datos, es decir &lt;code&gt;T&lt;/code&gt; es un tipo
+diferente a &lt;code&gt;&amp;#x26;T&lt;/code&gt; y a su vez a &lt;code&gt;&amp;#x26;mut T&lt;/code&gt;, no hay &lt;em&gt;type cohersion&lt;/em&gt; entre estos
+tipos, a diferencia de &lt;code&gt;C++&lt;/code&gt; donde una funcion con la firma &lt;code&gt;void something(const &amp;#x26; var)&lt;/code&gt; va a poder ser llamada con un objeto concreto
+&lt;code&gt;something(var)&lt;/code&gt; y el compilador se va a encargar de construir un &lt;code&gt;const &amp;#x26; var&lt;/code&gt; a partir del objeto concreto.&lt;/p&gt;
+&lt;a href=&quot;#fnref-6&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-7&quot;&gt;
+&lt;p&gt;Puede que se requieran otras herramientas de compilación, y un archivo
+&lt;code&gt;~/.cargo/config&lt;/code&gt; pero una vez configurado funciona &lt;strong&gt;así de fácil&lt;/strong&gt;.&lt;/p&gt;
+&lt;a href=&quot;#fnref-7&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Meltdown: Una explicación técnica y sencilla]]></title><description><![CDATA[Hace menos de una semana  se dieron a conocer  dos  bugs  muy grandes y ocultos que afectan a gran parte de los procesadores:  meltdown  y…]]></description><link>https://sci-prog.github.io/meltdown/</link><guid isPermaLink="false">https://sci-prog.github.io/meltdown/</guid><pubDate>Mon, 08 Jan 2018 06:36:38 GMT</pubDate><content:encoded>&lt;p&gt;Hace menos de una semana &lt;a href=&quot;https://www.theregister.co.uk/2018/01/02/intel_cpu_design_flaw/&quot;&gt;se dieron a conocer&lt;/a&gt; dos &lt;em&gt;bugs&lt;/em&gt; muy grandes y ocultos que afectan a gran parte de los procesadores: &lt;em&gt;meltdown&lt;/em&gt; y &lt;em&gt;spectre&lt;/em&gt;.
+¿Qué hace importante a estos exploits?
+Que sean &lt;strong&gt;fundamentales&lt;/strong&gt;: no dependen de un sistema operativo o de un programa específico, sino que dependen del procesador.
+Incluso uno de ellos (&lt;em&gt;spectre&lt;/em&gt;) funcionaría sobre prácticamente cualquier procesador moderno.&lt;/p&gt;
+&lt;p&gt;En esta entrada vamos a analizar &lt;a href=&quot;https://meltdownattack.com/meltdown.pdf&quot;&gt;&lt;code&gt;meltdown&lt;/code&gt;&lt;/a&gt;, un bug que estuvo presente &lt;em&gt;en todos los procesadores Intel&lt;/em&gt; desde hace 20 años y que asombra por su sencillez.
+Más allá del sistema operativo, &lt;code&gt;meltdown&lt;/code&gt; permite leer datos sensibles de otros procesos o máquinas virtuales a una velocidad de 500 kb/s.&lt;/p&gt;
+&lt;p&gt;Pero, para comprender cómo funciona &lt;code&gt;meltdown&lt;/code&gt;, primero tenemos que repasar algunos detalles del funcionamiento del procesador.&lt;/p&gt;
+&lt;h2&gt;Arquitectura del Procesador&lt;/h2&gt;
+&lt;p&gt;La información que “le pertenece” al procesador se guarda en los llamados &lt;em&gt;registros&lt;/em&gt;.&lt;sup id=&quot;fnref-1&quot;&gt;&lt;a href=&quot;#fn-1&quot; class=&quot;footnote-ref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;
+Sobre éstos puede hacer una cantidad de operaciones, como por ejemplo sumarlos, multiplicarlos, cambiarlos de lugar, etcétera.
+Cuáles y cuántos son los registros y qué operaciones puede hacer son, básicamente, la &lt;a href=&quot;https://es.wikipedia.org/wiki/Conjunto_de_instrucciones&quot;&gt;&lt;strong&gt;arquitectura&lt;/strong&gt;&lt;/a&gt;.
+Es un modelo abstracto (básicamente, cómo ve al procesador un programador a través de un &lt;a href=&quot;https://es.wikipedia.org/wiki/Lenguaje_ensamblador&quot;&gt;lenguaje &lt;em&gt;assembler&lt;/em&gt;&lt;/a&gt;), que no define de forma unívoca cómo se realizan esas operaciones o dónde aparecen los registros, es decir, su implementación.&lt;/p&gt;
+&lt;p&gt;La implementación de las instrucciones que puede realizar un procesador se llama &lt;a href=&quot;https://es.wikipedia.org/wiki/Microarquitectura&quot;&gt;microarquitectura&lt;/a&gt;.
+El estado de esta microarquitectura no es alterable: es decir, y esto es muy importante, &lt;strong&gt;no se puede programar sobre la microarquitectura u obtener su estado&lt;/strong&gt;.
+Aquí es donde todo se vuelve sutil y complicado y donde se realizan muchas optimizaciones del procesador muy conocidas.
+Vamos a explicar tres conceptos de microarquitectura muy importantes en general y, específicamente, para comprender cómo funcionan &lt;em&gt;meltdown&lt;/em&gt; y &lt;em&gt;spectre&lt;/em&gt;.&lt;/p&gt;
+&lt;h3&gt;Memoria Cache&lt;/h3&gt;
+&lt;p&gt;Evidentemente, no toda la información que usa un programa puede estar en los registros del procesador (que, sumados, en general no superan 1 kB de memoria).
+Los programas residen, en su gran parte, en la memoria principal (la memoria RAM) y, para realizar operaciones, el procesador &lt;em&gt;trae&lt;/em&gt; de la memoria principal los datos que necesita.
+Esta solución tiene un inconveniente: un procesador típico tarda 0.2 nanosegundos (un nanosegundo es una mil millonésima parte de un segundo) en realizar una operación, pero el acceso a la memoria principal lleva 100ns.
+Para ponerlo en perspectiva, si uno tardara 1 segundo en hacer una suma y quisiera sumar dos números, tendría que esperar &lt;strong&gt;más de 10 minutos&lt;/strong&gt; para saber cuáles son los números (5 minutos para cada uno) que va a sumar.
+Afortunadamente, este problema se evita generalmente agregando un nuevo tipo de memoria, llamado “memoria cache”.
+Esta memoria está en el chip del procesador y es de muy rápido acceso y poca capacidad.
+¿Cómo funciona?
+Cuando el procesador necesita acceder a una posición de la memoria principal, de paso, trae algunos valores que están cerca de esa posición (a pesar de que no los necesite en ese momento y no sea exactamente el que pidió) a la memoria cache, con la esperanza de que vaya a tener que usarlos pronto.
+En nuestro ejemplo, si los números que vamos a sumar están juntos, en vez de 10 minutos, tardaríamos sólo 5.
+Si tuviéramos que sumar muchos números que están cerca, la ventaja se vuelve mayor.
+Cuando necesitamos un dato de la memoria principal y está en el cache, se conoce como &lt;em&gt;cache hit&lt;/em&gt;.
+Cuando no está, es un &lt;em&gt;cache miss&lt;/em&gt;.&lt;/p&gt;
+&lt;h3&gt;Ejecución fuera de orden&lt;/h3&gt;
+&lt;p&gt;Al agregar la memoria cache se reducen mucho las demoras en obtener datos de la memoria principal, pero así y todo los &lt;em&gt;cache misses&lt;/em&gt; demoran mucho la ejecución del código.
+Supongamos que tenemos secuencialmente las operaciones 1 y 2, donde la operación 1 genera un &lt;em&gt;cache miss&lt;/em&gt; y la 2 genera un &lt;em&gt;cache hit&lt;/em&gt;.
+Si la operación 2 no depende del resultado de la operación 1, no hay problema en que ejecutemos la operación 2 mientras el procesador “va a buscar” la información necesaria para ejecutar la 1.
+Entonces, efectivamente, primero se ejecutaría la operación 2, para guardarla en un lugar temporal (perteneciente a la microarquitectura).
+Luego, una vez ejecutada la operación 1, &lt;strong&gt;consolida&lt;/strong&gt; la operación 2 en el registro adecuado y, así queda en la arquitectura.
+En conclusión, la &lt;strong&gt;consolidación&lt;/strong&gt; es siempre en el orden explicitado, pero la ejecución puede ser &lt;strong&gt;fuera de orden&lt;/strong&gt;.&lt;/p&gt;
+&lt;h3&gt;Branch prediction&lt;/h3&gt;
+&lt;p&gt;Imaginemos ahora el caso anterior, pero entre la operación 1 y la 2 hay una sentencia condicional que sí depende del resultado de la operación 1.
+Algo así&lt;sup id=&quot;fnref-2&quot;&gt;&lt;a href=&quot;#fn-2&quot; class=&quot;footnote-ref&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c&quot;&gt;&lt;code&gt;z &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; a&lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;x&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// op 1&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;(&lt;/span&gt;z &lt;span class=&quot;token operator&quot;&gt;&gt;&lt;/span&gt; &lt;span class=&quot;token number&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  w &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; z &lt;span class=&quot;token operator&quot;&gt;+&lt;/span&gt; y&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// op 2 primer caso&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;token keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;token punctuation&quot;&gt;{&lt;/span&gt;
+  w &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; z &lt;span class=&quot;token operator&quot;&gt;-&lt;/span&gt; y&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// op 2 segundo caso&lt;/span&gt;
+&lt;span class=&quot;token punctuation&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;La situación es similar a la anterior, pero ahora, hasta tener el valor de &lt;code&gt;z&lt;/code&gt; no sabemos qué operación hacer.
+No nos queda otra que esperar al resultado, y ya no podemos ganar tiempo como antes… ¿o sí?
+El &lt;em&gt;branch prediction&lt;/em&gt; (que forma parte de, en general, la &lt;em&gt;ejecución especulativa&lt;/em&gt;) consiste en ejecutar alguna de las dos tratando de predecir qué va a resultar de la condición y guardando el resultado en un lugar temporal.
+En caso de que lo hayamos predicho correctamente, &lt;strong&gt;consolidamos&lt;/strong&gt; el resultado temporal a &lt;code&gt;w&lt;/code&gt;.
+Si no, tendremos que recalcular &lt;code&gt;w&lt;/code&gt;.
+Fíjense que sólo con que el predictor sea al azar (es decir, que aleatoriamente elija con 50% de probabilidades seguir un camino u otro) ya la ejecución especulativa es aceptada la mitad de las veces&lt;sup id=&quot;fnref-3&quot;&gt;&lt;a href=&quot;#fn-3&quot; class=&quot;footnote-ref&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;h2&gt;Meltdown: Modificando el estado de la microarquitectura&lt;/h2&gt;
+&lt;p&gt;Cuando ejecutamos un programa cualquiera, éste no tiene permitido acceder a cualquier lugar de la memoria principal.
+Esto es de esperar, ya que si no cualquier programa que ejecutemos podría leer todo lo que estamos ejecutando y obtener, por ejemplo, nuestras claves bancarias.
+Así, al intentar acceder a una posición de memoria prohibida (es decir, que no le pertenece al programa que se está ejecutando), se dispara una &lt;em&gt;excepción&lt;/em&gt; y la ejecución se detiene.
+El objetivo de &lt;code&gt;meltdown&lt;/code&gt; es obtener la información de &lt;strong&gt;toda la memoria principal&lt;/strong&gt;, a pesar de que su acceso no está permitido.&lt;/p&gt;
+&lt;p&gt;Con las características que describimos ya es suficiente para entender cómo funciona &lt;code&gt;meltdown&lt;/code&gt;.
+&lt;strong&gt;IMPORTANTE:&lt;/strong&gt; por ahora, para simplificar un poco las cosas, por un rato supongamos que el comportamiento del &lt;em&gt;cache&lt;/em&gt; es ligeramente distinto: cuando va a buscar un dato en la memoria principal, trae &lt;strong&gt;sólo a ese dato&lt;/strong&gt; a la memoria cache.&lt;sup id=&quot;fnref-4&quot;&gt;&lt;a href=&quot;#fn-4&quot; class=&quot;footnote-ref&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;Como es de esperar, es de una sencillez que deslumbra.
+El objetivo es leer el byte que está guardado en una posición de memoria inaccesible a nuestro programa (esa posición de memoria la llamamos &lt;code&gt;mem&lt;/code&gt;), situada en el espacio de memoria del &lt;em&gt;kernel&lt;/em&gt;, que puede acceder a todas las posiciones de la memoria física.
+Supongamos que el programa que estamos ejecutando tiene una sección de 256 bytes propios en la memoria principal, que no está alojada en la memoria cache&lt;sup id=&quot;fnref-5&quot;&gt;&lt;a href=&quot;#fn-5&quot; class=&quot;footnote-ref&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;.
+Dicho en otras palabras, supongamos que tenemos un &lt;code&gt;array&lt;/code&gt; de C de 256 bytes de tamaño, al que llamaremos &lt;code&gt;probe&lt;/code&gt;.
+Ahora ejecutamos las siguientes instrucciones:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-c&quot;&gt;&lt;code&gt;x &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;token operator&quot;&gt;*&lt;/span&gt;mem&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;token comment&quot;&gt;// guardamos en x el contenido de la posición de memoria mem&lt;/span&gt;
+tmp &lt;span class=&quot;token operator&quot;&gt;=&lt;/span&gt; probe&lt;span class=&quot;token punctuation&quot;&gt;[&lt;/span&gt;x&lt;span class=&quot;token punctuation&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;token punctuation&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;La primera instrucción, como trata de acceder a una posición de memoria prohibida, dispara una &lt;em&gt;excepción&lt;/em&gt; y, efectivamente, &lt;code&gt;x&lt;/code&gt; nunca toma el valor que está guardado en &lt;code&gt;mem&lt;/code&gt;.
+Debido a la ejecución fuera de orden, cuando se carga el valor de &lt;code&gt;mem&lt;/code&gt; en &lt;code&gt;x&lt;/code&gt;, es probable que el procesador ya haya comenzado a ejecutar la instrucción siguiente como parte de la ejecución fuera de orden y las haya guardado en la posición temporal (recordemos, perteneciente a la microarquitectura).
+Como ya mencionamos, la &lt;strong&gt;consolidación&lt;/strong&gt; de los datos se realiza en estricto orden, y aquí queda claro por qué.
+Es durante la consolidación que se maneja cualquier tipo de excepción.
+Como en este caso la primera instrucción genera una excepción, la segunda instrucción no se consolida y, entonces, el valor de &lt;code&gt;probe[x]&lt;/code&gt; no queda guardado en ningún lugar de la arquitectura.&lt;/p&gt;
+&lt;p&gt;Sin embargo, y aquí está el punto jugoso del asunto, la segunda instrucción no se consolidó pero &lt;em&gt;se ejecutó&lt;/em&gt;.
+Y al ejecutarse, trajo el valor de &lt;code&gt;probe[x]&lt;/code&gt; a la memoria cache.
+En conclusión, logramos modificar la microarquitectura.&lt;/p&gt;
+&lt;h2&gt;Meltdown: Obteniendo los secretos&lt;/h2&gt;
+&lt;p&gt;Una vez que terminamos de ejecutar el código ya mencionado, la microarquitectura queda ligeramente modificada.
+Al comienzo de nuestro problema ninguno de los elementos de &lt;code&gt;probe&lt;/code&gt; residían en la memoria cache; al terminarlo, &lt;code&gt;probe[x]&lt;/code&gt; está en la memoria cache.
+¿Podremos aprovechar esto de alguna forma?
+Recordemos cuál era todo el punto de tener una memoria cache: los elementos que están en ella se acceden mucho más rápido que en la memoria principal.
+Entonces hacemos un pequeño ejercicio: tratamos de acceder a &lt;em&gt;cada uno&lt;/em&gt; de los elementos de &lt;code&gt;probe&lt;/code&gt; y medimos cuánto tiempo demanda ese acceso.
+Al realizar esta medición observamos que el acceso a todas las posiciones &lt;code&gt;i&lt;/code&gt; de &lt;code&gt;probe[i]&lt;/code&gt; llevan cerca de &lt;code&gt;100 ns&lt;/code&gt;, excepto el acceso a &lt;code&gt;probe[84]&lt;/code&gt; que tarda sensiblemente menos.
+¿Qué pasó?
+Simple: pasó que &lt;code&gt;probe[84]&lt;/code&gt; estaba ya guardado en el cache y entonces fue más rápido acc--- ¡un momento!
+Si &lt;code&gt;probe[x]&lt;/code&gt; estaba en el cache luego de ejecutar las instrucciones que mencionamos y ahora vemos que &lt;code&gt;probe[84]&lt;/code&gt; está en la cache… eso quiere decir que x es 84.
+¡Es decir que lo que estaba en esa memoria inaccesible era 84!&lt;/p&gt;
+&lt;h2&gt;Detalles que no tuvimos en cuenta&lt;/h2&gt;
+&lt;h3&gt;El comportamiento real de la cache&lt;/h3&gt;
+&lt;p&gt;El ejemplo de &lt;code&gt;meltdown&lt;/code&gt; que dimos suponía un comportamiento ligeramente diferente de la cache, en el que sólo traía el valor pedido.
+En realidad, trae una sección de &lt;code&gt;n&lt;/code&gt; bytes&lt;sup id=&quot;fnref-6&quot;&gt;&lt;a href=&quot;#fn-6&quot; class=&quot;footnote-ref&quot;&gt;6&lt;/a&gt;&lt;/sup&gt; contigua al valor pedido (llamado tamaño de página de memoria).
+La solución, igual, es sencillísima: el array &lt;code&gt;probe&lt;/code&gt; tiene tamaño &lt;code&gt;256*n&lt;/code&gt; (es decir, de tamaño igual a 256 páginas) y el acceso lo hacemos a &lt;code&gt;probe[x*n]&lt;/code&gt;.
+Así nos garantizamos que cada acceso defina unívocamente a una página del cache&lt;sup id=&quot;fnref-7&quot;&gt;&lt;a href=&quot;#fn-7&quot; class=&quot;footnote-ref&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;h3&gt;Bueno, pero el programa efectivamente dispara una excepción&lt;/h3&gt;
+&lt;p&gt;Sí, es cierto, pero hay varias soluciones posibles:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Que el programa, en vez de ejecutar el código, lance un sub-proceso que lo ejecute.
+Así, cuando ese sub-proceso dispara la excepción (un &lt;em&gt;segmentation fault&lt;/em&gt; o &lt;code&gt;SIGSEGV&lt;/code&gt;), el control puede seguir en el programa original.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Usar un &lt;em&gt;handle&lt;/em&gt; para manejar la señal; por ejemplo &lt;a href=&quot;https://www.gnu.org/software/libsigsegv/&quot;&gt;libsigsegv&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Que el código se ejecute después de un condicional que se prediga incorrectamente.
+De esta forma, se ejecuta especulativamente pero &lt;strong&gt;nunca&lt;/strong&gt; se consolida y, como las excepciones se disparan al consolidar las operaciones, nunca obtenemos una excepción.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Suprimir la excepción con &lt;a href=&quot;https://software.intel.com/en-us/node/524022&quot;&gt;Intel TSX&lt;/a&gt;, una implementación de memoria transaccional en hardware que, dicho mal y pronto, permite que múltiples instrucciones se agrupen en una &lt;em&gt;transacción&lt;/em&gt; que, si falla, revierte las operaciones hechas pero no dispara ninguna excepción.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;¿Y si se dispara la excepción antes de la ejecución posterior?&lt;/h3&gt;
+&lt;p&gt;Cuando describíamos &lt;code&gt;meltdown&lt;/code&gt; dijimos: “Debido a la ejecución fuera de orden, cuando se carga el valor de &lt;code&gt;mem&lt;/code&gt; en &lt;code&gt;x&lt;/code&gt;, es probable que el procesador ya haya comenzado a ejecutar la instrucción siguiente como parte de la ejecución fuera de orden y las haya guardado en la posición temporal (recordemos, perteneciente a la microarquitectura).”&lt;/p&gt;
+&lt;p&gt;Es decir, si es probable que ya haya comenzado a ejecutar la instrucción siguiente, también es probable que no lo haya hecho.
+Cuando se dispara la excepción &lt;strong&gt;todos&lt;/strong&gt; los registros se hacen cero&lt;sup id=&quot;fnref-8&quot;&gt;&lt;a href=&quot;#fn-8&quot; class=&quot;footnote-ref&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;, y &lt;code&gt;x&lt;/code&gt; es un registro.
+La solución es entonces que trate de leer el valor guarado en &lt;code&gt;mem&lt;/code&gt; siempre que &lt;code&gt;x&lt;/code&gt; no sea cero.&lt;/p&gt;
+&lt;h2&gt;Resultados de meltdown&lt;/h2&gt;
+&lt;p&gt;Los resultados de &lt;code&gt;meltdown&lt;/code&gt; son asombrosos: lee correctamente el 99.98% de la memoria prohibida a una velocidad de 500 kb/s.
+Funciona en todos los procesadores de Intel probados, pero no en los AMD.
+Esto se puede deber a varios motivos, como por ejemplo que en esas microarquitecturas el tamaño de los &lt;em&gt;buffers&lt;/em&gt; utilizados para la ejecución fuera de orden sean muy pequeños y la excepción se dispare siempre antes de que se ejecuten las operaciones posteriores.
+Afortunadamente &lt;em&gt;meltdown&lt;/em&gt; tiene una solución en el corto plazo llamada KAISER, que evita que, para el espacio de memoria del usuario, exista una posición de memoria que vaya al &lt;em&gt;kernel&lt;/em&gt;.
+A pesar de que la solución no es total y todavía deja algunas vulnerabilidades, mitiga bastante el efecto de &lt;code&gt;meltdown&lt;/code&gt;.
+¿El costo?
+Los programas podrían ser hasta un 30% más lentos.&lt;/p&gt;
+&lt;h2&gt;Conclusión&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;meltdown&lt;/code&gt; es un bug que estuvo presente desde hace 20 años, todo terreno y que, como dijimos, asombra por su sencillez.
+Sin la necesidad de vulnerabilidades de software e independientemente del sistema operativo, &lt;code&gt;meltdown&lt;/code&gt; permite leer datos sensibles de otros procesos o máquinas virtuales a una velocidad de 500 kb/s.&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&quot;fn-1&quot;&gt;
+&lt;p&gt;Claro que la información de la “computadora” propiamente dicha también se encuentra en, por ejemplo, la memoria RAM.&lt;/p&gt;
+&lt;a href=&quot;#fnref-1&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-2&quot;&gt;
+&lt;p&gt;Esto es una cuestión conceptual. Los saltos condicionales y las asignaciones son un poco distintas en la arquitectura.&lt;/p&gt;
+&lt;a href=&quot;#fnref-2&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-3&quot;&gt;
+&lt;p&gt;Hoy en día los predictores tienen una precisión de aproximadamente &lt;a href=&quot;https://www.ece.cmu.edu/~ece447/s13/lib/exe/fetch.php?media=onur-447-spring13-lecture11-branch-prediction-afterlecture.pdf&quot;&gt;95%&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;#fnref-3&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-4&quot;&gt;
+&lt;p&gt;La generalización para los casos en los que el cache trae más de un dato funcionan con una muy ligera variación.&lt;/p&gt;
+&lt;a href=&quot;#fnref-4&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-5&quot;&gt;
+&lt;p&gt;Esto se puede lograr de muchas maneras, pero de cualquier modo cuando se ejecuta el programa, el &lt;code&gt;array&lt;/code&gt; comienza localizado en la memoria principal y fuera de la cache.&lt;/p&gt;
+&lt;a href=&quot;#fnref-5&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-6&quot;&gt;
+&lt;p&gt;El valor típico para la mayoría de los sistemas operativos es 4kb.&lt;/p&gt;
+&lt;a href=&quot;#fnref-6&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-7&quot;&gt;
+&lt;p&gt;Visto de esta forma, podemos suponer que el cache imaginario que inventamos era para un sistema con un tamaño de página de 1 byte.&lt;/p&gt;
+&lt;a href=&quot;#fnref-7&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;li id=&quot;fn-8&quot;&gt;
+&lt;p&gt;Esto es esperable porque hay que borrar cualquier información prohibida que se haya guardado en los registros.&lt;/p&gt;
+&lt;a href=&quot;#fnref-8&quot; class=&quot;footnote-backref&quot;&gt;↩&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content:encoded></item><item><title><![CDATA[Guía para contribuir]]></title><description><![CDATA[Hay varias formas de contribuir a la construcción de este blog, eso va a
+depender del nivel de conocimiento y compromiso del contribuyente…]]></description><link>https://sci-prog.github.io/contributor-guide/</link><guid isPermaLink="false">https://sci-prog.github.io/contributor-guide/</guid><pubDate>Tue, 14 Nov 2017 03:14:18 GMT</pubDate><content:encoded>&lt;p&gt;Hay varias formas de contribuir a la construcción de este blog, eso va a
+depender del nivel de conocimiento y compromiso del contribuyente, la forma
+más fácil de contribuir es abrir un issue en el
+&lt;a href=&quot;https://github.com/sci-prog/sci-prog.github.io&quot;&gt;repositorio&lt;/a&gt; del blog si
+encuentran algún error o quieren proponer un tema a tratar.&lt;/p&gt;
+&lt;h2&gt;Proponer un tema&lt;/h2&gt;
+&lt;p&gt;El blog de sci prog se va a enfocar en temas relacionados con scientific
+programming, con un énfasis especial en high performance computing y high
+througput computing, son bienvenidos posts relacionados con:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Programación científica, casos de estudio y técnicas.&lt;/li&gt;
+&lt;li&gt;Uso de librerías en distintos lenguajes de programación.&lt;/li&gt;
+&lt;li&gt;Flujos de trabajo asociados al desarrollo de aplicaciones científicas.&lt;/li&gt;
+&lt;li&gt;Desarrollos y guías de análisis y visualización de datos.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Si tienen una idea para un artículo en uno de estos temas o algún tema
+relacionado no duden en abrir un issue, si les parece que nuevos temas
+deberían ser agregados no duden en proponerlos a través de un issue.&lt;/p&gt;
+&lt;h2&gt;Aportar un artículo&lt;/h2&gt;
+&lt;p&gt;Aportar un artículo puede ser tan simple cómo enviar un mensaje o crear un
+issue con el contenido del artículo, de otra manera, basta con fork del
+&lt;a href=&quot;https://github.com/sci-prog/sci-prog.github.io&quot;&gt;repositorio&lt;/a&gt; crear una rama
+nueva (no es tan necesario desde un fork) y agregar una nueva carpeta en el
+directorio &lt;code&gt;src/pages&lt;/code&gt;, el directorio debe tener un &lt;code&gt;slug&lt;/code&gt; como nombre,
+&lt;code&gt;en-este-formato&lt;/code&gt;, dentro del directorio debe crear un archivo &lt;code&gt;index.md&lt;/code&gt; con
+el siguiente formato,&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot;&gt;
+      &lt;pre class=&quot;language-markdown&quot;&gt;&lt;code&gt;&lt;span class=&quot;token hr punctuation&quot;&gt;---&lt;/span&gt;
+title: Guía para contribuir
+&lt;span class=&quot;token title important&quot;&gt;date: &quot;2017-11-14T03:14:18+00:00&quot;
+&lt;span class=&quot;token punctuation&quot;&gt;---&lt;/span&gt;&lt;/span&gt;
+
+Contenido del artículo...
+&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+&lt;p&gt;El título indicado en el campo &lt;code&gt;title&lt;/code&gt; será añadido al principio del artículo
+renderizado así que el documento markdown no debe contener títulos de primer
+nivel. Una vez el artículo este listo, o requiera feedback, será hora de
+crear un pull request, una vez este pull request sea completado
+satisfactoriamente el artículo será publicado automáticamente.&lt;/p&gt;
+&lt;h2&gt;Atribución&lt;/h2&gt;
+&lt;p&gt;Cada artículo será atribuido a su autor, o autores, sin embargo, los
+componentes para realizar la atribución aún no se han implementado.&lt;/p&gt;</content:encoded></item></channel></rss>

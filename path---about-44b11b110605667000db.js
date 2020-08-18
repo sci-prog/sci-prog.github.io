@@ -1,0 +1,2 @@
+webpackJsonp([0xf927f8900006],{487:function(t,i){t.exports={data:{site:{siteMetadata:{title:"Scientific Programming Blog",repo:"https://github.com/sci-prog/sci-prog.github.io"}}},pathContext:{}}}});
+//# sourceMappingURL=path---about-44b11b110605667000db.js.map

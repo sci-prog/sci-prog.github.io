@@ -1,0 +1,259 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><link rel="preload" href="/component---src-layouts-index-js-65ee3ce0b05326dad154.js" as="script"/><link rel="preload" href="/component---src-templates-blog-post-js-27856d6eb5844d506e82.js" as="script"/><link rel="preload" href="/path---numpy-intro-a13a2c6d4a0dab30ede9.js" as="script"/><link rel="preload" href="/app-5204eebb1ac2e4e0fdd9.js" as="script"/><link rel="preload" href="/commons-3cf304937523a964e309.js" as="script"/><link rel="alternate" type="application/rss+xml" href="/rss.xml"/><title data-react-helmet="true">Introducción a NumPy | Scientific Programming Blog</title><style id="typography.js">html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}[hidden],template{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit;font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:700}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}html{font:125%/1.45 'Quattrocento Sans',serif;box-sizing:border-box;overflow-y:scroll;}*{box-sizing:inherit;}*:before{box-sizing:inherit;}*:after{box-sizing:inherit;}body{color:hsla(0,0%,0%,0.8);font-family:'Quattrocento Sans',serif;font-weight:400;word-wrap:break-word;font-kerning:normal;-moz-font-feature-settings:"kern", "liga", "clig", "calt";-ms-font-feature-settings:"kern", "liga", "clig", "calt";-webkit-font-feature-settings:"kern", "liga", "clig", "calt";font-feature-settings:"kern", "liga", "clig", "calt";}img{max-width:100%;margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}h1{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:hsla(0,0%,0%,0.9);font-family:'Work Sans',sans-serif;font-weight:600;text-rendering:optimizeLegibility;font-size:2rem;line-height:1.1;}h2{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:hsla(0,0%,0%,0.9);font-family:'Work Sans',sans-serif;font-weight:600;text-rendering:optimizeLegibility;font-size:1.51572rem;line-height:1.1;}h3{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:hsla(0,0%,0%,0.9);font-family:'Work Sans',sans-serif;font-weight:600;text-rendering:optimizeLegibility;font-size:1.31951rem;line-height:1.1;}h4{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:hsla(0,0%,0%,0.9);font-family:'Work Sans',sans-serif;font-weight:600;text-rendering:optimizeLegibility;font-size:1rem;line-height:1.1;}h5{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:hsla(0,0%,0%,0.9);font-family:'Work Sans',sans-serif;font-weight:600;text-rendering:optimizeLegibility;font-size:0.87055rem;line-height:1.1;}h6{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;color:hsla(0,0%,0%,0.9);font-family:'Work Sans',sans-serif;font-weight:600;text-rendering:optimizeLegibility;font-size:0.81225rem;line-height:1.1;}hgroup{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}ul{margin-left:1.45rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;list-style-position:outside;list-style-image:none;}ol{margin-left:1.45rem;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;list-style-position:outside;list-style-image:none;}dl{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}dd{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}p{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}figure{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}pre{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;font-size:0.85rem;line-height:1.45rem;}table{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;font-size:1rem;line-height:1.45rem;border-collapse:collapse;width:100%;}fieldset{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}blockquote{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0.90625rem;padding-right:0;padding-top:0;margin-bottom:1.45rem;font-size:1.1487rem;line-height:1.45rem;border-left:0.54375rem solid #1ca086;color:hsla(0,0%,0%,0.65);font-style:italic;}form{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}noscript{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}iframe{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}hr{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:calc(1.45rem - 1px);background:hsla(0,0%,0%,0.2);border:none;height:1px;}address{margin-left:0;margin-right:0;margin-top:0;padding-bottom:0;padding-left:0;padding-right:0;padding-top:0;margin-bottom:1.45rem;}b{font-weight:700;}strong{font-weight:700;}dt{font-weight:700;}th{font-weight:700;}li{margin-bottom:calc(1.45rem / 2);}ol li{padding-left:0;}ul li{padding-left:0;}li > ol{margin-left:1.45rem;margin-bottom:calc(1.45rem / 2);margin-top:calc(1.45rem / 2);}li > ul{margin-left:1.45rem;margin-bottom:calc(1.45rem / 2);margin-top:calc(1.45rem / 2);}blockquote *:last-child{margin-bottom:0;}li *:last-child{margin-bottom:0;}p *:last-child{margin-bottom:0;}li > p{margin-bottom:calc(1.45rem / 2);}code{font-size:0.85rem;line-height:1.45rem;}kbd{font-size:0.85rem;line-height:1.45rem;}samp{font-size:0.85rem;line-height:1.45rem;}abbr{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}acronym{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;}abbr[title]{border-bottom:1px dotted hsla(0,0%,0%,0.5);cursor:help;text-decoration:none;}thead{text-align:left;}td,th{text-align:left;border-bottom:1px solid hsla(0,0%,0%,0.12);font-feature-settings:"tnum";-moz-font-feature-settings:"tnum";-ms-font-feature-settings:"tnum";-webkit-font-feature-settings:"tnum";padding-left:0.96667rem;padding-right:0.96667rem;padding-top:0.725rem;padding-bottom:calc(0.725rem - 1px);}th:first-child,td:first-child{padding-left:0;}th:last-child,td:last-child{padding-right:0;}a{color:#1ca086;text-decoration:none;text-shadow:.03em 0 #fff,-.03em 0 #fff,0 .03em #fff,0 -.03em #fff,.06em 0 #fff,-.06em 0 #fff,.09em 0 #fff,-.09em 0 #fff,.12em 0 #fff,-.12em 0 #fff,.15em 0 #fff,-.15em 0 #fff;background-image:linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 1px, #1ca086 1px, #1ca086 2px, rgba(0, 0, 0, 0) 2px);}a:hover,a:active{text-shadow:none;background-image:none;}h1,h2,h3,h4,h5,h6{margin-top:2.175rem;margin-bottom:0.725rem;}blockquote > :last-child{margin-bottom:0;}blockquote cite{font-size:1rem;line-height:1.45rem;color:hsla(0,0%,0%,0.8);font-style:normal;font-weight:400;}blockquote cite:before{content:"— ";}@media only screen and (max-width:480px){html{font-size:106.25%;line-height:1.45;}blockquote{border-left:0.27187rem solid #1ca086;color:hsla(0,0%,0%,0.59);padding-left:0.81563rem;font-style:italic;margin-left:-1.0875rem;margin-right:0;}}</style><link href="//fonts.googleapis.com/css?family=Work+Sans:600|Quattrocento+Sans:400,400i,700" rel="stylesheet" type="text/css"/><style id="gatsby-inlined-css">code[class*=language-],pre[class*=language-]{color:#000;background:none;text-shadow:0 1px #fff;font-family:Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-]::-moz-selection,code[class*=language-] ::-moz-selection,pre[class*=language-]::-moz-selection,pre[class*=language-] ::-moz-selection{text-shadow:none;background:#b3d4fc}code[class*=language-]::selection,code[class*=language-] ::selection,pre[class*=language-]::selection,pre[class*=language-] ::selection{text-shadow:none;background:#b3d4fc}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#f5f2f0}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#708090}.token.punctuation{color:#999}.namespace{opacity:.7}.token.boolean,.token.constant,.token.deleted,.token.number,.token.property,.token.symbol,.token.tag{color:#905}.token.attr-name,.token.builtin,.token.char,.token.inserted,.token.selector,.token.string{color:#690}.language-css .token.string,.style .token.string,.token.entity,.token.operator,.token.url{color:#a67f59;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.function{color:#dd4a68}.token.important,.token.regex,.token.variable{color:#e90}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.author-bio{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;padding:0;margin-bottom:1.45rem}img.author-bio-picture{width:4em;height:4em;border-radius:2em;margin:0}.author-bio-details{margin-left:1em;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.author-bio-details p{margin:0}.author-bio-details small{color:gray}</style></head><body><div id="___gatsby"><div style="max-width:34.8rem;margin-left:auto;margin-right:auto;padding:2.175rem 1.0875rem;" data-reactroot="" data-reactid="1" data-react-checksum="378755134"><h3 style="font-family:Montserrat, sans-serif;margin-top:0;margin-bottom:-1.45rem;" data-reactid="2"><a style="box-shadow:none;text-decoration:none;color:inherit;" href="/" data-reactid="3">Scientific Programming Blog</a></h3><div data-reactid="4"><!-- react-empty: 5 --><h1 data-reactid="6">Introducción a NumPy</h1><p style="font-size:0.87055rem;line-height:1.45rem;display:block;margin-bottom:0.725rem;margin-top:0.725rem;" data-reactid="7">May 02, 2018</p><div class="author-bio" data-reactid="8"><img class="author-bio-picture" src="https://avatars1.githubusercontent.com/u/1621518?s=460&amp;v=4" alt="Oscar Arbelaez" data-reactid="9"/><div class="author-bio-details" data-reactid="10"><strong data-reactid="11">Oscar Arbelaez</strong><p data-reactid="12">Simple programador de Colombia</p><small data-reactid="13"><a href="https://github.com/odarbelaeze" target="_blank" data-reactid="14"><svg aria-hidden="true" data-prefix="fab" data-icon="github" class="svg-inline--fa fa-github fa-w-16 " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-reactid="15"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" data-reactid="16"></path></svg><!-- react-text: 17 --> <!-- /react-text --><!-- react-text: 18 -->odarbelaeze<!-- /react-text --></a></small></div></div><div data-reactid="19"><p>Que Python es demasiado lento es una de las razones para usar cualquier otro
+lenguaje cuando se trata de simulación y manipulación de datos, no obstante
+Python es una herramienta excelente cuando se trata de unir programas escritos
+en otros lenguajes, ejemplo de esto son la librería NumPy y, en general, todas
+las librerías del ecosistema SciPy. Estas librerías ponen el poder de paquetes
+tradicionales muy fuertes como BLAS y LAPACK al servicio de programas en
+Python, lo que da como resultado un excelente balance entre el rendimiento de
+los lenguajes de bajo nivel y la usabilidad de Python. En la presente
+introducción vamos a explorar las capacidades de la estructura de datos básica
+que nos ofrece NumPy: <code>numpy.array</code></p>
+<h2>Tamaño y ejes</h2>
+<p>Para estudiar el tamaño o forma <em>(size or shape)</em> de un arreglo, estudiamos
+algunas de las funciones que nos ofrece NumPy para la creación de arreglos.
+Empecemos con la más humilde 😅, construir un arreglo convirtiendo una lista de
+listas en una matriz:</p>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token keyword">import</span> numpy
+matrix <span class="token operator">=</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>matrix<span class="token punctuation">.</span>shape<span class="token punctuation">)</span> <span class="token comment"># (2,2)</span>
+</code></pre>
+      </div>
+<p>NumPy ofrece herramientas un poco más avanzadas para crear arreglos como:</p>
+<ul>
+<li>Crear un arreglo lleno de unos (<code>1</code>) con un tamaño definido (<code>numpy.ones</code>).</li>
+<li>Crear un arreglo lleno de ceros (<code>0</code>) con un tamaño igual al de otro arreglo
+(<code>numpy.zeros_like</code>).</li>
+<li>Crear un arreglo lleno de números aleatorios con distribución normal con un
+tamaño definido (<code>numpy.random.normal</code>).</li>
+</ul>
+<p>Este es un simple subconjunto de todas las herramientas que ofrece NumPy para
+crear arreglos, aquí ofrecemos algunos ejemplos.</p>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token keyword">import</span> numpy
+ones <span class="token operator">=</span> numpy<span class="token punctuation">.</span>ones<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>ones<span class="token punctuation">.</span>shape<span class="token punctuation">)</span> <span class="token comment"># (10,)</span>
+zeros <span class="token operator">=</span> numpy<span class="token punctuation">.</span>zeros_like<span class="token punctuation">(</span>ones<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>zeros<span class="token punctuation">.</span>shape<span class="token punctuation">)</span> <span class="token comment"># (10,)</span>
+speed <span class="token operator">=</span> numpy<span class="token punctuation">.</span>random<span class="token punctuation">.</span>normal<span class="token punctuation">(</span>size<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>speed<span class="token punctuation">.</span>shape<span class="token punctuation">)</span> <span class="token comment"># (10,2)</span>
+</code></pre>
+      </div>
+<p>Ahora, el tema que nos atañe es el tamaño o forma y los ejes, pues bien, los
+arreglos de NumPy son arreglos <em>n</em>-dimensionales, un arreglo de una dimensión
+es un vector, un arreglo de dos dimensiones es una matriz y un cubo de datos
+sería un arreglo de tres dimensiones, los arreglos <em>n</em>-dimensionales pueden
+tener más dimensiones, pero a partir de tres dimensiones es un poco difícil de
+visualizar. Ahora el tamaño o forma de un arreglo es la cantidad de elementos
+en cada dimensión, por ejemplo un vector en 3 dimensiones tendrá una forma
+<code>(3,)</code><sup id="fnref-1"><a href="#fn-1" class="footnote-ref">1</a></sup>, una matriz de 2 por 2 tendrá forma <code>(2,2)</code>, las dimensiones también
+se conocen como ejes, la primera dimensión de una matiz sería <code>axis=0</code>.</p>
+<h2>Operaciones aritméticas</h2>
+<h3>Arreglo con escalar</h3>
+<p>Una vez creados los arreglos estos pueden ser operados con escalares. Siendo
+un arreglo de cualquier forma <code>A</code> y un escalar <code>c</code>, algunas operaciones que
+se pueden realizar con NumPy son:</p>
+<ul>
+<li><code>A + c</code>  suma a cada uno de los elementos del arreglo <code>A</code> la constante <code>c</code>.</li>
+<li><code>A - c</code>, <code>A * c</code>, <code>A / c</code> hacen cada operación con cada uno de los elementos
+del arreglo <code>A</code>.</li>
+</ul>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token keyword">import</span> numpy
+A <span class="token operator">=</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+c <span class="token operator">=</span> <span class="token number">1</span>
+D <span class="token operator">=</span> A <span class="token operator">+</span> c <span class="token comment"># [2, 3, 4]</span>
+</code></pre>
+      </div>
+<h3>Arreglos de forma congruente</h3>
+<p>Las operaciones aritméticas entre arreglos de forma congruente son, en general,
+elemento a elemento, si tenemos arreglos de la misma forma <code>A</code> y <code>B</code> se pueden
+efectuar las operaciones <code>A + B</code>, <code>A - B</code>, <code>A * B</code> y <code>A / B</code>,</p>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token keyword">import</span>  numpy
+A <span class="token operator">=</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+C <span class="token operator">=</span> A <span class="token operator">+</span> B <span class="token comment"># [2, 4]</span>
+</code></pre>
+      </div>
+<p>Python recientemente ha introducido un operador para multiplicación de
+matrices, por ejemplo, si tenemos una matriz <code>A</code> de forma <code>(2, 3)</code> y una matriz
+<code>B</code> de forma <code>(3, 2)</code>, entonces el producto entre matices <code>C</code> se escribiría en
+Python <code>C = A @ B</code> y tendría forma <code>(2, 2)</code> por otra parte otro producto entre
+matrices <code>D = B @ A</code></p>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token keyword">import</span> numpy
+A <span class="token operator">=</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+C <span class="token operator">=</span> A @ B <span class="token comment"># [[12, 12], [24, 24]]</span>
+</code></pre>
+      </div>
+<h2>Arreglos de forma aparentemente incongruente (<em>Broadcasting</em>)</h2>
+<p>NumPy tiene una característica llamada <em><a href="https://docs.scipy.org/doc/numpy-1.14.0/user/basics.broadcasting.html">broadcasting</a></em>, esta característica
+permite operar sobre arreglos de diferentes forma y número de dimensiones las
+reglas para estas operaciones son bastante simples, sin embargo, debemos tener
+en cuenta que un vector tridimensional tiene forma: <code>(3,)</code> pero también se
+puede ver como una matriz de forma <code>(1,3)</code>, o como un cubo de datos de forma
+<code>(1,1,3)</code>.</p>
+<p>Por medio del <em>broadcasting</em> se pueden realizar operaciones componente a
+componente sobre matrices si sus dimensiones, comparadas de la última hacia
+atras, cumplen una de las siguientes condiciones:</p>
+<ul>
+<li>Son iguales</li>
+<li>Una de las dos es 1</li>
+</ul>
+<p>En este caso, dos arreglos de formas <code>(3,)</code> y <code>(4,)</code>, no se pueden operar,
+mientras que dos arreglos de la forma <code>(3,)</code> sí se podrán operar (como es de
+esperarse). Pero estas reglas tienen la consecuencia de que dos arreglos de
+formas <code>(3,1)</code> y <code>(4,)</code> sí se pueden operar porque comparando sus formas de
+derecha a izquierda encontramos que:</p>
+<ul>
+<li>1 y 4 no son iguales, pero uno de los dos es igual a 1.</li>
+<li>3 y 1 (la forma <code>(4,)</code> puede ser vista como <code>(1,4)</code>) no son iguales, pero uno
+de los dos es igual a 1.</li>
+</ul>
+<p>Exploremos cómo se pueden realizar estas operaciones cuando las dimensiones no
+son iguales, en este caso, el arreglo cuya dimension es 1 es extendido para
+ajustarse a la dimensión del otro arreglo, tomemos por ejemplo una matriz de
+ceros de forma <code>(3,4)</code> y un vector de forma <code>(4,)</code>:</p>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token keyword">import</span> numpy
+A <span class="token operator">=</span> numpy<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>A <span class="token operator">+</span> B<span class="token punctuation">)</span>
+<span class="token comment"># [[1. 2. 3. 4.]</span>
+<span class="token comment">#  [1. 2. 3. 4.]</span>
+<span class="token comment">#  [1. 2. 3. 4.]]</span>
+</code></pre>
+      </div>
+<p>De manera similar funcionaría nuestro ejemplo sobre dos arreglos con formas
+<code>(3,1)</code> y <code>(4,)</code>:</p>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token keyword">import</span> numpy
+A <span class="token operator">=</span> numpy<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>A <span class="token operator">+</span> B<span class="token punctuation">)</span>
+<span class="token comment"># [[1. 2. 3. 4.]</span>
+<span class="token comment">#  [1. 2. 3. 4.]</span>
+<span class="token comment">#  [1. 2. 3. 4.]]</span>
+</code></pre>
+      </div>
+<h2>Otras funciones</h2>
+<p>NumPy también ofrece una variedad de funciones especiales que se pueden aplicar
+sobre cada uno de los elementos de un arreglo, por ejemplo:</p>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token keyword">import</span> numpy
+x <span class="token operator">=</span> numpy<span class="token punctuation">.</span>pi <span class="token operator">*</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1.5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>numpy<span class="token punctuation">.</span>sin<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment"># [ 0.0000000e+00  1.0000000e+00  1.2246468e-16 -1.0000000e+00 -2.4492936e-16]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>numpy<span class="token punctuation">.</span><span class="token builtin">round</span><span class="token punctuation">(</span>numpy<span class="token punctuation">.</span>sin<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment"># [ 0.  1.  0. -1. -0.]</span>
+</code></pre>
+      </div>
+<p>En el paquete NumPy directamente, se pueden encontrar las funciones matemáticas
+esenciales como <code>numpy.sin</code>, <code>numpy.cos</code>, <code>numpy.sqr</code>, <code>numpy.log</code>, mientras
+que en el paquete SciPy se pueden encontrar funciones especiales como las
+funciones de Bezel.</p>
+<p>Otras funciones como <code>numpy.sum</code> y <code>numpy.prod</code> calculan la sumatoria o la
+productoria de una arreglo, estas reciben un eje o una lista de ejes para
+calcular la reducción a lo largo de ellos. Por ejemplo, para calcular la norma
+de un vector procederíamos:</p>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token keyword">import</span> numpy
+x <span class="token operator">=</span> numpy<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>numpy<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>numpy<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>x <span class="token operator">*</span> x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment"># 1.7320508075688772</span>
+</code></pre>
+      </div>
+<p>Para esta operación hay un alias, la funcion <code>numpy.linalg.norm</code>. En el paquete
+<code>numpy.linalg</code> se pueden encontrar varias funciones relacionadas con álgebra
+lineal. Para calcular la norma de cada uno de los vectores en una matriz, se
+puede proceder<sup id="fnref-2"><a href="#fn-2" class="footnote-ref">2</a></sup>:</p>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token keyword">import</span> numpy
+r <span class="token operator">=</span> numpy<span class="token punctuation">.</span>random<span class="token punctuation">.</span>randint<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> size<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span>
+<span class="token comment"># [[5 8 9]</span>
+<span class="token comment">#  [0 3 2]</span>
+<span class="token comment">#  [9 4 3]</span>
+<span class="token comment">#  [6 9 8]</span>
+<span class="token comment">#  [7 3 6]]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>numpy<span class="token punctuation">.</span>linalg<span class="token punctuation">.</span>norm<span class="token punctuation">(</span>r<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment"># [13.03840481  3.60555128 10.29563014 13.45362405  9.69535971]</span>
+</code></pre>
+      </div>
+<h2>Ejemplo: Velocidad inicial de un sistema de partículas</h2>
+<p>Para calcular la velocidad inicial de un sistema de partículas para una
+simulación de dinámica molecular se asignan las velocidades como vectores cada
+uno con componentes aleatorias tomadas de una distribución normal. Si se suman
+los momentos de cada partícula, en este caso, dado que las velocidades se
+tomaron de una distribución aleatoria, el resultado podría ser un valor
+diferente de cero, el <em>momentum</em> lineal en una simulación de dinámica molecular
+no es deseable así que se debe anular restando la velocidad media de las
+partículas a cada una de las velocidades de las partículas, generemos como
+ejemplo este estado inicial:</p>
+<div class="gatsby-highlight">
+      <pre class="language-python"><code><span class="token keyword">import</span> numpy
+
+n <span class="token operator">=</span> <span class="token number">100</span>   <span class="token comment"># número de partículas</span>
+k <span class="token operator">=</span> <span class="token number">1</span>     <span class="token comment"># factor que escala con la temperatura</span>
+
+<span class="token comment"># usamos una función de creación</span>
+v <span class="token operator">=</span> k <span class="token operator">*</span> numpy<span class="token punctuation">.</span>random<span class="token punctuation">.</span>normal<span class="token punctuation">(</span>size<span class="token operator">=</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># calculamos la velocidad media de las partículas</span>
+<span class="token comment"># usamos el parámetro axis</span>
+mean_v <span class="token operator">=</span> numpy<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>v<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>mean_v<span class="token punctuation">)</span>
+<span class="token comment"># [-0.04088513  0.01260944  0.05857773]</span>
+
+<span class="token comment"># restamos la media de la velocidad para eliminar el momentum lineal</span>
+<span class="token comment"># aquí usamos broadcasting</span>
+v <span class="token operator">=</span> v <span class="token operator">-</span> mean_v
+<span class="token keyword">print</span><span class="token punctuation">(</span>numpy<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>v<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment"># [ 7.54951657e-15  4.10782519e-15 -7.77156117e-16]</span>
+<span class="token comment"># aproximadamente [0 0 0], no hay momentum lineal</span>
+</code></pre>
+      </div>
+<p>De esta manera generamos un vector con las velocidades iniciales de una
+simulación de dinámica molecular usando algunas herramientas básicas de NumPy,
+notemos que con un poco más de <em>broadcasting</em> se podría eliminar el <em>momentum</em>
+angular para partículas de distintas masas. Notemos también que usando las
+posiciones y algunas líneas de código extra podríamos también eliminar el
+<em>momentum</em> angular.</p>
+<p>Esta entrada presenta solo un pequeño abrebocas de las capacidades de los
+arreglos de NumPy, queremos invitar a los lectores a que exploren la
+herramienta, un buen punto de partida es la <a href="https://docs.scipy.org/doc/">documentación</a>. Además, en este
+documento nos enfocamos en la ergonomía y la forma de usar NumPy, pero cabe
+resaltar que cada una de las operaciones que se indican a lo largo de este
+documento se realizan por medio de librerías de bajo nivel como se indicó en la
+introducción.</p>
+<div class="footnotes">
+<hr>
+<ol>
+<li id="fn-1">
+<p>La coma después del tamaño de un arreglo unidimensional es necesaria para
+indicar que la forma sigue siendo una tupla.</p>
+<a href="#fnref-1" class="footnote-backref">↩</a>
+</li>
+<li id="fn-2">
+<p>En estos casos usualmente tengo que “adivinar” el parámetro <code>axis</code> que debo
+pasar a la funcion en NumPy, espero que sea más o menos claro el parámetro
+para el lector.</p>
+<a href="#fnref-2" class="footnote-backref">↩</a>
+</li>
+</ol>
+</div></div><div id="comments" data-reactid="20"><div data-reactid="21"><div id="disqus_thread" data-reactid="22"></div></div></div></div><hr data-reactid="23"/><footer data-reactid="24"><small data-reactid="25">
+      Un blog de programación científica enfocado en high performance computing
+    </small><div style="padding:0.725rem;font-size:[object Object];" data-reactid="26"><a href="/numpy-intro/about" data-reactid="27">Acerca de</a><br data-reactid="28"/><a href="/" data-reactid="29">Artículos</a><br data-reactid="30"/><a href="https://github.com/sci-prog/sci-prog.github.io" target="_blank" data-reactid="31">Github repo</a><br data-reactid="32"/><a href="https://facebook.com/sciprog/" target="_blank" data-reactid="33">Facebook</a></div></footer><span style="display:block;clear:both;" data-reactid="34"> </span></div></div><script id="webpack-manifest">/*<![CDATA[*/window.webpackManifest={"231608221292675":"app-5204eebb1ac2e4e0fdd9.js","99219681209289":"component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js","107818501498521":"component---src-templates-blog-post-js-27856d6eb5844d506e82.js","263791100135453":"component---src-pages-about-js-df9cc190a4929654e9cf.js","35783957827783":"component---src-pages-index-js-25bb7c6115f3c46893ef.js","60335399758886":"path----557518bd178906f8d58a.js","210333531512890":"path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js","263240134119636":"path---contributor-guide-44efdbe6307dd8285123.js","194907401706789":"path---git-intro-90e1d0ec2c49c52a8c0d.js","109517562881362":"path---meltdown-36ea1df735d2937b866a.js","30792937111940":"path---numpy-intro-a13a2c6d4a0dab30ede9.js","87572157768998":"path---rust-intro-ad1fe339552b33448e27.js","273950069227526":"path---about-44b11b110605667000db.js","142629428675168":"path---index-4631b2c8316e3b823940.js","114276838955818":"component---src-layouts-index-js-65ee3ce0b05326dad154.js"}/*]]>*/</script><script>
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-109737731-1', 'auto');
+  </script><script>/*<![CDATA[*/!function(e,t,r){function n(){for(;d[0]&&"loaded"==d[0][f];)c=d.shift(),c[o]=!i.parentNode.insertBefore(c,i)}for(var s,a,c,d=[],i=e.scripts[0],o="onreadystatechange",f="readyState";s=r.shift();)a=e.createElement(t),"async"in i?(a.async=!1,e.head.appendChild(a)):i[f]?(d.push(a),a[o]=n):e.write("<"+t+' src="'+s+'" defer></'+t+">"),a.src=s}(document,"script",["/commons-3cf304937523a964e309.js","/app-5204eebb1ac2e4e0fdd9.js","/path---numpy-intro-a13a2c6d4a0dab30ede9.js","/component---src-templates-blog-post-js-27856d6eb5844d506e82.js","/component---src-layouts-index-js-65ee3ce0b05326dad154.js"])/*]]>*/</script></body></html>
