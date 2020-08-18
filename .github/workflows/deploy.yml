@@ -19,14 +19,6 @@ jobs:
         with:
           node-version: 10.x
 
-      - name: Use cached node_modules
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: nodeModules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            nodeModules-
-
       - name: Install dependencies
         run: npm ci
         env:
