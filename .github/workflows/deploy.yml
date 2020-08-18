@@ -14,14 +14,33 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install
-        run: npm install
+            - name: Use Node 12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Use cached node_modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: nodeModules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            nodeModules-
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          CI: true
 
       - name: Lint
         run: npm run lint
+        env:
+          CI: true
 
       - name: Build
         run: npm run build
+        env:
+          CI: true
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.5.9
